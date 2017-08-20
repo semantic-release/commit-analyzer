@@ -1,0 +1,110 @@
+{
+  "name": "sr-commit-analyzer",
+  "description": "Customizable commit-analyzer plugin for semantic-release",
+  "version": "0.0.0-development",
+  "author": "Pierre Vanduynslager",
+  "bugs": {
+    "url": "https://github.com/vanduynslagerp/sr-commit-analyzer/issues"
+  },
+  "config": {
+    "commitizen": {
+      "path": "@metahub/cz-conventional-commit"
+    }
+  },
+  "dependencies": {
+    "@semantic-release/error": "^1.0.0",
+    "conventional-changelog-angular": "^1.4.0",
+    "conventional-commits-parser": "^2.0.0",
+    "import-cwd": "^2.1.0",
+    "lodash": "^4.17.4",
+    "pify": "^3.0.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^3.1.2",
+    "@commitlint/config-angular": "^3.1.1",
+    "@metahub/cz-conventional-commit": "1.0.2",
+    "@metahub/eslint-config": "^1.6.1",
+    "ava": "^0.22.0",
+    "babel-eslint": "^7.2.3",
+    "codecov": "^2.3.0",
+    "commitizen": "^2.9.6",
+    "conventional-changelog-atom": "^0.1.1",
+    "conventional-changelog-ember": "^0.2.6",
+    "conventional-changelog-eslint": "^0.2.0",
+    "conventional-changelog-express": "^0.2.0",
+    "conventional-changelog-jshint": "^0.2.0",
+    "eslint": "^4.5.0",
+    "eslint-config-prettier": "^2.3.0",
+    "eslint-plugin-ava": "^4.2.1",
+    "eslint-plugin-babel": "^4.1.2",
+    "eslint-plugin-eslint-comments": "^1.0.3",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jasmine": "^2.8.4",
+    "eslint-plugin-json": "^1.2.0",
+    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-prettier": "^2.2.0",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-sort-class-members": "^1.2.0",
+    "eslint-plugin-unicorn": "^2.1.2",
+    "husky": "^0.14.3",
+    "nyc": "^11.1.0",
+    "prettier": "^1.5.3",
+    "rimraf": "^2.6.1",
+    "semantic-release": "^8.0.0",
+    "sr-release-notes-generator": "^1.0.0",
+    "tempy": "^0.1.0"
+  },
+  "engines": {
+    "node": ">=8"
+  },
+  "files": [
+    "lib"
+  ],
+  "homepage": "https://github.com/vanduynslagerp/sr-commit-analyzer#readme",
+  "keywords": [
+    "changelog",
+    "commit-analyzer",
+    "conventional-changelog",
+    "conventional-commits",
+    "github",
+    "publish",
+    "release",
+    "semantic-release"
+  ],
+  "license": "MIT",
+  "main": "lib/index.js",
+  "nyc": {
+    "include": [
+      "lib/**/*.js"
+    ]
+  },
+  "peerDependencies": {
+    "semantic-release": ">= 4"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "release": {
+    "analyzeCommits": {
+      "path": "./lib/index.js"
+    },
+    "generateNotes": {
+      "path": "sr-release-notes-generator"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vanduynslagerp/sr-commit-analyzer.git"
+  },
+  "scripts": {
+    "clean": "rimraf coverage && rimraf .nyc_output",
+    "cm": "git-cz",
+    "codecov": "codecov",
+    "commitmsg": "commitlint -e",
+    "lint": "eslint lib test package.json",
+    "precommit": "npm run lint",
+    "pretest": "npm run clean && npm run lint",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "test": "nyc --all ava -v && nyc report --reporter=lcov"
+  }
+}
