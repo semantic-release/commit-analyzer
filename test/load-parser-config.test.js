@@ -6,7 +6,7 @@ import loadParserConfig from './../lib/load/parser-config';
  * AVA macro to verify that `loadParserConfig` return a parserOpts object.
  * 
  * @method loadPreset
- * @param {Object} t AVA assertion librarie.
+ * @param {Object} t AVA assertion library.
  * @param {[type]} preset the `conventional-changelog` preset to test.
  */
 async function loadPreset(t, preset) {
@@ -18,7 +18,7 @@ loadPreset.title = (providedTitle, preset) => `${providedTitle} Load "${preset}"
  * AVA macro to verify that `loadParserConfig` return a parserOpts object.
  * 
  * @method loadPreset
- * @param {Object} t AVA assertion librarie.
+ * @param {Object} t AVA assertion library.
  * @param {[type]} config the `conventional-changelog` config to test.
  */
 async function loadConfig(t, config) {
@@ -30,7 +30,7 @@ test('Load "conventional-changelog-angular" by default', async t => {
   t.deepEqual(await loadParserConfig({}), (await require('conventional-changelog-angular')).parserOpts);
 });
 
-test('Accept a parserOpts object as option', async t => {
+test('Accept a "parserOpts" object as option', async t => {
   const customParserOpts = {headerPattern: /^##(.*?)## (.*)$/, headerCorrespondence: ['tag', 'shortDesc']};
   const parserOpts = await loadParserConfig({parserOpts: customParserOpts});
 
@@ -39,7 +39,7 @@ test('Accept a parserOpts object as option', async t => {
   t.falsy(parserOpts.noteKeywords);
 });
 
-test('Accept a partial parserOpts object as option that overlaod a preset', async t => {
+test('Accept a partial "parserOpts" object as option that overlaod a preset', async t => {
   const customParserOpts = {headerPattern: /^##(.*?)## (.*)$/, headerCorrespondence: ['tag', 'shortDesc']};
   const parserOpts = await loadParserConfig({parserOpts: customParserOpts, preset: 'angular'});
 
@@ -48,7 +48,7 @@ test('Accept a partial parserOpts object as option that overlaod a preset', asyn
   t.truthy(parserOpts.noteKeywords);
 });
 
-test('Accept a partial parserOpts object as option that overlaod a config', async t => {
+test('Accept a partial "parserOpts" object as option that overlaod a config', async t => {
   const customParserOpts = {headerPattern: /^##(.*?)## (.*)$/, headerCorrespondence: ['tag', 'shortDesc']};
   const parserOpts = await loadParserConfig({parserOpts: customParserOpts, config: 'conventional-changelog-angular'});
 
@@ -70,7 +70,7 @@ test(loadConfig, 'express');
 test(loadPreset, 'jshint');
 test(loadConfig, 'jshint');
 
-test('Throw SemanticReleaseError if "config" doesn`t exist', async t => {
+test('Throw "SemanticReleaseError" if "config" doesn`t exist', async t => {
   const error = await t.throws(
     loadParserConfig({config: 'unknown-config'}),
     /Config: "unknown-config" does not exist:/
@@ -80,9 +80,9 @@ test('Throw SemanticReleaseError if "config" doesn`t exist', async t => {
   t.is(error.code, 'MODULE_NOT_FOUND');
 });
 
-test('Throw SemanticReleaseError if "preset" doesn`t exist', async t => {
+test('Throw "SemanticReleaseError" if "preset" doesn`t exist', async t => {
   const error = await t.throws(
-    loadParserConfig({preset: 'unknown-preset'}, {}),
+    loadParserConfig({preset: 'unknown-preset'}),
     /Preset: "unknown-preset" does not exist:/
   );
 

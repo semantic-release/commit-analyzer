@@ -40,7 +40,7 @@ test('Parse raw commit with custom parser', t => {
   t.is(commit.shortDesc, 'First fix (fixes #123)');
 });
 
-test('Wrap parser errors in SemanticReleaseError', t => {
+test('Wrap parser errors in "SemanticReleaseError"', t => {
   const error = t.throws(
     () => parse('Fix: First fix (fixes #123)', {headerPattern: '\\'}),
     /Error in conventional-changelog-parser: Invalid regular expression:/
