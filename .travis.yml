@@ -9,7 +9,7 @@ branches:
     - master
     - /^greenkeeper.*$/
 git:
-  depth: 3
+  depth: 999
 before_install:
   - npm install -g greenkeeper-lockfile@1
 before_script:
