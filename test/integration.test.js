@@ -50,14 +50,14 @@ test('Accept a partial "parseOpts" object as option', async t => {
   t.is(releaseType, 'patch');
 });
 
-test('Accept a "commitTypes" option that reference a requierable module', async t => {
+test('Accept a "releaseRules" option that reference a requierable module', async t => {
   const commits = [{message: 'fix(scope1): First fix'}, {message: 'feat(scope2): Second feature'}];
-  const releaseType = await pify(commitAnalyzer)({commitTypes: './test/fixtures/commit-types'}, {commits});
+  const releaseType = await pify(commitAnalyzer)({releaseRules: './test/fixtures/release-rules'}, {commits});
 
   t.is(releaseType, 'minor');
 });
 
-test('Return "major" if there is a breaking change, using default commitTypes', async t => {
+test('Return "major" if there is a breaking change, using default releaseRules', async t => {
   const commits = [
     {message: 'Fix: First fix (fixes #123)'},
     {message: 'Update: Second feature (fixes #456) \n\n BREAKING CHANGE: break something'},
@@ -67,19 +67,19 @@ test('Return "major" if there is a breaking change, using default commitTypes', 
   t.is(releaseType, 'major');
 });
 
-test('Return "patch" if there is only types set to "patch", using default commitTypes', async t => {
+test('Return "patch" if there is only types set to "patch", using default releaseRules', async t => {
   const commits = [{message: 'fix: First fix (fixes #123)'}, {message: 'perf: perf improvement'}];
   const releaseType = await pify(commitAnalyzer)({}, {commits});
 
   t.is(releaseType, 'patch');
 });
 
-test('Allow to use regex in commitTypes configuration', async t => {
+test('Allow to use regex in "releaseRules" configuration', async t => {
   const commits = [{message: 'Chore: First chore (fixes #123)'}, {message: 'Docs: update README (fixes #456)'}];
   const releaseType = await pify(commitAnalyzer)(
     {
       preset: 'eslint',
-      commitTypes: [{tag: 'Chore', release: 'patch'}, {message: '/README/', release: 'minor'}],
+      releaseRules: [{tag: 'Chore', release: 'patch'}, {message: '/README/', release: 'minor'}],
     },
     {commits}
   );
@@ -97,7 +97,7 @@ test('Return "null" if no rule match', async t => {
 test('Process rules in order and apply highest match', async t => {
   const commits = [{message: 'Chore: First chore (fixes #123)'}, {message: 'Docs: update README (fixes #456)'}];
   const releaseType = await pify(commitAnalyzer)(
-    {preset: 'eslint', commitTypes: [{tag: 'Chore', release: 'minor'}, {tag: 'Chore', release: 'patch'}]},
+    {preset: 'eslint', releaseRules: [{tag: 'Chore', release: 'minor'}, {tag: 'Chore', release: 'patch'}]},
     {commits}
   );
 
@@ -110,17 +110,17 @@ test('Process rules in order and apply highest match from config even if default
     {message: 'Docs: update README (fixes #456) \n\n BREAKING CHANGE: break something'},
   ];
   const releaseType = await pify(commitAnalyzer)(
-    {preset: 'eslint', commitTypes: [{tag: 'Chore', release: 'patch'}, {breaking: true, release: 'minor'}]},
+    {preset: 'eslint', releaseRules: [{tag: 'Chore', release: 'patch'}, {breaking: true, release: 'minor'}]},
     {commits}
   );
 
   t.is(releaseType, 'minor');
 });
 
-test('Use default "commitTypes" if none of provided match', async t => {
+test('Use default "releaseRules" if none of provided match', async t => {
   const commits = [{message: 'Chore: First chore'}, {message: 'Update: new feature'}];
   const releaseType = await pify(commitAnalyzer)(
-    {preset: 'eslint', commitTypes: [{tag: 'Chore', release: 'patch'}]},
+    {preset: 'eslint', releaseRules: [{tag: 'Chore', release: 'patch'}]},
     {commits}
   );
 
@@ -137,20 +137,20 @@ test('Throw "SemanticReleaseError" if "preset" doesn`t exist', async t => {
   t.is(error.code, 'MODULE_NOT_FOUND');
 });
 
-test('Throw "SemanticReleaseError" if "commitTypes" is not an Array or a String', async t => {
+test('Throw "SemanticReleaseError" if "releaseRules" is not an Array or a String', async t => {
   const error = await t.throws(
-    pify(commitAnalyzer)({commitTypes: {}}, {}),
-    /Error in sr-commit-analyzer configuration: "commitTypes" must be an array of rules/
+    pify(commitAnalyzer)({releaseRules: {}}, {}),
+    /Error in sr-commit-analyzer configuration: "releaseRules" must be an array of rules/
   );
 
   t.true(error instanceof SemanticReleaseError);
   t.is(error.code, 'EINVALIDCONFIG');
 });
 
-test('Throw "SemanticReleaseError" if "commitTypes" option reference a requierable module that is not an Array or a String', async t => {
+test('Throw "SemanticReleaseError" if "releaseRules" option reference a requierable module that is not an Array or a String', async t => {
   const error = await t.throws(
-    pify(commitAnalyzer)({commitTypes: './test/fixtures/commit-types-invalid'}, {}),
-    /Error in sr-commit-analyzer configuration: "commitTypes" must be an array of rules/
+    pify(commitAnalyzer)({releaseRules: './test/fixtures/release-rules-invalid'}, {}),
+    /Error in sr-commit-analyzer configuration: "releaseRules" must be an array of rules/
   );
 
   t.true(error instanceof SemanticReleaseError);
@@ -168,9 +168,9 @@ test('Throw "SemanticReleaseError" if "config" doesn`t exist', async t => {
   t.is(error.code, 'MODULE_NOT_FOUND');
 });
 
-test('Throw "SemanticReleaseError" if "commitTypes" reference invalid commit type', async t => {
+test('Throw "SemanticReleaseError" if "releaseRules" reference invalid commit type', async t => {
   const error = await t.throws(
-    pify(commitAnalyzer)({preset: 'eslint', commitTypes: [{tag: 'Update', release: 'invalid'}]}, {}),
+    pify(commitAnalyzer)({preset: 'eslint', releaseRules: [{tag: 'Update', release: 'invalid'}]}, {}),
     /Error in sr-commit-analyzer configuration: "invalid" is not a valid release type\. Valid values are:\[?.*\]/
   );
 
