@@ -10,7 +10,7 @@ Customizable commit-analyzer plugin for [semantic-release](https://github.com/se
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 [![Travis](https://img.shields.io/travis/vanduynslagerp/sr-commit-analyzer.svg)](https://travis-ci.org/vanduynslagerp/sr-commit-analyzer)
-[![Code Climate](https://img.shields.io/codeclimate/github/vanduynslagerp/karma-postcss-preprocessor.svg)](https://codeclimate.com/github/vanduynslagerp/karma-postcss-preprocessor)
+[![Code Climate](https://img.shields.io/codeclimate/github/vanduynslagerp/sr-commit-analyzer.svg)](https://codeclimate.com/github/vanduynslagerp/sr-commit-analyzer)
 [![Codecov](https://img.shields.io/codecov/c/github/vanduynslagerp/sr-commit-analyzer.svg)](https://codecov.io/gh/vanduynslagerp/sr-commit-analyzer)
 
 ## Install
