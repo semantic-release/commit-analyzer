@@ -56,12 +56,12 @@ Additionnal options can be set within the plugin definition in `package.json` to
 | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------- |
 | `preset`       | [conventional-changelog](https://github.com/conventional-changelog/conventional-changelog) preset (possible values: `angular`, `atom`, `codemirror`, `ember`, `eslint`, `express`, `jquery`, `jscs`, `jshint`).                                                                                    | `angular`                             |
 | `config`       | NPM package name of a custom [conventional-changelog](https://github.com/conventional-changelog/conventional-changelog) preset.                                                                                                                                                                    | -                                     |
-| `releaseRules` | An external module, a path to a module or an `Array` of rules. See [Commit types](#release-rules).                                                                                                                                                                                                 | See [Commit types](#release-rules)     |
+| `releaseRules` | An external module, a path to a module or an `Array` of rules. See [Release rules](#release-rules).                                                                                                                                                                                                 | See [Release rules](#release-rules)     |
 | `parserOpts`   | Additional [conventional-commits-parser](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-commits-parser#conventionalcommitsparseroptions) options that will extends ones loaded by `preset` or `config`. See [Parser options](#parser-options). | -                                     |
 
 **NOTE:** `config` will be overwritten by the values of `preset`. You should use either `preset` or `config`, but not both. Individual properties of `parserOpts` will overwrite ones loaded with `preset` or `config`.
 
-### Commit Types
+### Release Rules
 
 #### Rules definition
 This is an `Array` of rule objects. A rule object has a `release` property and 1 or more criteria.
@@ -92,7 +92,7 @@ With the previous example:
 
 #### Default rules matching
 
-If a commit doesn't match any rule in `releaseRules` it will be evaluated agaisnt the [default commit types](lib/default/release-rules.js).
+If a commit doesn't match any rule in `releaseRules` it will be evaluated agaisnt the [default release rules](lib/default/release-rules.js).
 
 With the previous example:
 *   Commits with a breaking change will be associated with a `minor` release.
@@ -102,7 +102,7 @@ With the previous example:
 
 #### No rules matching
 
-If a commit doesn't match any rules in `releaseRules` or in [default commit types](lib/default/release-rules.js) then no release type will be associated with the commit.
+If a commit doesn't match any rules in `releaseRules` or in [default release rules](lib/default/release-rules.js) then no release type will be associated with the commit.
 
 With the previous example:
 *   Commits with `type` 'style' will not be associated with a release type.
@@ -140,10 +140,10 @@ For example with `eslint` preset:
 With this configuration:
 *   Commits with `tag` 'Docs', that contains 'README' in their header message will be associated with a `patch` release.
 *   Commits with `tag` 'New' will be associated with a `patch` release.
-*   Commits with `tag` 'Breaking' will be associated with a `major` release (per [default commit types](lib/default/release-rules.js)).
-*   Commits with `tag` 'Fix' will be associated with a `patch` release (per [default commit types](lib/default/release-rules.js)).
-*   Commits with `tag` 'Update' will be associated with a `minor` release (per [default commit types](lib/default/release-rules.js)).
-*   Commits with `tag` 'New' will be associated with a `minor` release (per [default commit types](lib/default/release-rules.js)).
+*   Commits with `tag` 'Breaking' will be associated with a `major` release (per [default release rules](lib/default/release-rules.js)).
+*   Commits with `tag` 'Fix' will be associated with a `patch` release (per [default release rules](lib/default/release-rules.js)).
+*   Commits with `tag` 'Update' will be associated with a `minor` release (per [default release rules](lib/default/release-rules.js)).
+*   Commits with `tag` 'New' will be associated with a `minor` release (per [default release rules](lib/default/release-rules.js)).
 *   All other commits will not be associated with a release type.
 
 #### External package / file
