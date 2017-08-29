@@ -73,9 +73,18 @@
   "license": "MIT",
   "main": "lib/index.js",
   "nyc": {
+    "lines": 100,
+    "statements": 100,
+    "functions": 100,
+    "branches": 100,
     "include": [
       "lib/**/*.js"
-    ]
+    ],
+    "reporter": [
+      "lcov",
+      "text"
+    ],
+    "all": true
   },
   "peerDependencies": {
     "semantic-release": ">= 4"
@@ -100,11 +109,12 @@
     "cm": "git-cz",
     "codecov": "codecov",
     "commitmsg": "commitlint -e",
+    "coverage": "nyc check-coverage",
     "lint": "eslint lib test package.json",
     "postcheckout": "yarn install || (rimraf && npm install)",
     "precommit": "npm run lint",
     "pretest": "npm run clean && npm run lint",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "test": "nyc --all ava -v && nyc report --reporter=lcov"
+    "test": "nyc ava -v"
   }
 }
