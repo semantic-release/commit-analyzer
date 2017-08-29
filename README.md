@@ -69,6 +69,7 @@ This is an `Array` of rule objects. A rule object has a `release` property and 1
 {
   "release": {
     "analyzeCommits": {
+      "path": "sr-commit-analyzer",
       "preset": "angular",
       "releaseRules": [
         {"type": "docs", "scope": "README", "release": "patch"},
@@ -128,6 +129,7 @@ For example with `eslint` preset:
 {
   "release": {
     "analyzeCommits": {
+      "path": "sr-commit-analyzer",
       "preset": "eslint",
       "releaseRules": [
         {"tag": "Docs", "message":"/README/", "release": "patch"},
@@ -178,6 +180,7 @@ The following example uses [Angular convention](https://github.com/conventional-
 {
   "release": {
     "analyzeCommits": {
+      "path": "sr-commit-analyzer",
       "preset": "angular",
       "parserOpts": {
         "noteKeywords": ["BREAKING CHANGE", "BREAKING CHANGES", "BREAKING"],
