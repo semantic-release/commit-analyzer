@@ -102,6 +102,7 @@
     "codecov": "codecov",
     "commitmsg": "commitlint -e",
     "lint": "eslint lib test package.json",
+    "postcheckout": "yarn install || (rimraf && npm install)",
     "precommit": "npm run lint",
     "pretest": "npm run clean && npm run lint",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
