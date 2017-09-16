@@ -4,7 +4,7 @@ import loadParserConfig from './../lib/load/parser-config';
 
 /**
  * AVA macro to verify that `loadParserConfig` return a parserOpts object.
- * 
+ *
  * @method loadPreset
  * @param {Object} t AVA assertion library.
  * @param {[type]} preset the `conventional-changelog` preset to test.
@@ -16,7 +16,7 @@ loadPreset.title = (providedTitle, preset) => `${providedTitle} Load "${preset}"
 
 /**
  * AVA macro to verify that `loadParserConfig` return a parserOpts object.
- * 
+ *
  * @method loadPreset
  * @param {Object} t AVA assertion library.
  * @param {[type]} config the `conventional-changelog` config to test.

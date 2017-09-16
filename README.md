@@ -6,11 +6,11 @@ Customizable commit-analyzer plugin for [semantic-release](https://github.com/se
 [![npm](https://img.shields.io/npm/dt/sr-commit-analyzer.svg)](https://www.npmjs.com/package/sr-commit-analyzer)
 [![Greenkeeper badge](https://badges.greenkeeper.io/vanduynslagerp/sr-commit-analyzer.svg)](https://greenkeeper.io/)
 [![license](https://img.shields.io/github/license/vanduynslagerp/sr-commit-analyzer.svg)](https://github.com/vanduynslagerp/sr-commit-analyzer/blob/master/LICENSE)
+[![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 [![Travis](https://img.shields.io/travis/vanduynslagerp/sr-commit-analyzer.svg)](https://travis-ci.org/vanduynslagerp/sr-commit-analyzer)
-[![Code Climate](https://img.shields.io/codeclimate/github/vanduynslagerp/sr-commit-analyzer.svg)](https://codeclimate.com/github/vanduynslagerp/sr-commit-analyzer)
 [![Codecov](https://img.shields.io/codecov/c/github/vanduynslagerp/sr-commit-analyzer.svg)](https://codecov.io/gh/vanduynslagerp/sr-commit-analyzer)
 
 ## Install
