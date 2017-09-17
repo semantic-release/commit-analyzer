@@ -1,10 +1,10 @@
 {
-  "name": "sr-commit-analyzer",
+  "name": "@semantic-release/commit-analyzer",
   "description": "Customizable commit-analyzer plugin for semantic-release",
   "version": "0.0.0-development",
   "author": "Pierre Vanduynslager",
   "bugs": {
-    "url": "https://github.com/vanduynslagerp/sr-commit-analyzer/issues"
+    "url": "https://github.com/semantic-release/commit-analyzer/issues"
   },
   "config": {
     "commitizen": {
@@ -44,7 +44,6 @@
     "prettier": "^1.5.3",
     "rimraf": "^2.6.1",
     "semantic-release": "^8.0.0",
-    "sr-release-notes-generator": "^1.1.1",
     "tempy": "^0.2.0"
   },
   "engines": {
@@ -73,7 +72,7 @@
   "files": [
     "lib"
   ],
-  "homepage": "https://github.com/vanduynslagerp/sr-commit-analyzer#readme",
+  "homepage": "https://github.com/semantic-release/commit-analyzer#readme",
   "keywords": [
     "changelog",
     "commit-analyzer",
@@ -115,14 +114,11 @@
   "release": {
     "analyzeCommits": {
       "path": "./lib/index.js"
-    },
-    "generateNotes": {
-      "path": "sr-release-notes-generator"
     }
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vanduynslagerp/sr-commit-analyzer.git"
+    "url": "https://github.com/semantic-release/commit-analyzer.git"
   },
   "scripts": {
     "clean": "rimraf coverage && rimraf .nyc_output",
