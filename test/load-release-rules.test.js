@@ -24,7 +24,7 @@ test('Return undefined if "releaseRules" not set', t => {
 test('Throw "SemanticReleaseError" if "releaseRules" reference invalid commit type', t => {
   const error = t.throws(
     () => loadReleaseRules({releaseRules: [{tag: 'Update', release: 'invalid'}]}),
-    /Error in sr-commit-analyzer configuration: "invalid" is not a valid release type\. Valid values are:\[?.*\]/
+    /Error in commit-analyzer configuration: "invalid" is not a valid release type\. Valid values are:\[?.*\]/
   );
 
   t.is(error.code, 'EINVALIDRELEASE');
@@ -34,7 +34,7 @@ test('Throw "SemanticReleaseError" if "releaseRules" reference invalid commit ty
 test('Throw "SemanticReleaseError" if "releaseRules" is not an Array or a String', t => {
   const error = t.throws(
     () => loadReleaseRules({releaseRules: {}}, {}),
-    /Error in sr-commit-analyzer configuration: "releaseRules" must be an array of rules/
+    /Error in commit-analyzer configuration: "releaseRules" must be an array of rules/
   );
 
   t.true(error instanceof SemanticReleaseError);
@@ -44,7 +44,7 @@ test('Throw "SemanticReleaseError" if "releaseRules" is not an Array or a String
 test('Throw "SemanticReleaseError" if "releaseRules" option reference a requierable module that is not an Array or a String', t => {
   const error = t.throws(
     () => loadReleaseRules({releaseRules: './test/fixtures/release-rules-invalid'}),
-    /Error in sr-commit-analyzer configuration: "releaseRules" must be an array of rules/
+    /Error in commit-analyzer configuration: "releaseRules" must be an array of rules/
   );
 
   t.true(error instanceof SemanticReleaseError);

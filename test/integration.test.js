@@ -140,7 +140,7 @@ test('Throw "SemanticReleaseError" if "preset" doesn`t exist', async t => {
 test('Throw "SemanticReleaseError" if "releaseRules" is not an Array or a String', async t => {
   const error = await t.throws(
     pify(commitAnalyzer)({releaseRules: {}}, {}),
-    /Error in sr-commit-analyzer configuration: "releaseRules" must be an array of rules/
+    /Error in commit-analyzer configuration: "releaseRules" must be an array of rules/
   );
 
   t.true(error instanceof SemanticReleaseError);
@@ -150,7 +150,7 @@ test('Throw "SemanticReleaseError" if "releaseRules" is not an Array or a String
 test('Throw "SemanticReleaseError" if "releaseRules" option reference a requierable module that is not an Array or a String', async t => {
   const error = await t.throws(
     pify(commitAnalyzer)({releaseRules: './test/fixtures/release-rules-invalid'}, {}),
-    /Error in sr-commit-analyzer configuration: "releaseRules" must be an array of rules/
+    /Error in commit-analyzer configuration: "releaseRules" must be an array of rules/
   );
 
   t.true(error instanceof SemanticReleaseError);
@@ -171,7 +171,7 @@ test('Throw "SemanticReleaseError" if "config" doesn`t exist', async t => {
 test('Throw "SemanticReleaseError" if "releaseRules" reference invalid commit type', async t => {
   const error = await t.throws(
     pify(commitAnalyzer)({preset: 'eslint', releaseRules: [{tag: 'Update', release: 'invalid'}]}, {}),
-    /Error in sr-commit-analyzer configuration: "invalid" is not a valid release type\. Valid values are:\[?.*\]/
+    /Error in commit-analyzer configuration: "invalid" is not a valid release type\. Valid values are:\[?.*\]/
   );
 
   t.is(error.code, 'EINVALIDRELEASE');
