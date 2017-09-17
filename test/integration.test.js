@@ -187,3 +187,10 @@ test('Handle error in "conventional-changelog-parser" and wrap in "SemanticRelea
 
   t.true(error instanceof SemanticReleaseError);
 });
+
+test('Accept an undefined "pluginConfig"', async t => {
+  const commits = [{message: 'fix(scope1): First fix'}, {message: 'feat(scope2): Second feature'}];
+  const releaseType = await pify(commitAnalyzer)(undefined, {commits});
+
+  t.is(releaseType, 'minor');
+});
