@@ -127,6 +127,13 @@ test('Use default "releaseRules" if none of provided match', async t => {
   t.is(releaseType, 'minor');
 });
 
+test('Ignore malformatted commits and process valid ones', async t => {
+  const commits = [{message: 'fix(scope1): First fix'}, {message: 'Feature => Invalid message'}];
+  const releaseType = await pify(commitAnalyzer)({}, {commits});
+
+  t.is(releaseType, 'patch');
+});
+
 test('Throw "SemanticReleaseError" if "preset" doesn`t exist', async t => {
   const error = await t.throws(
     pify(commitAnalyzer)({preset: 'unknown-preset'}, {}),
