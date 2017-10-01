@@ -15,7 +15,7 @@
     "@semantic-release/error": "^2.0.0",
     "conventional-changelog-angular": "^1.4.0",
     "conventional-commits-parser": "^2.0.0",
-    "import-cwd": "^2.1.0",
+    "import-from": "^2.1.0",
     "lodash": "^4.17.4",
     "pify": "^3.0.0"
   },
