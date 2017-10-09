@@ -17,7 +17,7 @@ Customizable commit-analyzer plugin for [semantic-release](https://github.com/se
 
 By default `commit-analyzer` uses the `angular` format described in [Angular convention](https://github.com/conventional-changelog/conventional-changelog/blob/master/packages/conventional-changelog-angular/convention.md).
 
-Additionnal options can be set within the plugin definition in `package.json` to use a different commit format and to customize it:
+Additional options can be set within the plugin definition in `package.json` to use a different commit format and to customize it:
 
 ```json
 {
@@ -77,7 +77,7 @@ With the previous example:
 
 #### Default rules matching
 
-If a commit doesn't match any rule in `releaseRules` it will be evaluated agaisnt the [default release rules](lib/default/release-rules.js).
+If a commit doesn't match any rule in `releaseRules` it will be evaluated against the [default release rules](lib/default/release-rules.js).
 
 With the previous example:
 *   Commits with a breaking change will be associated with a `minor` release.
@@ -96,7 +96,7 @@ With the previous example:
 
 #### Multiple commits
 
-If there is multiple commits that match one or more rules, the one with the highest realease type will determine the global release type.
+If there is multiple commits that match one or more rules, the one with the highest release type will determine the global release type.
 
 Considering the following commits:
 *   `docs(README): Add more details to the API docs`
@@ -106,7 +106,7 @@ With the previous example the release type determine by the plugin will be `mino
 
 #### Specific commit properties
 
-The properties to set in the rules will depends on the commit style choosen. For example [conventional-changelog-angular](https://github.com/conventional-changelog/conventional-changelog/blob/master/packages/conventional-changelog-angular/index.js#L9-L13) use the commit properties `type`, `scope` and `subject` but [conventional-changelog-eslint](https://github.com/conventional-changelog/conventional-changelog/blob/master/packages/conventional-changelog-eslint/index.js#L9-L12) uses `tag` and `message`.
+The properties to set in the rules will depends on the commit style chosen. For example [conventional-changelog-angular](https://github.com/conventional-changelog/conventional-changelog/blob/master/packages/conventional-changelog-angular/index.js#L9-L13) use the commit properties `type`, `scope` and `subject` but [conventional-changelog-eslint](https://github.com/conventional-changelog/conventional-changelog/blob/master/packages/conventional-changelog-eslint/index.js#L9-L12) uses `tag` and `message`.
 
 For example with `eslint` preset:
 ```json
