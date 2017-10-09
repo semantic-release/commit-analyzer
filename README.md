@@ -15,7 +15,7 @@ Customizable commit-analyzer plugin for [semantic-release](https://github.com/se
 
 ## Options
 
-By default `commit-analyzer` uses the `angular` format described in [Angular convention](https://github.com/conventional-changelog/conventional-changelog/blob/master/packages/conventional-changelog-angular/convention.md).
+By default `commit-analyzer` uses the `angular` format described in [Angular convention](https://github.com/conventional-changelog/conventional-changelog/blob/master/packages/conventional-changelog-angular/convention.md) and the [default rules](lib/default/release-rules.js) for release.
 
 Additional options can be set within the plugin definition in `package.json` to use a different commit format and to customize it:
 
@@ -47,6 +47,8 @@ Additional options can be set within the plugin definition in `package.json` to 
 **NOTE:** `config` will be overwritten by the values of `preset`. You should use either `preset` or `config`, but not both. Individual properties of `parserOpts` will overwrite ones loaded with `preset` or `config`.
 
 ### Release Rules
+
+Release rules are used when deciding if the commits since the last release warrant a new release. If you define custom release rules the [default rules](lib/default/release-rules.js) will be used if nothing matched.
 
 #### Rules definition
 This is an `Array` of rule objects. A rule object has a `release` property and 1 or more criteria.
