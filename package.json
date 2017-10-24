@@ -20,7 +20,7 @@
     "pify": "^3.0.0"
   },
   "devDependencies": {
-    "ava": "^0.22.0",
+    "ava": "^0.23.0",
     "codecov": "^3.0.0",
     "commitizen": "^2.9.6",
     "conventional-changelog-atom": "^0.1.1",
