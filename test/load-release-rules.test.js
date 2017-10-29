@@ -25,7 +25,13 @@ test('Throw error if "releaseRules" reference invalid commit type', t => {
     () => loadReleaseRules({releaseRules: [{tag: 'Update', release: 'invalid'}]}),
     /Error in commit-analyzer configuration: "invalid" is not a valid release type\. Valid values are:\[?.*\]/
   );
+});
 
+test('Throw error if a rule in "releaseRules" does not have a release type', t => {
+  t.throws(
+    () => loadReleaseRules({releaseRules: [{tag: 'Update'}]}),
+    /Error in commit-analyzer configuration: rules must be an object with a "release" property/
+  );
 });
 
 test('Throw error if "releaseRules" is not an Array or a String', t => {
@@ -40,5 +46,11 @@ test('Throw error if "releaseRules" option reference a requierable module that i
     () => loadReleaseRules({releaseRules: './test/fixtures/release-rules-invalid'}),
     /Error in commit-analyzer configuration: "releaseRules" must be an array of rules/
   );
+});
 
+test('Throw error if "releaseRules" contains an undefined rule', t => {
+  t.throws(
+    () => loadReleaseRules({releaseRules: [{type: 'feat', release: 'minor'}, undefined]}, {}),
+    /Error in commit-analyzer configuration: rules must be an object with a "release" property/
+  );
 });
