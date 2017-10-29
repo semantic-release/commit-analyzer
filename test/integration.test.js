@@ -1,6 +1,5 @@
 import {promisify} from 'util';
 import test from 'ava';
-import SemanticReleaseError from '@semantic-release/error';
 import commitAnalyzer from '../lib/index';
 
 test('Parse with "conventional-changelog-angular" by default', async t => {
@@ -134,65 +133,43 @@ test('Ignore malformatted commits and process valid ones', async t => {
   t.is(releaseType, 'patch');
 });
 
-test('Throw "SemanticReleaseError" if "preset" doesn`t exist', async t => {
-  const error = await t.throws(
-    promisify(commitAnalyzer)({preset: 'unknown-preset'}, {}),
-    /Preset: "unknown-preset" does not exist:/
-  );
+test('Throw error if "preset" doesn`t exist', async t => {
+  const error = await t.throws(promisify(commitAnalyzer)({preset: 'unknown-preset'}, {}));
 
-  t.true(error instanceof SemanticReleaseError);
   t.is(error.code, 'MODULE_NOT_FOUND');
 });
 
-test('Throw "SemanticReleaseError" if "releaseRules" is not an Array or a String', async t => {
-  const error = await t.throws(
+test('Throw error if "releaseRules" is not an Array or a String', async t => {
+  await t.throws(
     promisify(commitAnalyzer)({releaseRules: {}}, {}),
     /Error in commit-analyzer configuration: "releaseRules" must be an array of rules/
   );
-
-  t.true(error instanceof SemanticReleaseError);
-  t.is(error.code, 'EINVALIDCONFIG');
 });
 
-test('Throw "SemanticReleaseError" if "releaseRules" option reference a requierable module that is not an Array or a String', async t => {
-  const error = await t.throws(
+test('Throw error if "releaseRules" option reference a requierable module that is not an Array or a String', async t => {
+  await t.throws(
     promisify(commitAnalyzer)({releaseRules: './test/fixtures/release-rules-invalid'}, {}),
     /Error in commit-analyzer configuration: "releaseRules" must be an array of rules/
   );
-
-  t.true(error instanceof SemanticReleaseError);
-  t.is(error.code, 'EINVALIDCONFIG');
 });
 
-test('Throw "SemanticReleaseError" if "config" doesn`t exist', async t => {
+test('Throw error if "config" doesn`t exist', async t => {
   const commits = [{message: 'Fix: First fix (fixes #123)'}, {message: 'Update: Second feature (fixes #456)'}];
-  const error = await t.throws(
-    promisify(commitAnalyzer)({config: 'unknown-config'}, {commits}),
-    /Config: "unknown-config" does not exist:/
-  );
+  const error = await t.throws(promisify(commitAnalyzer)({config: 'unknown-config'}, {commits}));
 
-  t.true(error instanceof SemanticReleaseError);
   t.is(error.code, 'MODULE_NOT_FOUND');
 });
 
-test('Throw "SemanticReleaseError" if "releaseRules" reference invalid commit type', async t => {
-  const error = await t.throws(
+test('Throw error if "releaseRules" reference invalid commit type', async t => {
+  await t.throws(
     promisify(commitAnalyzer)({preset: 'eslint', releaseRules: [{tag: 'Update', release: 'invalid'}]}, {}),
     /Error in commit-analyzer configuration: "invalid" is not a valid release type\. Valid values are:\[?.*\]/
   );
-
-  t.is(error.code, 'EINVALIDRELEASE');
-  t.true(error instanceof SemanticReleaseError);
 });
 
-test('Handle error in "conventional-changelog-parser" and wrap in "SemanticReleaseError"', async t => {
+test('Re-Throw error from "conventional-changelog-parser"', async t => {
   const commits = [{message: 'Fix: First fix (fixes #123)'}, {message: 'Update: Second feature (fixes #456)'}];
-  const error = await t.throws(
-    promisify(commitAnalyzer)({parserOpts: {headerPattern: '\\'}}, {commits}),
-    /Error in conventional-changelog-parser: Invalid regular expression:/
-  );
-
-  t.true(error instanceof SemanticReleaseError);
+  await t.throws(promisify(commitAnalyzer)({parserOpts: {headerPattern: '\\'}}, {commits, logger: t.context.logger}));
 });
 
 test('Accept an undefined "pluginConfig"', async t => {

@@ -1,5 +1,4 @@
 import test from 'ava';
-import SemanticReleaseError from '@semantic-release/error';
 import loadParserConfig from './../lib/load/parser-config';
 
 /**
@@ -70,22 +69,14 @@ test(loadConfig, 'express');
 test(loadPreset, 'jshint');
 test(loadConfig, 'jshint');
 
-test('Throw "SemanticReleaseError" if "config" doesn`t exist', async t => {
-  const error = await t.throws(
-    loadParserConfig({config: 'unknown-config'}),
-    /Config: "unknown-config" does not exist:/
-  );
+test('Throw error if "config" doesn`t exist', async t => {
+  const error = await t.throws(loadParserConfig({config: 'unknown-config'}));
 
-  t.true(error instanceof SemanticReleaseError);
   t.is(error.code, 'MODULE_NOT_FOUND');
 });
 
-test('Throw "SemanticReleaseError" if "preset" doesn`t exist', async t => {
-  const error = await t.throws(
-    loadParserConfig({preset: 'unknown-preset'}),
-    /Preset: "unknown-preset" does not exist:/
-  );
+test('Throw error if "preset" doesn`t exist', async t => {
+  const error = await t.throws(loadParserConfig({preset: 'unknown-preset'}));
 
-  t.true(error instanceof SemanticReleaseError);
   t.is(error.code, 'MODULE_NOT_FOUND');
 });
