@@ -16,8 +16,7 @@
     "conventional-changelog-angular": "^1.4.0",
     "conventional-commits-parser": "^2.0.0",
     "import-from": "^2.1.0",
-    "lodash": "^4.17.4",
-    "pify": "^3.0.0"
+    "lodash": "^4.17.4"
   },
   "devDependencies": {
     "ava": "^0.23.0",
@@ -40,8 +39,7 @@
     "nyc": "^11.1.0",
     "prettier": "^1.7.2",
     "rimraf": "^2.6.1",
-    "semantic-release": "^8.0.0",
-    "tempy": "^0.2.0"
+    "semantic-release": "^8.0.0"
   },
   "engines": {
     "node": ">=4"
