@@ -244,10 +244,3 @@ test('Re-Throw error from "conventional-changelog-parser"', async t => {
   const commits = [{message: 'Fix: First fix (fixes #123)'}, {message: 'Update: Second feature (fixes #456)'}];
   await t.throws(promisify(commitAnalyzer)({parserOpts: {headerPattern: '\\'}}, {commits, logger: t.context.logger}));
 });
-
-test('Accept an undefined "pluginConfig"', async t => {
-  const commits = [{message: 'fix(scope1): First fix'}, {message: 'feat(scope2): Second feature'}];
-  const releaseType = await promisify(commitAnalyzer)(undefined, {commits, logger: t.context.logger});
-
-  t.is(releaseType, 'minor');
-});
