@@ -50,11 +50,11 @@ test('Accept "config" option', async t => {
 
 test('Accept a "parseOpts" object as option', async t => {
   const commits = [
-    {message: '##BUGFIX## First fix (fixes #123)'},
-    {message: '##FEATURE## Second feature (fixes #456)'},
+    {message: '%%BUGFIX%% First fix (fixes #123)'},
+    {message: '%%FEATURE%% Second feature (fixes #456)'},
   ];
   const releaseType = await promisify(commitAnalyzer)(
-    {parserOpts: {headerPattern: /^##(.*?)## (.*)$/, headerCorrespondence: ['tag', 'shortDesc']}},
+    {parserOpts: {headerPattern: /^%%(.*?)%% (.*)$/, headerCorrespondence: ['tag', 'shortDesc']}},
     {commits, logger: t.context.logger}
   );
 
@@ -67,11 +67,11 @@ test('Accept a "parseOpts" object as option', async t => {
 });
 
 test('Accept a partial "parseOpts" object as option', async t => {
-  const commits = [{message: '##fix## First fix (fixes #123)'}, {message: '##Update## Second feature (fixes #456)'}];
+  const commits = [{message: '%%fix%% First fix (fixes #123)'}, {message: '%%Update%% Second feature (fixes #456)'}];
   const releaseType = await promisify(commitAnalyzer)(
     {
       config: 'conventional-changelog-eslint',
-      parserOpts: {headerPattern: /^##(.*?)## (.*)$/, headerCorrespondence: ['type', 'shortDesc']},
+      parserOpts: {headerPattern: /^%%(.*?)%% (.*)$/, headerCorrespondence: ['type', 'shortDesc']},
     },
     {commits, logger: t.context.logger}
   );
