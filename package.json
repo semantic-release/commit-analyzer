@@ -32,34 +32,17 @@
     "conventional-changelog-express": "^0.2.0",
     "conventional-changelog-jshint": "^0.2.0",
     "cz-conventional-changelog": "^2.0.0",
-    "eslint": "^4.5.0",
     "eslint-config-prettier": "^2.3.0",
-    "eslint-config-standard": "^10.2.1",
-    "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-node": "^5.1.1",
     "eslint-plugin-prettier": "^2.3.0",
-    "eslint-plugin-promise": "^3.5.0",
-    "eslint-plugin-standard": "^3.0.1",
     "nyc": "^11.1.0",
     "prettier": "~1.8.0",
     "rimraf": "^2.6.1",
     "semantic-release": "^9.0.2",
-    "sinon": "^4.0.2"
+    "sinon": "^4.0.2",
+    "xo": "^0.18.2"
   },
   "engines": {
     "node": ">=4"
-  },
-  "eslintConfig": {
-    "extends": [
-      "standard",
-      "prettier"
-    ],
-    "plugins": [
-      "prettier"
-    ],
-    "rules": {
-      "prettier/prettier": 2
-    }
   },
   "files": [
     "lib"
@@ -107,12 +90,22 @@
     "url": "https://github.com/semantic-release/commit-analyzer.git"
   },
   "scripts": {
-    "clean": "rimraf coverage && rimraf .nyc_output",
     "cm": "git-cz",
     "codecov": "codecov -f coverage/coverage-final.json",
-    "lint": "eslint lib test",
-    "pretest": "npm run clean && npm run lint",
+    "lint": "xo",
+    "pretest": "npm run lint",
     "semantic-release": "semantic-release",
     "test": "nyc ava -v"
+  },
+  "xo": {
+    "extends": [
+      "prettier"
+    ],
+    "plugins": [
+      "prettier"
+    ],
+    "rules": {
+      "prettier/prettier": 2
+    }
   }
 }
