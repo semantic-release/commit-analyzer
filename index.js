@@ -1,12 +1,12 @@
 const {callbackify} = require('util');
 const parser = require('conventional-commits-parser').sync;
 const debug = require('debug')('semantic-release:commit-analyzer');
-const loadParserConfig = require('./load/parser-config');
-const loadReleaseRules = require('./load/release-rules');
-const analyzeCommit = require('./analyze-commit');
-const compareReleaseTypes = require('./compare-release-types');
-const RELEASE_TYPES = require('./default/release-types');
-const DEFAULT_RELEASE_RULES = require('./default/release-rules');
+const loadParserConfig = require('./lib/load-parser-config');
+const loadReleaseRules = require('./lib/load-release-rules');
+const analyzeCommit = require('./lib/analyze-commit');
+const compareReleaseTypes = require('./lib/compare-release-types');
+const RELEASE_TYPES = require('./lib/default-release-types');
+const DEFAULT_RELEASE_RULES = require('./lib/default-release-rules');
 
 /**
  * Determine the type of release to create based on a list of commits.
