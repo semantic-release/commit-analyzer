@@ -2,7 +2,7 @@
   "name": "@semantic-release/commit-analyzer",
   "description": "Customizable commit-analyzer plugin for semantic-release",
   "version": "0.0.0-development",
-  "author": "Pierre Vanduynslager",
+  "author": "Pierre Vanduynslager (https://twitter.com/@pvdlg_)",
   "bugs": {
     "url": "https://github.com/semantic-release/commit-analyzer/issues"
   },
@@ -11,6 +11,10 @@
       "path": "cz-conventional-changelog"
     }
   },
+  "contributors": [
+    "Stephan Bönnemann <stephan@boennemann.me> (http://boennemann.me)",
+    "Gregor Martynus (https://twitter.com/gr2m)"
+  ],
   "dependencies": {
     "conventional-changelog-angular": "^1.4.0",
     "conventional-commits-parser": "^2.0.0",
