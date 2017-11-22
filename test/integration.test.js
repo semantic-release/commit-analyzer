@@ -1,7 +1,7 @@
 import {promisify} from 'util';
 import test from 'ava';
 import {stub} from 'sinon';
-import commitAnalyzer from '../lib/index';
+import commitAnalyzer from '..';
 
 test.beforeEach(t => {
   const log = stub();

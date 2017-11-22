@@ -1,5 +1,5 @@
 import test from 'ava';
-import compareReleaseTypes from './../lib/compare-release-types';
+import compareReleaseTypes from '../lib/compare-release-types';
 
 test('Compares release types', t => {
   t.true(compareReleaseTypes('patch', 'minor'));

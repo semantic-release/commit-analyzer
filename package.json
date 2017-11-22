@@ -45,7 +45,8 @@
     "node": ">=4"
   },
   "files": [
-    "lib"
+    "lib",
+    "index.js"
   ],
   "homepage": "https://github.com/semantic-release/commit-analyzer#readme",
   "keywords": [
@@ -59,10 +60,11 @@
     "semantic-release"
   ],
   "license": "MIT",
-  "main": "lib/index.js",
+  "main": "index.js",
   "nyc": {
     "include": [
-      "lib/**/*.js"
+      "lib/**/*.js",
+      "index.js"
     ],
     "reporter": [
       "json",
@@ -82,7 +84,7 @@
   },
   "release": {
     "analyzeCommits": {
-      "path": "./lib/index.js"
+      "path": "./index.js"
     }
   },
   "repository": {
