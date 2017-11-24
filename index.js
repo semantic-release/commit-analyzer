@@ -1,4 +1,3 @@
-const {callbackify} = require('util');
 const parser = require('conventional-commits-parser').sync;
 const debug = require('debug')('semantic-release:commit-analyzer');
 const loadParserConfig = require('./lib/load-parser-config');
@@ -63,4 +62,4 @@ async function commitAnalyzer(pluginConfig, {commits, logger}) {
   return releaseType;
 }
 
-module.exports = callbackify(commitAnalyzer);
+module.exports = commitAnalyzer;
