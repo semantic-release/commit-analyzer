@@ -37,7 +37,7 @@
     "nyc": "^11.1.0",
     "prettier": "~1.8.2",
     "rimraf": "^2.6.1",
-    "semantic-release": "^9.0.2",
+    "semantic-release": "^10.0.0",
     "sinon": "^4.0.2",
     "xo": "^0.18.2"
   },
@@ -81,11 +81,6 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "release": {
-    "analyzeCommits": {
-      "path": "./index.js"
-    }
   },
   "repository": {
     "type": "git",
