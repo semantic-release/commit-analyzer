@@ -8,7 +8,7 @@ Customizable commit-analyzer plugin for [semantic-release](https://github.com/se
 
 ## Options
 
-By default `commit-analyzer` uses the `angular` format described in [Angular convention](https://github.com/conventional-changelog/conventional-changelog/blob/master/packages/conventional-changelog-angular/convention.md) and the [default rules](lib/default/release-rules.js) for release.
+By default `commit-analyzer` uses the `angular` format described in [Angular convention](https://github.com/conventional-changelog/conventional-changelog/blob/master/packages/conventional-changelog-angular/convention.md) and the [default rules](lib/default-release-rules.js) for release.
 
 Additional options can be set within the plugin definition in `package.json` to use a different commit format and to customize it:
 
@@ -41,7 +41,7 @@ Additional options can be set within the plugin definition in `package.json` to 
 
 ### Release Rules
 
-Release rules are used when deciding if the commits since the last release warrant a new release. If you define custom release rules the [default rules](lib/default/release-rules.js) will be used if nothing matched.
+Release rules are used when deciding if the commits since the last release warrant a new release. If you define custom release rules the [default rules](lib/default-release-rules.js) will be used if nothing matched.
 
 #### Rules definition
 This is an `Array` of rule objects. A rule object has a `release` property and 1 or more criteria.
@@ -63,7 +63,7 @@ This is an `Array` of rule objects. A rule object has a `release` property and 1
 
 Each commit will be compared with each rule and when it matches, the commit will be associated with the release type in the rule's `release` property. If a commit match multiple rules, the highest release type (`major` > `minor` > `patch`) is associated with the commit.
 
-See [release types](lib/default/release-types.js) for the release types hierarchy.
+See [release types](lib/default-release-types.js) for the release types hierarchy.
 
 With the previous example:
 *   Commits with `type` 'docs' and `scope` 'README' will be associated with a `patch` release.
@@ -72,7 +72,7 @@ With the previous example:
 
 #### Default rules matching
 
-If a commit doesn't match any rule in `releaseRules` it will be evaluated against the [default release rules](lib/default/release-rules.js).
+If a commit doesn't match any rule in `releaseRules` it will be evaluated against the [default release rules](lib/default-release-rules.js).
 
 With the previous example:
 *   Commits with a breaking change will be associated with a `minor` release.
@@ -82,7 +82,7 @@ With the previous example:
 
 #### No rules matching
 
-If a commit doesn't match any rules in `releaseRules` or in [default release rules](lib/default/release-rules.js) then no release type will be associated with the commit.
+If a commit doesn't match any rules in `releaseRules` or in [default release rules](lib/default-release-rules.js) then no release type will be associated with the commit.
 
 With the previous example:
 *   Commits with `type` 'style' will not be associated with a release type.
@@ -120,10 +120,10 @@ For example with `eslint` preset:
 With this configuration:
 *   Commits with `tag` 'Docs', that contains 'README' in their header message will be associated with a `patch` release.
 *   Commits with `tag` 'New' will be associated with a `patch` release.
-*   Commits with `tag` 'Breaking' will be associated with a `major` release (per [default release rules](lib/default/release-rules.js)).
-*   Commits with `tag` 'Fix' will be associated with a `patch` release (per [default release rules](lib/default/release-rules.js)).
-*   Commits with `tag` 'Update' will be associated with a `minor` release (per [default release rules](lib/default/release-rules.js)).
-*   Commits with `tag` 'New' will be associated with a `minor` release (per [default release rules](lib/default/release-rules.js)).
+*   Commits with `tag` 'Breaking' will be associated with a `major` release (per [default release rules](lib/default-release-rules.js)).
+*   Commits with `tag` 'Fix' will be associated with a `patch` release (per [default release rules](lib/default-release-rules.js)).
+*   Commits with `tag` 'Update' will be associated with a `minor` release (per [default release rules](lib/default-release-rules.js)).
+*   Commits with `tag` 'New' will be associated with a `minor` release (per [default release rules](lib/default-release-rules.js)).
 *   All other commits will not be associated with a release type.
 
 #### External package / file
