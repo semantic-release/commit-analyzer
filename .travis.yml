@@ -1,5 +1,6 @@
 language: node_js
 node_js:
+  - 9
   - 8
 
 # Trigger a push build on master and greenkeeper branches + PRs build on every branches
@@ -18,4 +19,10 @@ script:
 
 after_success:
   - npm run codecov
-  - npm run semantic-release
+
+jobs:
+  include:
+    - stage: release
+      node_js: lts/*
+      script:
+        - npm run semantic-release
