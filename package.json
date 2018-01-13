@@ -37,7 +37,7 @@
     "nyc": "^11.1.0",
     "prettier": "~1.10.0",
     "rimraf": "^2.6.1",
-    "semantic-release": "^11.0.2",
+    "semantic-release": "^12.2.2",
     "sinon": "^4.0.2",
     "xo": "^0.18.2"
   },
