@@ -28,7 +28,7 @@
     "commitizen": "^2.9.6",
     "conventional-changelog-atom": "^0.2.0",
     "conventional-changelog-ember": "^0.3.0",
-    "conventional-changelog-eslint": "^0.3.0",
+    "conventional-changelog-eslint": "^1.0.0",
     "conventional-changelog-express": "^0.3.0",
     "conventional-changelog-jshint": "^0.3.0",
     "cz-conventional-changelog": "^2.0.0",
