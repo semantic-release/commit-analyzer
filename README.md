@@ -165,3 +165,7 @@ The following example uses [Angular convention](https://github.com/conventional-
   }
 }
 ```
+
+## Usage
+
+The plugin is used by default by [semantic-release](https://github.com/semantic-release/semantic-release) so installing it is not necessary and all configuration are optionals.
