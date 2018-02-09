@@ -6,6 +6,9 @@ Customizable commit-analyzer plugin for [semantic-release](https://github.com/se
 [![Codecov](https://img.shields.io/codecov/c/github/semantic-release/commit-analyzer.svg)](https://codecov.io/gh/semantic-release/commit-analyzer)
 [![Greenkeeper badge](https://badges.greenkeeper.io/semantic-release/commit-analyzer.svg)](https://greenkeeper.io/)
 
+[![npm latest version](https://img.shields.io/npm/v/@semantic-release/commit-analyzer/latest.svg)](https://www.npmjs.com/package/@semantic-release/commit-analyzer)
+[![npm next version](https://img.shields.io/npm/v/@semantic-release/commit-analyzer/next.svg)](https://www.npmjs.com/package/@semantic-release/commit-analyzer)
+
 ## Options
 
 By default `commit-analyzer` uses the `angular` format described in [Angular convention](https://github.com/conventional-changelog/conventional-changelog/blob/master/packages/conventional-changelog-angular) and the [default rules](lib/default-release-rules.js) for release.
