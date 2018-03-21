@@ -35,7 +35,7 @@
     "nyc": "^11.1.0",
     "rimraf": "^2.6.1",
     "semantic-release": "^15.0.0",
-    "sinon": "^4.0.2",
+    "sinon": "^5.0.0",
     "xo": "^0.20.0"
   },
   "engines": {
