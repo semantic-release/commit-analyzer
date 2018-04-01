@@ -80,7 +80,7 @@ With the previous example:
 If a commit doesn't match any rule in `releaseRules` it will be evaluated against the [default release rules](lib/default-release-rules.js).
 
 With the previous example:
-- Commits with a breaking change will be associated with a `minor` release.
+- Commits with a breaking change will be associated with a `major` release.
 - Commits with `type` 'feat' will be associated with a `minor` release.
 - Commits with `type` 'fix' will be associated with a `patch` release.
 - Commits with `type` 'perf' will be associated with a `patch` release.
