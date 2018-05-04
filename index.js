@@ -11,12 +11,14 @@ const DEFAULT_RELEASE_RULES = require('./lib/default-release-rules');
  * Determine the type of release to create based on a list of commits.
  *
  * @param {Object} [pluginConfig={}] semantic-release configuration
- * @param {string} pluginConfig.preset conventional-changelog preset ('angular', 'atom', 'codemirror', 'ember', 'eslint', 'express', 'jquery', 'jscs', 'jshint')
- * @param {string} pluginConfig.config requierable npm package with a custom conventional-changelog preset
- * @param {string|Array} pluginConfig.releaseRules a string to load an external module or an `Array` of rules.
+ * @param {String} pluginConfig.preset conventional-changelog preset ('angular', 'atom', 'codemirror', 'ember', 'eslint', 'express', 'jquery', 'jscs', 'jshint')
+ * @param {String} pluginConfig.config requierable npm package with a custom conventional-changelog preset
+ * @param {String|Array} pluginConfig.releaseRules a string to load an external module or an `Array` of rules.
  * @param {Object} pluginConfig.parserOpts additional `conventional-changelog-parser` options that will overwrite ones loaded by `preset` or `config`.
  * @param {Object} options semantic-release options
  * @param {Array} options.commits array of commits
+ *
+ * @returns {String|null} the type of release to create based on the list of commits or `null` if no release has to be done.
  */
 async function commitAnalyzer(pluginConfig, {commits, logger}) {
   const releaseRules = loadReleaseRules(pluginConfig);
