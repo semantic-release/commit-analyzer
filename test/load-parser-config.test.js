@@ -1,5 +1,5 @@
 import test from 'ava';
-import loadParserConfig from './../lib/load-parser-config';
+import loadParserConfig from '../lib/load-parser-config';
 
 /**
  * AVA macro to verify that `loadParserConfig` return a parserOpts object.

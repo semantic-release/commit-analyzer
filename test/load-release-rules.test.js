@@ -1,5 +1,5 @@
 import test from 'ava';
-import loadReleaseRules from './../lib/load-release-rules';
+import loadReleaseRules from '../lib/load-release-rules';
 import testReleaseRules from './fixtures/release-rules';
 
 test('Accept a "releaseRules" option', t => {
