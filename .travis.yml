@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - 9
+  - 10
   - 8
 
 # Trigger a push build on master and greenkeeper branches + PRs build on every branches
