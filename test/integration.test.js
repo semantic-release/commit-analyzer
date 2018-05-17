@@ -20,6 +20,42 @@ test('Parse with "conventional-changelog-angular" by default', async t => {
   t.true(t.context.log.calledWith('Analysis of %s commits complete: %s release', 2, 'minor'));
 });
 
+test('Correctly handle squash merges', async t => {
+  const message =
+    'Squashed commit of the following:\n' +
+    '\n' +
+    'commit 06cfb67026eecec2ad54fd39fc50cba9080d383c\n' +
+    'Author: Jason Walton <fakeaddress@fake.com>\n' +
+    'Date:   Thu May 17 11:21:50 2018 -0400\n' +
+    '\n' +
+    '    fix: More fixes\n' +
+    '\n' +
+    '    Blah blah blah.\n' +
+    '\n' +
+    '    Fixes #20\n' +
+    '\n' +
+    'commit b894885ae467975226e81080a35625d247796960\n' +
+    'Author: Jason Walton <fakeaddress@fake.com>\n' +
+    'Date:   Thu May 17 11:13:25 2018 -0400\n' +
+    '\n' +
+    '    feat: Add moar features!\n';
+
+  const splitCommits = [
+    'fix: More fixes\n\nBlah blah blah.\n\nFixes #20',
+    'feat: Add moar features!'
+  ];
+
+  const commits = [{message}];
+  const releaseType = await commitAnalyzer({}, {commits, logger: t.context.logger});
+
+  t.is(releaseType, 'minor');
+  t.true(t.context.log.calledWith('Analyzing commit: %s', splitCommits[0]));
+  t.true(t.context.log.calledWith('The release type for the commit is %s', 'patch'));
+  t.true(t.context.log.calledWith('Analyzing commit: %s', splitCommits[1]));
+  t.true(t.context.log.calledWith('The release type for the commit is %s', 'minor'));
+  t.true(t.context.log.calledWith('Analysis of %s commits complete: %s release', 2, 'minor'));
+});
+
 test('Accept "preset" option', async t => {
   const commits = [{message: 'Fix: First fix (fixes #123)'}, {message: 'Update: Second feature (fixes #456)'}];
   const releaseType = await commitAnalyzer({preset: 'eslint'}, {commits, logger: t.context.logger});
