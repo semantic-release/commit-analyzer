@@ -6,7 +6,7 @@ const analyzeCommit = require('./lib/analyze-commit');
 const compareReleaseTypes = require('./lib/compare-release-types');
 const RELEASE_TYPES = require('./lib/default-release-types');
 const DEFAULT_RELEASE_RULES = require('./lib/default-release-rules');
-
+const parseSquashMerge = require('./lib/squash-merge-parser.js');
 /**
  * Determine the type of release to create based on a list of commits.
  *
@@ -25,9 +25,20 @@ async function commitAnalyzer(pluginConfig, {commits, logger}) {
   const config = await loadParserConfig(pluginConfig);
   let releaseType = null;
 
-  commits.every(rawCommit => {
+  const unsquashedCommits = commits.reduce((commits, commit) => {
+    const unsquashed = parseSquashMerge(commit);
+    if (unsquashed) {
+      commits.push(...unsquashed);
+    } else {
+      commits.push(commit);
+    }
+    return commits;
+  }, []);
+
+  unsquashedCommits.every(rawCommit => {
     const commit = parser(rawCommit.message, config);
-    logger.log(`Analyzing commit: %s`, rawCommit.message);
+    const squashed = rawCommit.squash ? 'squashed ' : '';
+    logger.log(`Analyzing ${squashed}commit: %s`, rawCommit.message);
     let commitReleaseType;
 
     // Determine release type based on custom releaseRules
@@ -59,7 +70,7 @@ async function commitAnalyzer(pluginConfig, {commits, logger}) {
     }
     return true;
   });
-  logger.log('Analysis of %s commits complete: %s release', commits.length, releaseType || 'no');
+  logger.log('Analysis of %s commits complete: %s release', unsquashedCommits.length, releaseType || 'no');
 
   return releaseType;
 }
