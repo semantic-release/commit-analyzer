@@ -268,9 +268,9 @@ test('Correctly handle squash merges', async t => {
   const releaseType = await commitAnalyzer({}, {commits, logger: t.context.logger});
 
   t.is(releaseType, 'minor');
-  t.true(t.context.log.calledWith('Analyzing commit: %s', splitCommits[0]));
+  t.true(t.context.log.calledWith('Analyzing squashed commit: %s', splitCommits[0]));
   t.true(t.context.log.calledWith('The release type for the commit is %s', 'patch'));
-  t.true(t.context.log.calledWith('Analyzing commit: %s', splitCommits[1]));
+  t.true(t.context.log.calledWith('Analyzing squashed commit: %s', splitCommits[1]));
   t.true(t.context.log.calledWith('The release type for the commit is %s', 'minor'));
   t.true(t.context.log.calledWith('Analysis of %s commits complete: %s release', 2, 'minor'));
 });

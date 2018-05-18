@@ -37,7 +37,8 @@ async function commitAnalyzer(pluginConfig, {commits, logger}) {
 
   unsquashedCommits.every(rawCommit => {
     const commit = parser(rawCommit.message, config);
-    logger.log(`Analyzing commit: %s`, rawCommit.message);
+    const squashed = rawCommit.squash ? 'squashed ' : '';
+    logger.log(`Analyzing ${squashed}commit: %s`, rawCommit.message);
     let commitReleaseType;
 
     // Determine release type based on custom releaseRules
