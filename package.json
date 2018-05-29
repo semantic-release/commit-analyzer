@@ -16,8 +16,8 @@
     "Gregor Martynus (https://twitter.com/gr2m)"
   ],
   "dependencies": {
-    "conventional-changelog-angular": "^3.0.0",
-    "conventional-commits-parser": "^2.0.0",
+    "conventional-changelog-angular": "^4.0.0",
+    "conventional-commits-parser": "^3.0.0",
     "debug": "^3.1.0",
     "import-from": "^2.1.0",
     "lodash": "^4.17.4"
@@ -26,11 +26,11 @@
     "ava": "^0.25.0",
     "codecov": "^3.0.0",
     "commitizen": "^2.9.6",
-    "conventional-changelog-atom": "^0.2.0",
-    "conventional-changelog-ember": "^0.3.0",
-    "conventional-changelog-eslint": "^1.0.0",
-    "conventional-changelog-express": "^0.3.0",
-    "conventional-changelog-jshint": "^0.3.0",
+    "conventional-changelog-atom": "^1.0.0",
+    "conventional-changelog-ember": "^1.0.0",
+    "conventional-changelog-eslint": "^2.0.0",
+    "conventional-changelog-express": "^1.0.0",
+    "conventional-changelog-jshint": "^1.0.0",
     "cz-conventional-changelog": "^2.0.0",
     "nyc": "^11.1.0",
     "rimraf": "^2.6.1",
