@@ -30,7 +30,7 @@
     "conventional-changelog-ember": "^2.0.0",
     "conventional-changelog-eslint": "^2.0.0",
     "conventional-changelog-express": "^2.0.0",
-    "conventional-changelog-jshint": "^1.0.0",
+    "conventional-changelog-jshint": "^2.0.0",
     "cz-conventional-changelog": "^2.0.0",
     "nyc": "^12.0.1",
     "rimraf": "^2.6.1",
