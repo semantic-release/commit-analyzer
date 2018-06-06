@@ -27,7 +27,7 @@
     "codecov": "^3.0.0",
     "commitizen": "^2.9.6",
     "conventional-changelog-atom": "^1.0.0",
-    "conventional-changelog-ember": "^1.0.0",
+    "conventional-changelog-ember": "^2.0.0",
     "conventional-changelog-eslint": "^2.0.0",
     "conventional-changelog-express": "^1.0.0",
     "conventional-changelog-jshint": "^1.0.0",
