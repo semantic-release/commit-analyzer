@@ -83,6 +83,20 @@ test('Accept a partial "parseOpts" object as option', async t => {
   t.true(t.context.log.calledWith('Analysis of %s commits complete: %s release', 2, 'patch'));
 });
 
+test('Exclude commits if they have a matching revert commits', async t => {
+  const commits = [
+    {hash: '123', message: 'feat(scope): First feature'},
+    {hash: '456', message: 'revert: feat(scope): First feature\n\nThis reverts commit 123.\n'},
+    {message: 'fix(scope): First fix'},
+  ];
+  const releaseType = await commitAnalyzer({}, {commits, logger: t.context.logger});
+
+  t.is(releaseType, 'patch');
+  t.true(t.context.log.calledWith('Analyzing commit: %s', commits[2].message));
+  t.true(t.context.log.calledWith('The release type for the commit is %s', 'patch'));
+  t.true(t.context.log.calledWith('Analysis of %s commits complete: %s release', 3, 'patch'));
+});
+
 test('Accept a "releaseRules" option that reference a requierable module', async t => {
   const commits = [{message: 'fix(scope1): First fix'}, {message: 'feat(scope2): Second feature'}];
   const releaseType = await commitAnalyzer(

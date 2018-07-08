@@ -1,4 +1,5 @@
 const parser = require('conventional-commits-parser').sync;
+const filter = require('conventional-commits-filter');
 const debug = require('debug')('semantic-release:commit-analyzer');
 const loadParserConfig = require('./lib/load-parser-config');
 const loadReleaseRules = require('./lib/load-release-rules');
@@ -25,9 +26,10 @@ async function commitAnalyzer(pluginConfig, {commits, logger}) {
   const config = await loadParserConfig(pluginConfig);
   let releaseType = null;
 
-  commits.every(rawCommit => {
-    const commit = parser(rawCommit.message, config);
-    logger.log(`Analyzing commit: %s`, rawCommit.message);
+  filter(
+    commits.map(({message, ...commitProps}) => ({rawMsg: message, message, ...commitProps, ...parser(message, config)}))
+  ).every(({rawMsg, ...commit}) => {
+    logger.log(`Analyzing commit: %s`, rawMsg);
     let commitReleaseType;
 
     // Determine release type based on custom releaseRules
