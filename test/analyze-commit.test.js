@@ -9,6 +9,14 @@ test('Match breaking change', t => {
   t.is(analyzeCommit([{breaking: true, release: 'major'}], commit), 'major');
 });
 
+test('Match revert commit', t => {
+  const commit = {
+    revert: {header: 'Update: First feature', hash: '123'},
+  };
+
+  t.is(analyzeCommit([{revert: true, release: 'patch'}], commit), 'patch');
+});
+
 test('Match multiple criteria with breaking change', t => {
   const commit = {
     type: 'feat',
@@ -16,6 +24,15 @@ test('Match multiple criteria with breaking change', t => {
   };
 
   t.is(analyzeCommit([{type: 'feat', breaking: true, release: 'major'}], commit), 'major');
+});
+
+test('Match multiple criteria with revert', t => {
+  const commit = {
+    type: 'feat',
+    revert: {header: 'Update: First feature', hash: '123'},
+  };
+
+  t.is(analyzeCommit([{type: 'feat', revert: true, release: 'major'}], commit), 'major');
 });
 
 test('Match multiple criteria', t => {
