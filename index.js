@@ -11,19 +11,21 @@ const DEFAULT_RELEASE_RULES = require('./lib/default-release-rules');
 /**
  * Determine the type of release to create based on a list of commits.
  *
- * @param {Object} [pluginConfig={}] semantic-release configuration
+ * @param {Object} pluginConfig The plugin configuration.
  * @param {String} pluginConfig.preset conventional-changelog preset ('angular', 'atom', 'codemirror', 'ember', 'eslint', 'express', 'jquery', 'jscs', 'jshint')
- * @param {String} pluginConfig.config requierable npm package with a custom conventional-changelog preset
- * @param {String|Array} pluginConfig.releaseRules a string to load an external module or an `Array` of rules.
- * @param {Object} pluginConfig.parserOpts additional `conventional-changelog-parser` options that will overwrite ones loaded by `preset` or `config`.
- * @param {Object} options semantic-release options
- * @param {Array} options.commits array of commits
+ * @param {String} pluginConfig.config Requierable npm package with a custom conventional-changelog preset
+ * @param {String|Array} pluginConfig.releaseRules A `String` to load an external module or an `Array` of rules.
+ * @param {Object} pluginConfig.parserOpts Additional `conventional-changelog-parser` options that will overwrite ones loaded by `preset` or `config`.
+ * @param {Object} context The semantic-release context.
+ * @param {Array<Object>} context.commits The commits to analyze.
+ * @param {String} context.cwd The current working directory.
  *
  * @returns {String|null} the type of release to create based on the list of commits or `null` if no release has to be done.
  */
-async function commitAnalyzer(pluginConfig, {commits, logger}) {
-  const releaseRules = loadReleaseRules(pluginConfig);
-  const config = await loadParserConfig(pluginConfig);
+async function commitAnalyzer(pluginConfig, context) {
+  const {commits, logger} = context;
+  const releaseRules = loadReleaseRules(pluginConfig, context);
+  const config = await loadParserConfig(pluginConfig, context);
   let releaseType = null;
 
   filter(
