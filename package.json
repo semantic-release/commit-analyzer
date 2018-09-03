@@ -37,7 +37,7 @@
     "rimraf": "^2.6.1",
     "semantic-release": "^15.0.0",
     "sinon": "^6.0.0",
-    "xo": "^0.22.0"
+    "xo": "^0.23.0"
   },
   "engines": {
     "node": ">=8.3"
