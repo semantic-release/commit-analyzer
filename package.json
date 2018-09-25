@@ -1,6 +1,6 @@
 {
   "name": "@semantic-release/commit-analyzer",
-  "description": "Customizable commit-analyzer plugin for semantic-release",
+  "description": "semantic-release plugin to analyze commits with conventional-changelog",
   "version": "0.0.0-development",
   "author": "Pierre Vanduynslager (https://twitter.com/@pvdlg_)",
   "bugs": {

@@ -1,6 +1,6 @@
 # **commit-analyzer**
 
-Customizable commit-analyzer plugin for [semantic-release](https://github.com/semantic-release/semantic-release) based on [conventional-changelog](https://github.com/conventional-changelog/conventional-changelog)
+[**semantic-release**](https://github.com/semantic-release/semantic-release) plugin to analyze commits with [conventional-changelog](https://github.com/conventional-changelog/conventional-changelog)
 
 [![Travis](https://img.shields.io/travis/semantic-release/commit-analyzer.svg)](https://travis-ci.org/semantic-release/commit-analyzer)
 [![Codecov](https://img.shields.io/codecov/c/github/semantic-release/commit-analyzer.svg)](https://codecov.io/gh/semantic-release/commit-analyzer)
@@ -9,16 +9,24 @@ Customizable commit-analyzer plugin for [semantic-release](https://github.com/se
 [![npm latest version](https://img.shields.io/npm/v/@semantic-release/commit-analyzer/latest.svg)](https://www.npmjs.com/package/@semantic-release/commit-analyzer)
 [![npm next version](https://img.shields.io/npm/v/@semantic-release/commit-analyzer/next.svg)](https://www.npmjs.com/package/@semantic-release/commit-analyzer)
 
-## Options
+| Step             | Description                                                                                                                                         |
+|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
+| `analyzeCommits` | Determine the type of release by analyzing commits with [conventional-changelog](https://github.com/conventional-changelog/conventional-changelog). |
 
-By default `commit-analyzer` uses the `angular` format described in [Angular convention](https://github.com/conventional-changelog/conventional-changelog/blob/master/packages/conventional-changelog-angular) and the [default rules](lib/default-release-rules.js) for release.
+## Install
 
-Additional options can be set within the plugin definition in `package.json` to use a different commit format and to customize it:
+```bash
+$ npm install @semantic-release/commit-analyzer -D
+```
+
+## Usage
+
+The plugin can be configured in the [**semantic-release** configuration file](https://github.com/semantic-release/semantic-release/blob/caribou/docs/usage/configuration.md#configuration):
 
 ```json
 {
-  "release": {
-    "analyzeCommits": {
+  "plugins": [
+    ["@semantic-release/commit-analyzer", {
       "preset": "angular",
       "releaseRules": [
         {"type": "docs", "scope":"README", "release": "patch"},
@@ -28,65 +36,61 @@ Additional options can be set within the plugin definition in `package.json` to 
       "parserOpts": {
         "noteKeywords": ["BREAKING CHANGE", "BREAKING CHANGES", "BREAKING"]
       }
-    }
-  }
+    }],
+    "@semantic-release/release-notes-generator"
+  ]
 }
 ```
 
-| Option         | Description                                                                                                                                                                                                                                                                                        | Default                             |
-|----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------|
-| `preset`       | [conventional-changelog](https://github.com/conventional-changelog/conventional-changelog) preset (possible values: `angular`, `atom`, `codemirror`, `ember`, `eslint`, `express`, `jquery`, `jscs`, `jshint`).                                                                                    | `angular`                           |
-| `config`       | NPM package name of a custom [conventional-changelog](https://github.com/conventional-changelog/conventional-changelog) preset.                                                                                                                                                                    | -                                   |
-| `parserOpts`   | Additional [conventional-commits-parser](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-commits-parser#conventionalcommitsparseroptions) options that will extends ones loaded by `preset` or `config`. See [Parser options](#parser-options). | -                                   |
-| `releaseRules` | An external module, a path to a module or an `Array` of rules. See [Release rules](#release-rules).                                                                                                                                                                                                | See [Release rules](#release-rules) |
+With this example:
+- the commits that contains `BREAKING CHANGE`, `BREAKING CHANGES` or `BREAKING` in their body will be considered breaking changes (by default the [angular preset](https://github.com/conventional-changelog/conventional-changelog/blob/master/packages/conventional-changelog-angular/index.js#L14) checks only for `BREAKING CHANGE` and `BREAKING CHANGES`)
+- the commits with a 'docs' `type`, a 'README' `scope` will be associated with a `patch` release
+- the commits with a 'refactor' `type` will be associated with a `patch` release
+- the commits with a 'style' `type` will be associated with a `patch` release
+
+## Configuration
+
+### Options
+
+| Option         | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | Default                                                                                                                           |
+|----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|
+| `preset`       | [conventional-changelog](https://github.com/conventional-changelog/conventional-changelog) preset (possible values: [`angular`](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-angular), [`atom`](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-atom), [`codemirror`](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-codemirror), [`ember`](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-ember), [`eslint`](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-eslint), [`express`](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-express), [`jquery`](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-jquery), [`jshint`](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-jshint)). | [`angular`](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-angular) |
+| `config`       | NPM package name of a custom [conventional-changelog](https://github.com/conventional-changelog/conventional-changelog) preset.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | -                                                                                                                                 |
+| `parserOpts`   | Additional [conventional-commits-parser](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-commits-parser#conventionalcommitsparseroptions) options that will extends the ones loaded by `preset` or `config`. This is convenient to use a [conventional-changelog](https://github.com/conventional-changelog/conventional-changelog) preset with some customizations without having to create a new module.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | -                                                                                                                                 |
+| `releaseRules` | An external module, a path to a module or an `Array` of rules. See [`releaseRules`](#releaserules).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | See [`releaseRules`](#releaserules)                                                                                               |
+
+**Notes**: in order to use a `preset` it must be installed (for example to use the [eslint preset](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-eslint) you must install it with `npm install conventional-changelog-eslint -D`)
 
 **Note**: `config` will be overwritten by the values of `preset`. You should use either `preset` or `config`, but not both.
 
 **Note**: Individual properties of `parserOpts` will override ones loaded with an explicitly set `preset` or `config`. If `preset` or `config` are not set, only the properties set in `parserOpts` will be used.
 
-### Parser Options
-
-Allow to overwrite specific [conventional-commits-parser](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-commits-parser#conventionalcommitsparseroptions) options. This is convenient to use a [conventional-changelog](https://github.com/conventional-changelog/conventional-changelog) preset with some customizations without having to create a new module.
-
-The following example uses [Angular convention](https://github.com/conventional-changelog/conventional-changelog/blob/master/packages/conventional-changelog-angular) but will consider a commit to be a breaking change if [conventional-commits-parser](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-commits-parser) detects a valid `BREAKING CHANGE`, `BREAKING CHANGES` or `BREAKING` section in the commit body. By default the [preset](https://github.com/conventional-changelog/conventional-changelog/blob/master/packages/conventional-changelog-angular/index.js#L14) checks only for `BREAKING CHANGE` and `BREAKING CHANGES`.
-
-```json
-{
-  "release": {
-    "analyzeCommits": {
-      "preset": "angular",
-      "parserOpts": {
-        "noteKeywords": ["BREAKING CHANGE", "BREAKING CHANGES", "BREAKING"],
-      }
-    }
-  }
-}
-```
-
-### Release Rules
+#### releaseRules
 
 Release rules are used when deciding if the commits since the last release warrant a new release. If you define custom release rules the default rules will be used if nothing matched. Those rules will be matched against the commit objects resulting of [conventional-commits-parser](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-commits-parser) parsing.
 
 Release rules are used when deciding if the commits since the last release warrant a new release. If you define custom release rules the [default rules](lib/default-release-rules.js) will be used if nothing matched.
 
-#### Rules definition
+##### Rules definition
+
 This is an `Array` of rule objects. A rule object has a `release` property and 1 or more criteria.
 ```json
 {
-  "release": {
-    "analyzeCommits": {
+  "plugins": [
+    ["semantic-release/commit-analyzer", {
       "preset": "angular",
       "releaseRules": [
         {"type": "docs", "scope": "README", "release": "patch"},
         {"type": "refactor", "scope": "/core-.*/", "release": "minor"},
         {"type": "refactor", "release": "patch"}
       ]
-    }
-  }
+    }],
+    "@semantic-release/release-notes-generator"
+  ]
 }
 ```
 
-#### Rules matching
+##### Rules matching
 
 Each commit will be compared with each rule and when it matches, the commit will be associated with the release type in the rule's `release` property. If a commit match multiple rules, the highest release type (`major` > `minor` > `patch`) is associated with the commit.
 
@@ -97,7 +101,7 @@ With the previous example:
 - Commits with `type` 'refactor' and `scope` starting with 'core-' (i.e. 'core-ui', 'core-rules', ...) will be associated with a `minor` release.
 - Other commits with `type` 'refactor' (without `scope` or with a `scope` not matching the regexp `/core-.*/`) will be associated with a `patch` release.
 
-#### Default rules matching
+##### Default rules matching
 
 If a commit doesn't match any rule in `releaseRules` it will be evaluated against the [default release rules](lib/default-release-rules.js).
 
@@ -107,7 +111,7 @@ With the previous example:
 - Commits with `type` 'fix' will be associated with a `patch` release.
 - Commits with `type` 'perf' will be associated with a `patch` release.
 
-#### No rules matching
+##### No rules matching
 
 If a commit doesn't match any rules in `releaseRules` or in [default release rules](lib/default-release-rules.js) then no release type will be associated with the commit.
 
@@ -116,7 +120,7 @@ With the previous example:
 - Commits with `type` 'test' will not be associated with a release type.
 - Commits with `type` 'chore' will not be associated with a release type.
 
-#### Multiple commits
+##### Multiple commits
 
 If there is multiple commits that match one or more rules, the one with the highest release type will determine the global release type.
 
@@ -124,24 +128,25 @@ Considering the following commits:
 - `docs(README): Add more details to the API docs`
 - `feat(API): Add a new method to the public API`
 
-With the previous example the release type determine by the plugin will be `minor`.
+With the previous example the release type determined by the plugin will be `minor`.
 
-#### Specific commit properties
+##### Specific commit properties
 
 The properties to set in the rules will depends on the commit style chosen. For example [conventional-changelog-angular](https://github.com/conventional-changelog/conventional-changelog/blob/master/packages/conventional-changelog-angular/index.js#L9-L13) use the commit properties `type`, `scope` and `subject` but [conventional-changelog-eslint](https://github.com/conventional-changelog/conventional-changelog/blob/master/packages/conventional-changelog-eslint/index.js#L9-L12) uses `tag` and `message`.
 
 For example with `eslint` preset:
 ```json
 {
-  "release": {
-    "analyzeCommits": {
+  "plugins": [
+    ["semantic-release/commit-analyzer", {
       "preset": "eslint",
       "releaseRules": [
         {"tag": "Docs", "message":"/README/", "release": "patch"},
         {"type": "New", "release": "patch"}
       ]
-    }
-  }
+    }],
+    "@semantic-release/release-notes-generator"
+  ]
 }
 ```
 With this configuration:
@@ -153,17 +158,18 @@ With this configuration:
 - Commits with `tag` 'New' will be associated with a `minor` release (per [default release rules](lib/default-release-rules.js)).
 - All other commits will not be associated with a release type.
 
-#### External package / file
+##### External package / file
 
 `releaseRules` can also reference a module, either by it's `npm` name or path:
 ```json
 {
-  "release": {
-    "analyzeCommits": {
+  "plugins": [
+    ["semantic-release/commit-analyzer", {
       "preset": "angular",
       "releaseRules": "./config/release-rules.js"
-    }
-  }
+    }],
+    "@semantic-release/release-notes-generator"
+  ]
 }
 ```
 ```js
@@ -174,7 +180,3 @@ module.exports = [
   {type: 'refactor', release: 'patch'},
 ];
 ```
-
-## Usage
-
-The plugin is used by default by [semantic-release](https://github.com/semantic-release/semantic-release) so installing it is not necessary and all configuration are optionals.
