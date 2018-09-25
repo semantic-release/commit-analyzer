@@ -1,6 +1,6 @@
 import test from 'ava';
 import {stub} from 'sinon';
-import commitAnalyzer from '..';
+import {analyzeCommits} from '..';
 
 const cwd = process.cwd();
 
@@ -12,7 +12,7 @@ test.beforeEach(t => {
 
 test('Parse with "conventional-changelog-angular" by default', async t => {
   const commits = [{message: 'fix(scope1): First fix'}, {message: 'feat(scope2): Second feature'}];
-  const releaseType = await commitAnalyzer({}, {cwd, commits, logger: t.context.logger});
+  const releaseType = await analyzeCommits({}, {cwd, commits, logger: t.context.logger});
 
   t.is(releaseType, 'minor');
   t.true(t.context.log.calledWith('Analyzing commit: %s', commits[0].message));
@@ -24,7 +24,7 @@ test('Parse with "conventional-changelog-angular" by default', async t => {
 
 test('Accept "preset" option', async t => {
   const commits = [{message: 'Fix: First fix (fixes #123)'}, {message: 'Update: Second feature (fixes #456)'}];
-  const releaseType = await commitAnalyzer({preset: 'eslint'}, {cwd, commits, logger: t.context.logger});
+  const releaseType = await analyzeCommits({preset: 'eslint'}, {cwd, commits, logger: t.context.logger});
 
   t.is(releaseType, 'minor');
   t.true(t.context.log.calledWith('Analyzing commit: %s', commits[0].message));
@@ -36,7 +36,7 @@ test('Accept "preset" option', async t => {
 
 test('Accept "config" option', async t => {
   const commits = [{message: 'Fix: First fix (fixes #123)'}, {message: 'Update: Second feature (fixes #456)'}];
-  const releaseType = await commitAnalyzer(
+  const releaseType = await analyzeCommits(
     {config: 'conventional-changelog-eslint'},
     {cwd, commits, logger: t.context.logger}
   );
@@ -54,7 +54,7 @@ test('Accept a "parseOpts" object as option', async t => {
     {message: '%%BUGFIX%% First fix (fixes #123)'},
     {message: '%%FEATURE%% Second feature (fixes #456)'},
   ];
-  const releaseType = await commitAnalyzer(
+  const releaseType = await analyzeCommits(
     {parserOpts: {headerPattern: /^%%(.*?)%% (.*)$/, headerCorrespondence: ['tag', 'shortDesc']}},
     {cwd, commits, logger: t.context.logger}
   );
@@ -69,7 +69,7 @@ test('Accept a "parseOpts" object as option', async t => {
 
 test('Accept a partial "parseOpts" object as option', async t => {
   const commits = [{message: '%%fix%% First fix (fixes #123)'}, {message: '%%Update%% Second feature (fixes #456)'}];
-  const releaseType = await commitAnalyzer(
+  const releaseType = await analyzeCommits(
     {
       config: 'conventional-changelog-eslint',
       parserOpts: {headerPattern: /^%%(.*?)%% (.*)$/, headerCorrespondence: ['type', 'shortDesc']},
@@ -91,7 +91,7 @@ test('Exclude commits if they have a matching revert commits', async t => {
     {hash: '456', message: 'revert: feat(scope): First feature\n\nThis reverts commit 123.\n'},
     {message: 'fix(scope): First fix'},
   ];
-  const releaseType = await commitAnalyzer({}, {cwd, commits, logger: t.context.logger});
+  const releaseType = await analyzeCommits({}, {cwd, commits, logger: t.context.logger});
 
   t.is(releaseType, 'patch');
   t.true(t.context.log.calledWith('Analyzing commit: %s', commits[2].message));
@@ -101,7 +101,7 @@ test('Exclude commits if they have a matching revert commits', async t => {
 
 test('Accept a "releaseRules" option that reference a requierable module', async t => {
   const commits = [{message: 'fix(scope1): First fix'}, {message: 'feat(scope2): Second feature'}];
-  const releaseType = await commitAnalyzer(
+  const releaseType = await analyzeCommits(
     {releaseRules: './test/fixtures/release-rules'},
     {cwd, commits, logger: t.context.logger}
   );
@@ -119,7 +119,7 @@ test('Return "major" if there is a breaking change, using default releaseRules',
     {message: 'Fix: First fix (fixes #123)'},
     {message: 'Update: Second feature (fixes #456) \n\n BREAKING CHANGE: break something'},
   ];
-  const releaseType = await commitAnalyzer({preset: 'eslint'}, {cwd, commits, logger: t.context.logger});
+  const releaseType = await analyzeCommits({preset: 'eslint'}, {cwd, commits, logger: t.context.logger});
 
   t.is(releaseType, 'major');
   t.true(t.context.log.calledWith('Analyzing commit: %s', commits[0].message));
@@ -131,7 +131,7 @@ test('Return "major" if there is a breaking change, using default releaseRules',
 
 test('Return "patch" if there is only types set to "patch", using default releaseRules', async t => {
   const commits = [{message: 'fix: First fix (fixes #123)'}, {message: 'perf: perf improvement'}];
-  const releaseType = await commitAnalyzer({}, {cwd, commits, logger: t.context.logger});
+  const releaseType = await analyzeCommits({}, {cwd, commits, logger: t.context.logger});
 
   t.is(releaseType, 'patch');
   t.true(t.context.log.calledWith('Analyzing commit: %s', commits[0].message));
@@ -143,7 +143,7 @@ test('Return "patch" if there is only types set to "patch", using default releas
 
 test('Allow to use regex in "releaseRules" configuration', async t => {
   const commits = [{message: 'Chore: First chore (fixes #123)'}, {message: 'Docs: update README (fixes #456)'}];
-  const releaseType = await commitAnalyzer(
+  const releaseType = await analyzeCommits(
     {preset: 'eslint', releaseRules: [{tag: 'Chore', release: 'patch'}, {message: '/README/', release: 'minor'}]},
     {cwd, commits, logger: t.context.logger}
   );
@@ -158,7 +158,7 @@ test('Allow to use regex in "releaseRules" configuration', async t => {
 
 test('Return "null" if no rule match', async t => {
   const commits = [{message: 'doc: doc update'}, {message: 'chore: Chore'}];
-  const releaseType = await commitAnalyzer({}, {cwd, commits, logger: t.context.logger});
+  const releaseType = await analyzeCommits({}, {cwd, commits, logger: t.context.logger});
 
   t.is(releaseType, null);
   t.true(t.context.log.calledWith('Analyzing commit: %s', commits[0].message));
@@ -170,7 +170,7 @@ test('Return "null" if no rule match', async t => {
 
 test('Process rules in order and apply highest match', async t => {
   const commits = [{message: 'Chore: First chore (fixes #123)'}, {message: 'Docs: update README (fixes #456)'}];
-  const releaseType = await commitAnalyzer(
+  const releaseType = await analyzeCommits(
     {preset: 'eslint', releaseRules: [{tag: 'Chore', release: 'minor'}, {tag: 'Chore', release: 'patch'}]},
     {cwd, commits, logger: t.context.logger}
   );
@@ -188,7 +188,7 @@ test('Process rules in order and apply highest match from config even if default
     {message: 'Chore: First chore (fixes #123)'},
     {message: 'Docs: update README (fixes #456) \n\n BREAKING CHANGE: break something'},
   ];
-  const releaseType = await commitAnalyzer(
+  const releaseType = await analyzeCommits(
     {preset: 'eslint', releaseRules: [{tag: 'Chore', release: 'patch'}, {breaking: true, release: 'minor'}]},
     {cwd, commits, logger: t.context.logger}
   );
@@ -203,7 +203,7 @@ test('Process rules in order and apply highest match from config even if default
 
 test('Use default "releaseRules" if none of provided match', async t => {
   const commits = [{message: 'Chore: First chore'}, {message: 'Update: new feature'}];
-  const releaseType = await commitAnalyzer(
+  const releaseType = await analyzeCommits(
     {preset: 'eslint', releaseRules: [{tag: 'Chore', release: 'patch'}]},
     {cwd, commits, logger: t.context.logger}
   );
@@ -217,40 +217,40 @@ test('Use default "releaseRules" if none of provided match', async t => {
 });
 
 test('Throw error if "preset" doesn`t exist', async t => {
-  const error = await t.throws(commitAnalyzer({preset: 'unknown-preset'}, {cwd}));
+  const error = await t.throws(analyzeCommits({preset: 'unknown-preset'}, {cwd}));
 
   t.is(error.code, 'MODULE_NOT_FOUND');
 });
 
 test('Throw error if "releaseRules" is not an Array or a String', async t => {
   await t.throws(
-    commitAnalyzer({releaseRules: {}}, {cwd}),
+    analyzeCommits({releaseRules: {}}, {cwd}),
     /Error in commit-analyzer configuration: "releaseRules" must be an array of rules/
   );
 });
 
 test('Throw error if "releaseRules" option reference a requierable module that is not an Array or a String', async t => {
   await t.throws(
-    commitAnalyzer({releaseRules: './test/fixtures/release-rules-invalid'}, {cwd}),
+    analyzeCommits({releaseRules: './test/fixtures/release-rules-invalid'}, {cwd}),
     /Error in commit-analyzer configuration: "releaseRules" must be an array of rules/
   );
 });
 
 test('Throw error if "config" doesn`t exist', async t => {
   const commits = [{message: 'Fix: First fix (fixes #123)'}, {message: 'Update: Second feature (fixes #456)'}];
-  const error = await t.throws(commitAnalyzer({config: 'unknown-config'}, {cwd, commits, logger: t.context.logger}));
+  const error = await t.throws(analyzeCommits({config: 'unknown-config'}, {cwd, commits, logger: t.context.logger}));
 
   t.is(error.code, 'MODULE_NOT_FOUND');
 });
 
 test('Throw error if "releaseRules" reference invalid commit type', async t => {
   await t.throws(
-    commitAnalyzer({preset: 'eslint', releaseRules: [{tag: 'Update', release: 'invalid'}]}, {cwd}),
+    analyzeCommits({preset: 'eslint', releaseRules: [{tag: 'Update', release: 'invalid'}]}, {cwd}),
     /Error in commit-analyzer configuration: "invalid" is not a valid release type\. Valid values are:\[?.*\]/
   );
 });
 
 test('Re-Throw error from "conventional-changelog-parser"', async t => {
   const commits = [{message: 'Fix: First fix (fixes #123)'}, {message: 'Update: Second feature (fixes #456)'}];
-  await t.throws(commitAnalyzer({parserOpts: {headerPattern: '\\'}}, {cwd, commits, logger: t.context.logger}));
+  await t.throws(analyzeCommits({parserOpts: {headerPattern: '\\'}}, {cwd, commits, logger: t.context.logger}));
 });
