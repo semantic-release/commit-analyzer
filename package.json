@@ -26,7 +26,7 @@
   "devDependencies": {
     "ava": "^0.25.0",
     "codecov": "^3.0.0",
-    "commitizen": "^2.9.6",
+    "commitizen": "^3.0.0",
     "conventional-changelog-atom": "^2.0.0",
     "conventional-changelog-ember": "^2.0.0",
     "conventional-changelog-eslint": "^3.0.0",
