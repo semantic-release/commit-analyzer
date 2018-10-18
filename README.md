@@ -67,9 +67,7 @@ With this example:
 
 #### releaseRules
 
-Release rules are used when deciding if the commits since the last release warrant a new release. If you define custom release rules the default rules will be used if nothing matched. Those rules will be matched against the commit objects resulting of [conventional-commits-parser](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-commits-parser) parsing.
-
-Release rules are used when deciding if the commits since the last release warrant a new release. If you define custom release rules the [default rules](lib/default-release-rules.js) will be used if nothing matched.
+Release rules are used when deciding if the commits since the last release warrant a new release. If you define custom release rules the [default rules](lib/default-release-rules.js) will be used if nothing matched. Those rules will be matched against the commit objects resulting of [conventional-commits-parser](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-commits-parser) parsing.
 
 ##### Rules definition
 
