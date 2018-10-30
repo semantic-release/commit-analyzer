@@ -141,10 +141,10 @@ test('Return "patch" if there is only types set to "patch", using default releas
   t.true(t.context.log.calledWith('Analysis of %s commits complete: %s release', 2, 'patch'));
 });
 
-test('Allow to use regex in "releaseRules" configuration', async t => {
+test('Allow to use glob in "releaseRules" configuration', async t => {
   const commits = [{message: 'Chore: First chore (fixes #123)'}, {message: 'Docs: update README (fixes #456)'}];
   const releaseType = await analyzeCommits(
-    {preset: 'eslint', releaseRules: [{tag: 'Chore', release: 'patch'}, {message: '/README/', release: 'minor'}]},
+    {preset: 'eslint', releaseRules: [{tag: 'Chore', release: 'patch'}, {message: '*README*', release: 'minor'}]},
     {cwd, commits, logger: t.context.logger}
   );
 
