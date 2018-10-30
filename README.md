@@ -67,7 +67,7 @@ With this example:
 
 #### releaseRules
 
-Release rules are used when deciding if the commits since the last release warrant a new release. If you define custom release rules the [default rules](lib/default-release-rules.js) will be used if nothing matched. Those rules will be matched against the commit objects resulting of [conventional-commits-parser](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-commits-parser) parsing.
+Release rules are used when deciding if the commits since the last release warrant a new release. If you define custom release rules the [default rules](lib/default-release-rules.js) will be used if nothing matched. Those rules will be matched against the commit objects resulting of [conventional-commits-parser](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-commits-parser) parsing. Each rule property can be defined as a [glob](https://github.com/micromatch/micromatch#matching-features).
 
 ##### Rules definition
 
@@ -79,7 +79,7 @@ This is an `Array` of rule objects. A rule object has a `release` property and 1
       "preset": "angular",
       "releaseRules": [
         {"type": "docs", "scope": "README", "release": "patch"},
-        {"type": "refactor", "scope": "/core-.*/", "release": "minor"},
+        {"type": "refactor", "scope": "core-*", "release": "minor"},
         {"type": "refactor", "release": "patch"}
       ]
     }],
@@ -97,7 +97,7 @@ See [release types](lib/default-release-types.js) for the release types hierarch
 With the previous example:
 - Commits with `type` 'docs' and `scope` 'README' will be associated with a `patch` release.
 - Commits with `type` 'refactor' and `scope` starting with 'core-' (i.e. 'core-ui', 'core-rules', ...) will be associated with a `minor` release.
-- Other commits with `type` 'refactor' (without `scope` or with a `scope` not matching the regexp `/core-.*/`) will be associated with a `patch` release.
+- Other commits with `type` 'refactor' (without `scope` or with a `scope` not matching the glob `core-*`) will be associated with a `patch` release.
 
 ##### Default rules matching
 
@@ -139,7 +139,7 @@ For example with `eslint` preset:
     ["semantic-release/commit-analyzer", {
       "preset": "eslint",
       "releaseRules": [
-        {"tag": "Docs", "message":"/README/", "release": "patch"},
+        {"tag": "Docs", "message":"*README*", "release": "patch"},
         {"type": "New", "release": "patch"}
       ]
     }],
@@ -174,7 +174,7 @@ With this configuration:
 // File: config/release-rules.js
 module.exports = [
   {type: 'docs', scope: 'README', release: 'patch'},
-  {type: 'refactor', scope: /core-.*/, release: 'minor'},
+  {type: 'refactor', scope: 'core-*', release: 'minor'},
   {type: 'refactor', release: 'patch'},
 ];
 ```
