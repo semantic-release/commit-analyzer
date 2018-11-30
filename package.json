@@ -34,10 +34,10 @@
     "conventional-changelog-express": "^2.0.0",
     "conventional-changelog-jshint": "^2.0.0",
     "cz-conventional-changelog": "^2.0.0",
-    "nyc": "^12.0.1",
+    "nyc": "^13.1.0",
     "rimraf": "^2.6.1",
     "semantic-release": "^16.0.0-beta",
-    "sinon": "^6.0.0",
+    "sinon": "^7.1.1",
     "xo": "^0.23.0"
   },
   "engines": {
