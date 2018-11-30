@@ -35,7 +35,7 @@ The plugin can be configured in the [**semantic-release** configuration file](ht
         {"type": "style", "release": "patch"}
       ],
       "parserOpts": {
-        "noteKeywords": ["BREAKING CHANGE", "BREAKING CHANGES", "BREAKING"]
+        "noteKeywords": ["BREAKING CHANGE", "BREAKING CHANGES"]
       }
     }],
     "@semantic-release/release-notes-generator"
@@ -44,7 +44,7 @@ The plugin can be configured in the [**semantic-release** configuration file](ht
 ```
 
 With this example:
-- the commits that contains `BREAKING CHANGE`, `BREAKING CHANGES` or `BREAKING` in their body will be considered breaking changes (by default the [angular preset](https://github.com/conventional-changelog/conventional-changelog/blob/master/packages/conventional-changelog-angular/index.js#L14) checks only for `BREAKING CHANGE` and `BREAKING CHANGES`)
+- the commits that contains `BREAKING CHANGE` or `BREAKING CHANGES` in their body will be considered breaking changes (by default the [angular preset](https://github.com/conventional-changelog/conventional-changelog/blob/master/packages/conventional-changelog-angular/index.js#L14) checks only for `BREAKING CHANGE`)
 - the commits with a 'docs' `type`, a 'README' `scope` will be associated with a `patch` release
 - the commits with a 'refactor' `type` will be associated with a `patch` release
 - the commits with a 'style' `type` will be associated with a `patch` release
