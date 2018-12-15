@@ -36,7 +36,7 @@
     "cz-conventional-changelog": "^2.0.0",
     "nyc": "^12.0.1",
     "rimraf": "^2.6.1",
-    "semantic-release": "^15.0.0",
+    "semantic-release": "^16.0.0-beta",
     "sinon": "^6.0.0",
     "xo": "^0.23.0"
   },
@@ -80,8 +80,7 @@
     "trailingComma": "es5"
   },
   "publishConfig": {
-    "access": "public",
-    "tag": "next"
+    "access": "public"
   },
   "repository": {
     "type": "git",
