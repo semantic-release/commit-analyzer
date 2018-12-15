@@ -25,7 +25,7 @@
     "micromatch": "^3.1.10"
   },
   "devDependencies": {
-    "ava": "^0.25.0",
+    "ava": "^1.0.1",
     "codecov": "^3.0.0",
     "commitizen": "^3.0.0",
     "conventional-changelog-atom": "^2.0.0",
