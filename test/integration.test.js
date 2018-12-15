@@ -217,20 +217,18 @@ test('Use default "releaseRules" if none of provided match', async t => {
 });
 
 test('Throw error if "preset" doesn`t exist', async t => {
-  const error = await t.throws(analyzeCommits({preset: 'unknown-preset'}, {cwd}));
-
-  t.is(error.code, 'MODULE_NOT_FOUND');
+  await t.throwsAsync(analyzeCommits({preset: 'unknown-preset'}, {cwd}), {code: 'MODULE_NOT_FOUND'});
 });
 
 test('Throw error if "releaseRules" is not an Array or a String', async t => {
-  await t.throws(
+  await t.throwsAsync(
     analyzeCommits({releaseRules: {}}, {cwd}),
     /Error in commit-analyzer configuration: "releaseRules" must be an array of rules/
   );
 });
 
 test('Throw error if "releaseRules" option reference a requierable module that is not an Array or a String', async t => {
-  await t.throws(
+  await t.throwsAsync(
     analyzeCommits({releaseRules: './test/fixtures/release-rules-invalid'}, {cwd}),
     /Error in commit-analyzer configuration: "releaseRules" must be an array of rules/
   );
@@ -238,13 +236,13 @@ test('Throw error if "releaseRules" option reference a requierable module that i
 
 test('Throw error if "config" doesn`t exist', async t => {
   const commits = [{message: 'Fix: First fix (fixes #123)'}, {message: 'Update: Second feature (fixes #456)'}];
-  const error = await t.throws(analyzeCommits({config: 'unknown-config'}, {cwd, commits, logger: t.context.logger}));
-
-  t.is(error.code, 'MODULE_NOT_FOUND');
+  await t.throwsAsync(analyzeCommits({config: 'unknown-config'}, {cwd, commits, logger: t.context.logger}), {
+    code: 'MODULE_NOT_FOUND',
+  });
 });
 
 test('Throw error if "releaseRules" reference invalid commit type', async t => {
-  await t.throws(
+  await t.throwsAsync(
     analyzeCommits({preset: 'eslint', releaseRules: [{tag: 'Update', release: 'invalid'}]}, {cwd}),
     /Error in commit-analyzer configuration: "invalid" is not a valid release type\. Valid values are:\[?.*\]/
   );
@@ -252,5 +250,5 @@ test('Throw error if "releaseRules" reference invalid commit type', async t => {
 
 test('Re-Throw error from "conventional-changelog-parser"', async t => {
   const commits = [{message: 'Fix: First fix (fixes #123)'}, {message: 'Update: Second feature (fixes #456)'}];
-  await t.throws(analyzeCommits({parserOpts: {headerPattern: '\\'}}, {cwd, commits, logger: t.context.logger}));
+  await t.throwsAsync(analyzeCommits({parserOpts: {headerPattern: '\\'}}, {cwd, commits, logger: t.context.logger}));
 });
