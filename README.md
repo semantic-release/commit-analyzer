@@ -130,7 +130,7 @@ With the previous example the release type determined by the plugin will be `min
 
 ##### Specific commit properties
 
-The properties to set in the rules will depends on the commit style chosen. For example [conventional-changelog-angular](https://github.com/conventional-changelog/conventional-changelog/blob/master/packages/conventional-changelog-angular/index.js#L9-L13) use the commit properties `type`, `scope` and `subject` but [conventional-changelog-eslint](https://github.com/conventional-changelog/conventional-changelog/blob/master/packages/conventional-changelog-eslint/index.js#L9-L12) uses `tag` and `message`.
+The properties to set in the rules will depends on the commit style chosen. For example [conventional-changelog-angular](https://github.com/conventional-changelog/conventional-changelog/blob/master/packages/conventional-changelog-angular) use the commit properties `type`, `scope` and `subject` but [conventional-changelog-eslint](https://github.com/conventional-changelog/conventional-changelog/blob/master/packages/conventional-changelog-eslint) uses `tag` and `message`.
 
 For example with `eslint` preset:
 ```json
@@ -140,7 +140,7 @@ For example with `eslint` preset:
       "preset": "eslint",
       "releaseRules": [
         {"tag": "Docs", "message":"/README/", "release": "patch"},
-        {"type": "New", "release": "patch"}
+        {"tag": "New", "release": "patch"}
       ]
     }],
     "@semantic-release/release-notes-generator"
