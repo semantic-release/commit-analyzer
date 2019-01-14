@@ -42,6 +42,7 @@ async function analyzeCommits(pluginConfig, context) {
         logger.log('The release type for the commit is %s', commitReleaseType);
       }
     }
+
     // If no custom releaseRules or none matched the commit, try with default releaseRules
     if (!commitReleaseType) {
       debug('Analyzing with default rules');
@@ -52,6 +53,7 @@ async function analyzeCommits(pluginConfig, context) {
         logger.log('The commit should not trigger a release');
       }
     }
+
     // Set releaseType if commit's release type is higher
     if (commitReleaseType && compareReleaseTypes(releaseType, commitReleaseType)) {
       releaseType = commitReleaseType;
@@ -61,6 +63,7 @@ async function analyzeCommits(pluginConfig, context) {
     if (releaseType === RELEASE_TYPES[0]) {
       return false;
     }
+
     return true;
   });
   logger.log('Analysis of %s commits complete: %s release', commits.length, releaseType || 'no');
