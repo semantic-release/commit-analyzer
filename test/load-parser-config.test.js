@@ -13,6 +13,7 @@ const cwd = process.cwd();
 async function loadPreset(t, preset) {
   t.truthy((await loadParserConfig({preset}, {cwd})).headerPattern);
 }
+
 loadPreset.title = (providedTitle, preset) => `${providedTitle} Load "${preset}" preset`.trim();
 
 /**
@@ -25,6 +26,7 @@ loadPreset.title = (providedTitle, preset) => `${providedTitle} Load "${preset}"
 async function loadConfig(t, config) {
   t.truthy((await loadParserConfig({config: `conventional-changelog-${config}`}, {cwd})).headerPattern);
 }
+
 loadConfig.title = (providedTitle, config) => `${providedTitle} Load "${config}" config`.trim();
 
 test('Load "conventional-changelog-angular" by default', async t => {
