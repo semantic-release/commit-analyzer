@@ -162,7 +162,7 @@ With this configuration:
 ```json
 {
   "plugins": [
-    ["semantic-release/commit-analyzer", {
+    ["@semantic-release/commit-analyzer", {
       "preset": "angular",
       "releaseRules": "./config/release-rules.js"
     }],
