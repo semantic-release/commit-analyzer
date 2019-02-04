@@ -76,7 +76,7 @@ This is an `Array` of rule objects. A rule object has a `release` property and 1
 ```json
 {
   "plugins": [
-    ["semantic-release/commit-analyzer", {
+    ["@semantic-release/commit-analyzer", {
       "preset": "angular",
       "releaseRules": [
         {"type": "docs", "scope": "README", "release": "patch"},
@@ -137,7 +137,7 @@ For example with `eslint` preset:
 ```json
 {
   "plugins": [
-    ["semantic-release/commit-analyzer", {
+    ["@semantic-release/commit-analyzer", {
       "preset": "eslint",
       "releaseRules": [
         {"tag": "Docs", "message":"*README*", "release": "patch"},
