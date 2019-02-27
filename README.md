@@ -44,10 +44,12 @@ The plugin can be configured in the [**semantic-release** configuration file](ht
 ```
 
 With this example:
-- the commits that contains `BREAKING CHANGE` or `BREAKING CHANGES` in their body will be considered breaking changes (by default the [angular preset](https://github.com/conventional-changelog/conventional-changelog/blob/master/packages/conventional-changelog-angular/index.js#L14) checks only for `BREAKING CHANGE`)
+- the commits that contains `BREAKING CHANGE` or `BREAKING CHANGES` in their body will be considered breaking changes.
 - the commits with a 'docs' `type`, a 'README' `scope` will be associated with a `patch` release
 - the commits with a 'refactor' `type` will be associated with a `patch` release
 - the commits with a 'style' `type` will be associated with a `patch` release
+
+**Note**: Your commits must be formatted **exactly** as specified by the chosen convention. For example the [Angular Commit Message Conventions](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines) require the `BREAKING CHANGE` keyword to be followed by a colon (`:`) and to be in the **footer** of the commit message.
 
 ## Configuration
 
