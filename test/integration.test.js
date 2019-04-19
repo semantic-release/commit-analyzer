@@ -252,3 +252,19 @@ test('Re-Throw error from "conventional-changelog-parser"', async t => {
   const commits = [{message: 'Fix: First fix (fixes #123)'}, {message: 'Update: Second feature (fixes #456)'}];
   await t.throwsAsync(analyzeCommits({parserOpts: {headerPattern: '\\'}}, {cwd, commits, logger: t.context.logger}));
 });
+
+test('Does not use default "releaseRules" if "useDefaultReleaseRules" is false', async t => {
+  const commits = [{message: 'fix: First fix'}, {message: 'chore(README): Add stuff'}];
+
+  const releaseType = await analyzeCommits(
+    {preset: 'angular', useDefaultReleaseRules: false, releaseRules: [{scope: 'README', release: 'patch'}]},
+    {cwd, commits, logger: t.context.logger}
+  );
+
+  t.is(releaseType, 'patch');
+  t.true(t.context.log.getCall(0).calledWith('Analyzing commit: %s', commits[0].message));
+  t.true(t.context.log.getCall(1).calledWith('The commit should not trigger a release'));
+  t.true(t.context.log.getCall(2).calledWith('Analyzing commit: %s', commits[1].message));
+  t.true(t.context.log.getCall(3).calledWith('The release type for the commit is %s', 'patch'));
+  t.true(t.context.log.getCall(4).calledWith('Analysis of %s commits complete: %s release', 2, 'patch'));
+});

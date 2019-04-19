@@ -15,6 +15,7 @@ const DEFAULT_RELEASE_RULES = require('./lib/default-release-rules');
  * @param {String} pluginConfig.preset conventional-changelog preset ('angular', 'atom', 'codemirror', 'ember', 'eslint', 'express', 'jquery', 'jscs', 'jshint')
  * @param {String} pluginConfig.config Requierable npm package with a custom conventional-changelog preset
  * @param {String|Array} pluginConfig.releaseRules A `String` to load an external module or an `Array` of rules.
+ * @param {Boolean} [pluginConfig.useDefaultReleaseRules=true] Determines if default release rules should be used
  * @param {Object} pluginConfig.parserOpts Additional `conventional-changelog-parser` options that will overwrite ones loaded by `preset` or `config`.
  * @param {Object} context The semantic-release context.
  * @param {Array<Object>} context.commits The commits to analyze.
@@ -29,7 +30,12 @@ async function analyzeCommits(pluginConfig, context) {
   let releaseType = null;
 
   filter(
-    commits.map(({message, ...commitProps}) => ({rawMsg: message, message, ...commitProps, ...parser(message, config)}))
+    commits.map(({message, ...commitProps}) => ({
+      rawMsg: message,
+      message,
+      ...commitProps,
+      ...parser(message, config),
+    }))
   ).every(({rawMsg, ...commit}) => {
     logger.log(`Analyzing commit: %s`, rawMsg);
     let commitReleaseType;
@@ -38,20 +44,18 @@ async function analyzeCommits(pluginConfig, context) {
     if (releaseRules) {
       debug('Analyzing with custom rules');
       commitReleaseType = analyzeCommit(releaseRules, commit);
-      if (commitReleaseType) {
-        logger.log('The release type for the commit is %s', commitReleaseType);
-      }
     }
 
     // If no custom releaseRules or none matched the commit, try with default releaseRules
-    if (!commitReleaseType) {
+    if (!commitReleaseType && pluginConfig.useDefaultReleaseRules !== false) {
       debug('Analyzing with default rules');
       commitReleaseType = analyzeCommit(DEFAULT_RELEASE_RULES, commit);
-      if (commitReleaseType) {
-        logger.log('The release type for the commit is %s', commitReleaseType);
-      } else {
-        logger.log('The commit should not trigger a release');
-      }
+    }
+
+    if (commitReleaseType) {
+      logger.log('The release type for the commit is %s', commitReleaseType);
+    } else {
+      logger.log('The commit should not trigger a release');
     }
 
     // Set releaseType if commit's release type is higher
