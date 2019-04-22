@@ -1,7 +1,7 @@
 {
-  "name": "@condenast/commit-analyzer",
+  "name": "@semantic-release/commit-analyzer",
   "description": "semantic-release plugin to analyze commits with conventional-changelog",
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "author": "Pierre Vanduynslager (https://twitter.com/@pvdlg_)",
   "bugs": {
     "url": "https://github.com/semantic-release/commit-analyzer/issues"
@@ -90,7 +90,7 @@
     "cm": "git-cz",
     "codecov": "codecov -f coverage/coverage-final.json",
     "lint": "xo",
-    "posttest": "npm run lint",
+    "pretest": "npm run lint",
     "semantic-release": "semantic-release",
     "test": "nyc ava -v"
   },
