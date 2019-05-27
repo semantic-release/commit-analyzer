@@ -32,7 +32,7 @@ test('Throw error if "releaseRules" reference invalid commit type', t => {
 test('Throw error if a rule in "releaseRules" does not have a release type', t => {
   t.throws(
     () => loadReleaseRules({releaseRules: [{tag: 'Update'}]}, {cwd}),
-    /Error in commit-analyzer configuration: rules must be an object with a "release" property/
+    /Error in commit-analyzer configuration: rules must be an object with a valid "release" property/
   );
 });
 
@@ -53,6 +53,6 @@ test('Throw error if "releaseRules" option reference a requierable module that i
 test('Throw error if "releaseRules" contains an undefined rule', t => {
   t.throws(
     () => loadReleaseRules({releaseRules: [{type: 'feat', release: 'minor'}, undefined]}, {cwd}),
-    /Error in commit-analyzer configuration: rules must be an object with a "release" property/
+    /Error in commit-analyzer configuration: rules must be an object with a valid "release" property/
   );
 });

@@ -101,6 +101,20 @@ With the previous example:
 - Commits with `type` 'refactor' and `scope` starting with 'core-' (i.e. 'core-ui', 'core-rules', ...) will be associated with a `minor` release.
 - Other commits with `type` 'refactor' (without `scope` or with a `scope` not matching the regexp `/core-.*/`) will be associated with a `patch` release.
 
+##### Skipping release
+
+It is possible to use a `releaseRules` rule to skip releases of matching commits by setting the option `release: false`. For example, the following rule will skip releasing commits with the scope `norelease`:
+
+```json
+{
+  "releaseRules": [
+      {"scope": "norelease", "release": false}
+    ]
+}
+```
+
+The `false` release type is always the lowest release type, so if another commit matches some other rule, a release will still be created.
+
 ##### Default rules matching
 
 If a commit doesn't match any rule in `releaseRules` it will be evaluated against the [default release rules](lib/default-release-rules.js).

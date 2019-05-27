@@ -36,15 +36,16 @@ async function analyzeCommits(pluginConfig, context) {
 
     // Determine release type based on custom releaseRules
     if (releaseRules) {
-      debug('Analyzing with custom rules');
       commitReleaseType = analyzeCommit(releaseRules, commit);
-      if (commitReleaseType) {
+      if (RELEASE_TYPES.indexOf(commitReleaseType) > 0) {
         logger.log('The release type for the commit is %s', commitReleaseType);
+      } else if (commitReleaseType === false) {
+        logger.log('The commit should not trigger a release');
       }
     }
 
     // If no custom releaseRules or none matched the commit, try with default releaseRules
-    if (!commitReleaseType) {
+    if (typeof commitReleaseType === 'undefined') {
       debug('Analyzing with default rules');
       commitReleaseType = analyzeCommit(DEFAULT_RELEASE_RULES, commit);
       if (commitReleaseType) {

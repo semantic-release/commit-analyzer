@@ -168,6 +168,49 @@ test('Return "null" if no rule match', async t => {
   t.true(t.context.log.calledWith('Analysis of %s commits complete: %s release', 2, 'no'));
 });
 
+test("Return false when only matching rule's release type is false", async t => {
+  const commits = [{message: 'Feat: commit message test'}];
+  const releaseType = await analyzeCommits(
+    {preset: 'eslint', releaseRules: [{tag: 'Feat', release: false}]},
+    {cwd, commits, logger: t.context.logger}
+  );
+
+  t.is(releaseType, null);
+  t.true(t.context.log.calledWith('Analyzing commit: %s', commits[0].message));
+  t.true(t.context.log.calledWith('The commit should not trigger a release'));
+  t.true(t.context.log.calledWith('Analysis of %s commits complete: %s release', 1, 'no'));
+});
+
+test('False release type is less important than other releasing custom rules', async t => {
+  const commits = [{message: 'Feat(skip): commit message test'}, {message: 'Chore: commit message test 2'}];
+  const releaseType = await analyzeCommits(
+    {preset: 'eslint', releaseRules: [{scope: 'skip', release: false}, {tag: 'Chore', release: 'patch'}]},
+    {cwd, commits, logger: t.context.logger}
+  );
+
+  t.is(releaseType, 'patch');
+  t.true(t.context.log.calledWith('Analyzing commit: %s', commits[0].message));
+  t.true(t.context.log.calledWith('The commit should not trigger a release'));
+  t.true(t.context.log.calledWith('Analyzing commit: %s', commits[1].message));
+  t.true(t.context.log.calledWith('The release type for the commit is %s', 'patch'));
+  t.true(t.context.log.calledWith('Analysis of %s commits complete: %s release', 2, 'patch'));
+});
+
+test('False release type is less important than other releasing default rules', async t => {
+  const commits = [{message: 'Feat: commit message test'}, {message: 'Fix: commit message test 2'}];
+  const releaseType = await analyzeCommits(
+    {preset: 'eslint', releaseRules: [{tag: 'Feat', release: false}]},
+    {cwd, commits, logger: t.context.logger}
+  );
+
+  t.is(releaseType, 'patch');
+  t.true(t.context.log.calledWith('Analyzing commit: %s', commits[0].message));
+  t.true(t.context.log.calledWith('The commit should not trigger a release'));
+  t.true(t.context.log.calledWith('Analyzing commit: %s', commits[1].message));
+  t.true(t.context.log.calledWith('The release type for the commit is %s', 'patch'));
+  t.true(t.context.log.calledWith('Analysis of %s commits complete: %s release', 2, 'patch'));
+});
+
 test('Process rules in order and apply highest match', async t => {
   const commits = [{message: 'Chore: First chore (fixes #123)'}, {message: 'Docs: update README (fixes #456)'}];
   const releaseType = await analyzeCommits(

@@ -10,4 +10,8 @@ test('Compares release types', t => {
   t.false(compareReleaseTypes('major', 'minor'));
   t.false(compareReleaseTypes('major', 'patch'));
   t.false(compareReleaseTypes('minor', 'patch'));
+
+  t.true(compareReleaseTypes('major', false));
+  t.true(compareReleaseTypes('minor', false));
+  t.true(compareReleaseTypes('patch', false));
 });
