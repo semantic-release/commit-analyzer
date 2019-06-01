@@ -3,6 +3,14 @@
   "description": "semantic-release plugin to analyze commits with conventional-changelog",
   "version": "0.0.0-development",
   "author": "Pierre Vanduynslager (https://twitter.com/@pvdlg_)",
+  "ava": {
+    "files": [
+      "test/**/*.test.js"
+    ],
+    "helpers": [
+      "test/helpers/**/*"
+    ]
+  },
   "bugs": {
     "url": "https://github.com/semantic-release/commit-analyzer/issues"
   },
@@ -24,7 +32,7 @@
     "lodash": "^4.17.4"
   },
   "devDependencies": {
-    "ava": "^1.0.1",
+    "ava": "^2.0.0",
     "codecov": "^3.0.0",
     "commitizen": "^3.0.0",
     "conventional-changelog-atom": "^2.0.0",
