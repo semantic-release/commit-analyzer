@@ -3,6 +3,14 @@
   "description": "semantic-release plugin to analyze commits with conventional-changelog",
   "version": "0.0.0-development",
   "author": "Pierre Vanduynslager (https://twitter.com/@pvdlg_)",
+  "ava": {
+    "files": [
+      "test/**/*.test.js"
+    ],
+    "helpers": [
+      "test/helpers/**/*"
+    ]
+  },
   "bugs": {
     "url": "https://github.com/semantic-release/commit-analyzer/issues"
   },
@@ -20,11 +28,11 @@
     "conventional-commits-filter": "^2.0.0",
     "conventional-commits-parser": "^3.0.0",
     "debug": "^4.0.0",
-    "import-from": "^2.1.0",
+    "import-from": "^3.0.0",
     "lodash": "^4.17.4"
   },
   "devDependencies": {
-    "ava": "^1.0.1",
+    "ava": "^2.0.0",
     "codecov": "^3.0.0",
     "commitizen": "^3.0.0",
     "conventional-changelog-atom": "^2.0.0",
@@ -33,7 +41,7 @@
     "conventional-changelog-express": "^2.0.0",
     "conventional-changelog-jshint": "^2.0.0",
     "cz-conventional-changelog": "^2.0.0",
-    "nyc": "^13.1.0",
+    "nyc": "^14.0.0",
     "rimraf": "^2.6.1",
     "semantic-release": "^15.0.0",
     "sinon": "^7.1.1",
