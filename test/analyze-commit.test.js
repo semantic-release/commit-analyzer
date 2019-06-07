@@ -98,3 +98,15 @@ test('Return highest release type if multiple rules match', t => {
     'major'
   );
 });
+
+test('Return "false" for release type if the matching rule has "release" set to "false"', t => {
+  const commit = {type: 'fix'};
+
+  t.is(analyzeCommit([{type: 'fix', release: false}], commit), false);
+});
+
+test('Return "null" for release type if the matching rule has "release" set to "null"', t => {
+  const commit = {type: 'fix'};
+
+  t.is(analyzeCommit([{type: 'fix', release: null}], commit), null);
+});

@@ -201,6 +201,51 @@ test('Process rules in order and apply highest match from config even if default
   t.true(t.context.log.calledWith('Analysis of %s commits complete: %s release', 2, 'minor'));
 });
 
+test('Allow to overwrite default "releaseRules" with "false"', async t => {
+  const commits = [{message: 'chore: First chore'}, {message: 'feat: new feature'}];
+  const releaseType = await analyzeCommits(
+    {preset: 'angular', releaseRules: [{type: 'feat', release: false}]},
+    {cwd, commits, logger: t.context.logger}
+  );
+
+  t.is(releaseType, null);
+  t.true(t.context.log.calledWith('Analyzing commit: %s', commits[0].message));
+  t.true(t.context.log.calledWith('The commit should not trigger a release'));
+  t.true(t.context.log.calledWith('Analyzing commit: %s', commits[1].message));
+  t.true(t.context.log.calledWith('The commit should not trigger a release'));
+  t.true(t.context.log.calledWith('Analysis of %s commits complete: %s release', 2, 'no'));
+});
+
+test('Commits with an associated custom release type have higher priority than commits with release "false"', async t => {
+  const commits = [{message: 'feat: Feature to skip'}, {message: 'docs: update README'}];
+  const releaseType = await analyzeCommits(
+    {preset: 'angular', releaseRules: [{type: 'feat', release: false}, {type: 'docs', release: 'patch'}]},
+    {cwd, commits, logger: t.context.logger}
+  );
+
+  t.is(releaseType, 'patch');
+  t.true(t.context.log.calledWith('Analyzing commit: %s', commits[0].message));
+  t.true(t.context.log.calledWith('The commit should not trigger a release'));
+  t.true(t.context.log.calledWith('Analyzing commit: %s', commits[1].message));
+  t.true(t.context.log.calledWith('The release type for the commit is %s', 'patch'));
+  t.true(t.context.log.calledWith('Analysis of %s commits complete: %s release', 2, 'patch'));
+});
+
+test('Commits with an associated default release type have higher priority than commits with release "false"', async t => {
+  const commits = [{message: 'feat: new feature'}, {message: 'fix: new Fix'}];
+  const releaseType = await analyzeCommits(
+    {preset: 'angular', releaseRules: [{type: 'feat', release: false}]},
+    {cwd, commits, logger: t.context.logger}
+  );
+
+  t.is(releaseType, 'patch');
+  t.true(t.context.log.calledWith('Analyzing commit: %s', commits[0].message));
+  t.true(t.context.log.calledWith('The commit should not trigger a release'));
+  t.true(t.context.log.calledWith('Analyzing commit: %s', commits[1].message));
+  t.true(t.context.log.calledWith('The release type for the commit is %s', 'patch'));
+  t.true(t.context.log.calledWith('Analysis of %s commits complete: %s release', 2, 'patch'));
+});
+
 test('Use default "releaseRules" if none of provided match', async t => {
   const commits = [{message: 'Chore: First chore'}, {message: 'Update: new feature'}];
   const releaseType = await analyzeCommits(

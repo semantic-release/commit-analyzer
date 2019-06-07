@@ -1,3 +1,4 @@
+const {isUndefined} = require('lodash');
 const parser = require('conventional-commits-parser').sync;
 const filter = require('conventional-commits-filter');
 const debug = require('debug')('semantic-release:commit-analyzer');
@@ -38,20 +39,18 @@ async function analyzeCommits(pluginConfig, context) {
     if (releaseRules) {
       debug('Analyzing with custom rules');
       commitReleaseType = analyzeCommit(releaseRules, commit);
-      if (commitReleaseType) {
-        logger.log('The release type for the commit is %s', commitReleaseType);
-      }
     }
 
     // If no custom releaseRules or none matched the commit, try with default releaseRules
-    if (!commitReleaseType) {
+    if (isUndefined(commitReleaseType)) {
       debug('Analyzing with default rules');
       commitReleaseType = analyzeCommit(DEFAULT_RELEASE_RULES, commit);
-      if (commitReleaseType) {
-        logger.log('The release type for the commit is %s', commitReleaseType);
-      } else {
-        logger.log('The commit should not trigger a release');
-      }
+    }
+
+    if (commitReleaseType) {
+      logger.log('The release type for the commit is %s', commitReleaseType);
+    } else {
+      logger.log('The commit should not trigger a release');
     }
 
     // Set releaseType if commit's release type is higher
