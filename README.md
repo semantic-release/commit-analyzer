@@ -156,7 +156,6 @@ With this configuration:
 - Commits with `tag` 'Breaking' will be associated with a `major` release (per [default release rules](lib/default-release-rules.js)).
 - Commits with `tag` 'Fix' will be associated with a `patch` release (per [default release rules](lib/default-release-rules.js)).
 - Commits with `tag` 'Update' will be associated with a `minor` release (per [default release rules](lib/default-release-rules.js)).
-- Commits with `tag` 'New' will be associated with a `minor` release (per [default release rules](lib/default-release-rules.js)).
 - All other commits will not be associated with a release type.
 
 ##### External package / file
