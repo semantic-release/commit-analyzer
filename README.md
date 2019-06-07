@@ -83,7 +83,8 @@ This is an `Array` of rule objects. A rule object has a `release` property and 1
       "releaseRules": [
         {"type": "docs", "scope": "README", "release": "patch"},
         {"type": "refactor", "scope": "core-*", "release": "minor"},
-        {"type": "refactor", "release": "patch"}
+        {"type": "refactor", "release": "patch"},
+        {"scope": "no-release", "release": false}
       ]
     }],
     "@semantic-release/release-notes-generator"
@@ -101,6 +102,7 @@ With the previous example:
 - Commits with `type` 'docs' and `scope` 'README' will be associated with a `patch` release.
 - Commits with `type` 'refactor' and `scope` starting with 'core-' (i.e. 'core-ui', 'core-rules', ...) will be associated with a `minor` release.
 - Other commits with `type` 'refactor' (without `scope` or with a `scope` not matching the glob `core-*`) will be associated with a `patch` release.
+- Commits with scope `no-release` will not be associated with a release type.
 
 ##### Default rules matching
 
@@ -111,6 +113,7 @@ With the previous example:
 - Commits with `type` 'feat' will be associated with a `minor` release.
 - Commits with `type` 'fix' will be associated with a `patch` release.
 - Commits with `type` 'perf' will be associated with a `patch` release.
+- Commits with scope `no-release` will not be associated with a release type even if they have a breaking change or the `type` 'feat', 'fix' or 'perf'.
 
 ##### No rules matching
 
