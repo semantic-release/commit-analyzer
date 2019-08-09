@@ -9,9 +9,10 @@ const cwd = process.cwd();
  * @method loadPreset
  * @param {Object} t AVA assertion library.
  * @param {[type]} preset the `conventional-changelog` preset to test.
+ * @param {Object} pluginOptions The plugin configuration.
  */
-async function loadPreset(t, preset) {
-  t.truthy((await loadParserConfig({preset}, {cwd})).headerPattern);
+async function loadPreset(t, preset, pluginOptions) {
+  t.truthy((await loadParserConfig({...pluginOptions, preset}, {cwd})).headerPattern);
 }
 
 loadPreset.title = (providedTitle, preset) => `${providedTitle} Load "${preset}" preset`.trim();
@@ -22,9 +23,12 @@ loadPreset.title = (providedTitle, preset) => `${providedTitle} Load "${preset}"
  * @method loadPreset
  * @param {Object} t AVA assertion library.
  * @param {[type]} config the `conventional-changelog` config to test.
+ * @param {Object} pluginOptions The plugin configuration.
  */
-async function loadConfig(t, config) {
-  t.truthy((await loadParserConfig({config: `conventional-changelog-${config}`}, {cwd})).headerPattern);
+async function loadConfig(t, config, pluginOptions) {
+  t.truthy(
+    (await loadParserConfig({...pluginOptions, config: `conventional-changelog-${config}`}, {cwd})).headerPattern
+  );
 }
 
 loadConfig.title = (providedTitle, config) => `${providedTitle} Load "${config}" config`.trim();
@@ -39,7 +43,6 @@ test('Accept a "parserOpts" object as option', async t => {
 
   t.is(customParserOpts.headerPattern, parserOpts.headerPattern);
   t.deepEqual(customParserOpts.headerCorrespondence, parserOpts.headerCorrespondence);
-  t.falsy(parserOpts.noteKeywords);
 });
 
 test('Accept a partial "parserOpts" object as option that overlaod a preset', async t => {
@@ -75,6 +78,8 @@ test(loadPreset, 'express');
 test(loadConfig, 'express');
 test(loadPreset, 'jshint');
 test(loadConfig, 'jshint');
+test(loadPreset, 'conventionalcommits', {presetConfig: {}});
+test(loadConfig, 'conventionalcommits', {presetConfig: {}});
 
 test('Throw error if "config" doesn`t exist', async t => {
   await t.throwsAsync(loadParserConfig({config: 'unknown-config'}, {cwd}), {code: 'MODULE_NOT_FOUND'});
