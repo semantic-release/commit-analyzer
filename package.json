@@ -36,6 +36,7 @@
     "codecov": "^3.0.0",
     "commitizen": "^4.0.0",
     "conventional-changelog-atom": "^2.0.0",
+    "conventional-changelog-conventionalcommits": "^4.1.0",
     "conventional-changelog-ember": "^2.0.0",
     "conventional-changelog-eslint": "^3.0.0",
     "conventional-changelog-express": "^2.0.0",
