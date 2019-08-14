@@ -64,20 +64,28 @@ test('Return undefined if there is no match', t => {
 
 test('Match with regex', t => {
   const rules = [{type: 'docs', scope: /test\(.*\)/, release: 'minor'}];
+  const rulesWithRegexFlags = [{type: 'docs', scope: /test\(.*\)/i, release: 'minor'}];
   const match = {type: 'docs', scope: 'test(readme): message'};
   const notMatch = {type: 'docs', scope: 'test2(readme): message'};
 
   t.is(analyzeCommit(rules, match), 'minor');
   t.is(analyzeCommit(rules, notMatch), undefined);
+
+  t.is(analyzeCommit(rulesWithRegexFlags, match), 'minor');
+  t.is(analyzeCommit(rulesWithRegexFlags, notMatch), undefined);
 });
 
 test('Match with regex as string', t => {
   const rules = [{type: 'docs', scope: '/test\\(.*\\)/', release: 'minor'}];
+  const rulesWithRegexFlags = [{type: 'docs', scope: '/test\\(.*\\)/i', release: 'minor'}];
   const match = {type: 'docs', scope: 'test(readme): message'};
   const notMatch = {type: 'docs', scope: 'test2(readme): message'};
 
   t.is(analyzeCommit(rules, match), 'minor');
   t.is(analyzeCommit(rules, notMatch), undefined);
+
+  t.is(analyzeCommit(rulesWithRegexFlags, match), 'minor');
+  t.is(analyzeCommit(rulesWithRegexFlags, notMatch), undefined);
 });
 
 test('Return highest release type if multiple rules match', t => {
