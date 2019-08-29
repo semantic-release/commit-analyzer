@@ -1,5 +1,5 @@
 {
-  "name": "@semantic-release/commit-analyzer",
+  "name": "@clearcover/commit-analyzer",
   "description": "semantic-release plugin to analyze commits with conventional-changelog",
   "version": "1.0.0",
   "author": "Pierre Vanduynslager (https://twitter.com/@pvdlg_)",
