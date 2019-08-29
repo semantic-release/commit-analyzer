@@ -59,7 +59,8 @@ async function analyzeCommits(pluginConfig, context) {
     if (commitReleaseType) {
       logger.log('The release type for the commit is %s', commitReleaseType);
     } else {
-      logger.log('The commit should not trigger a release');
+      commitReleaseType = 'patch'
+      logger.log('The release type could not be determined from commit messages. Falling back to a patch release.');
     }
 
     // Set releaseType if commit's release type is higher

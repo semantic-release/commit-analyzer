@@ -1,5 +1,10 @@
 # **commit-analyzer**
 
+---
+Forked by Clearcover to add the following behaviour:
+  * If there are commits by the logs do not match any predefined style, fall back to performing a patch release.
+---
+
 [**semantic-release**](https://github.com/semantic-release/semantic-release) plugin to analyze commits with [conventional-changelog](https://github.com/conventional-changelog/conventional-changelog)
 
 [![Build Status](https://github.com/semantic-release/commit-analyzer/workflows/Test/badge.svg)](https://github.com/semantic-release/commit-analyzer/actions?query=workflow%3ATest+branch%3Amaster) [![npm latest version](https://img.shields.io/npm/v/@semantic-release/commit-analyzer/latest.svg)](https://www.npmjs.com/package/@semantic-release/commit-analyzer)
