@@ -30,7 +30,16 @@ async function analyzeCommits(pluginConfig, context) {
   let releaseType = null;
 
   filter(
-    commits.map(({message, ...commitProps}) => ({rawMsg: message, message, ...commitProps, ...parser(message, config)}))
+    commits
+      .filter(({message, hash}) => {
+        if (!message.trim()) {
+          debug('Skip commit %s with empty message', hash);
+          return false;
+        }
+
+        return true;
+      })
+      .map(({message, ...commitProps}) => ({rawMsg: message, message, ...commitProps, ...parser(message, config)}))
   ).every(({rawMsg, ...commit}) => {
     logger.log(`Analyzing commit: %s`, rawMsg);
     let commitReleaseType;
