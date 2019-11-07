@@ -144,6 +144,18 @@ test('Return "major" if there is a breaking change, using default releaseRules',
   t.true(t.context.log.calledWith('Analysis of %s commits complete: %s release', 2, 'major'));
 });
 
+test('Return "major" if there is a "conventionalcommits" breaking change, using default releaseRules', async t => {
+  const commits = [{hash: '123', message: 'fix: First fix'}, {hash: '456', message: 'feat!: Breaking change feature'}];
+  const releaseType = await analyzeCommits({preset: 'conventionalcommits'}, {cwd, commits, logger: t.context.logger});
+
+  t.is(releaseType, 'major');
+  t.true(t.context.log.calledWith('Analyzing commit: %s', commits[0].message));
+  t.true(t.context.log.calledWith('The release type for the commit is %s', 'patch'));
+  t.true(t.context.log.calledWith('Analyzing commit: %s', commits[1].message));
+  t.true(t.context.log.calledWith('The release type for the commit is %s', 'major'));
+  t.true(t.context.log.calledWith('Analysis of %s commits complete: %s release', 2, 'major'));
+});
+
 test('Return "patch" if there is only types set to "patch", using default releaseRules', async t => {
   const commits = [
     {hash: '123', message: 'fix: First fix (fixes #123)'},
