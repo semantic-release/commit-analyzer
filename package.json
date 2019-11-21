@@ -21,7 +21,7 @@
   "dependencies": {
     "conventional-changelog-angular": "^5.0.0",
     "conventional-commits-filter": "^2.0.0",
-    "conventional-commits-parser": "^3.0.0",
+    "conventional-commits-parser": "^3.0.7",
     "debug": "^4.0.0",
     "import-from": "^3.0.0",
     "lodash": "^4.17.4",
@@ -42,7 +42,7 @@
     "xo": "^0.25.0"
   },
   "engines": {
-    "node": ">=8.3"
+    "node": ">=8.16"
   },
   "files": [
     "lib",
