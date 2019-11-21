@@ -48,7 +48,13 @@ test('Match only if all criteria are verified', t => {
   };
 
   t.is(
-    analyzeCommit([{type: 'fix', release: 'minor'}, {type: 'fix', breaking: true, release: 'major'}], commit),
+    analyzeCommit(
+      [
+        {type: 'fix', release: 'minor'},
+        {type: 'fix', breaking: true, release: 'major'},
+      ],
+      commit
+    ),
     'major'
   );
 });
