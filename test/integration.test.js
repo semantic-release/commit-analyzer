@@ -145,7 +145,10 @@ test('Return "major" if there is a breaking change, using default releaseRules',
 });
 
 test('Return "major" if there is a "conventionalcommits" breaking change, using default releaseRules', async t => {
-  const commits = [{hash: '123', message: 'fix: First fix'}, {hash: '456', message: 'feat!: Breaking change feature'}];
+  const commits = [
+    {hash: '123', message: 'fix: First fix'},
+    {hash: '456', message: 'feat!: Breaking change feature'},
+  ];
   const releaseType = await analyzeCommits({preset: 'conventionalcommits'}, {cwd, commits, logger: t.context.logger});
 
   t.is(releaseType, 'major');
@@ -174,7 +177,13 @@ test('Return "patch" if there is only types set to "patch", using default releas
 test('Allow to use glob in "releaseRules" configuration', async t => {
   const commits = [{message: 'Chore: First chore (fixes #123)'}, {message: 'Docs: update README (fixes #456)'}];
   const releaseType = await analyzeCommits(
-    {preset: 'eslint', releaseRules: [{tag: 'Chore', release: 'patch'}, {message: '*README*', release: 'minor'}]},
+    {
+      preset: 'eslint',
+      releaseRules: [
+        {tag: 'Chore', release: 'patch'},
+        {message: '*README*', release: 'minor'},
+      ],
+    },
     {cwd, commits, logger: t.context.logger}
   );
 
@@ -187,7 +196,10 @@ test('Allow to use glob in "releaseRules" configuration', async t => {
 });
 
 test('Return "null" if no rule match', async t => {
-  const commits = [{hash: '123', message: 'doc: doc update'}, {hash: '456', message: 'chore: Chore'}];
+  const commits = [
+    {hash: '123', message: 'doc: doc update'},
+    {hash: '456', message: 'chore: Chore'},
+  ];
   const releaseType = await analyzeCommits({}, {cwd, commits, logger: t.context.logger});
 
   t.is(releaseType, null);
@@ -204,7 +216,13 @@ test('Process rules in order and apply highest match', async t => {
     {hash: '456', message: 'Docs: update README (fixes #456)'},
   ];
   const releaseType = await analyzeCommits(
-    {preset: 'eslint', releaseRules: [{tag: 'Chore', release: 'minor'}, {tag: 'Chore', release: 'patch'}]},
+    {
+      preset: 'eslint',
+      releaseRules: [
+        {tag: 'Chore', release: 'minor'},
+        {tag: 'Chore', release: 'patch'},
+      ],
+    },
     {cwd, commits, logger: t.context.logger}
   );
 
@@ -222,7 +240,13 @@ test('Process rules in order and apply highest match from config even if default
     {hash: '456', message: 'Docs: update README (fixes #456) \n\n BREAKING CHANGE: break something'},
   ];
   const releaseType = await analyzeCommits(
-    {preset: 'eslint', releaseRules: [{tag: 'Chore', release: 'patch'}, {breaking: true, release: 'minor'}]},
+    {
+      preset: 'eslint',
+      releaseRules: [
+        {tag: 'Chore', release: 'patch'},
+        {breaking: true, release: 'minor'},
+      ],
+    },
     {cwd, commits, logger: t.context.logger}
   );
 
@@ -235,7 +259,10 @@ test('Process rules in order and apply highest match from config even if default
 });
 
 test('Allow to overwrite default "releaseRules" with "false"', async t => {
-  const commits = [{hash: '123', message: 'chore: First chore'}, {hash: '456', message: 'feat: new feature'}];
+  const commits = [
+    {hash: '123', message: 'chore: First chore'},
+    {hash: '456', message: 'feat: new feature'},
+  ];
   const releaseType = await analyzeCommits(
     {preset: 'angular', releaseRules: [{type: 'feat', release: false}]},
     {cwd, commits, logger: t.context.logger}
@@ -250,9 +277,18 @@ test('Allow to overwrite default "releaseRules" with "false"', async t => {
 });
 
 test('Commits with an associated custom release type have higher priority than commits with release "false"', async t => {
-  const commits = [{hash: '123', message: 'feat: Feature to skip'}, {hash: '456', message: 'docs: update README'}];
+  const commits = [
+    {hash: '123', message: 'feat: Feature to skip'},
+    {hash: '456', message: 'docs: update README'},
+  ];
   const releaseType = await analyzeCommits(
-    {preset: 'angular', releaseRules: [{type: 'feat', release: false}, {type: 'docs', release: 'patch'}]},
+    {
+      preset: 'angular',
+      releaseRules: [
+        {type: 'feat', release: false},
+        {type: 'docs', release: 'patch'},
+      ],
+    },
     {cwd, commits, logger: t.context.logger}
   );
 
@@ -265,7 +301,10 @@ test('Commits with an associated custom release type have higher priority than c
 });
 
 test('Commits with an associated default release type have higher priority than commits with release "false"', async t => {
-  const commits = [{hash: '123', message: 'feat: new feature'}, {hash: '456', message: 'fix: new Fix'}];
+  const commits = [
+    {hash: '123', message: 'feat: new feature'},
+    {hash: '456', message: 'fix: new Fix'},
+  ];
   const releaseType = await analyzeCommits(
     {preset: 'angular', releaseRules: [{type: 'feat', release: false}]},
     {cwd, commits, logger: t.context.logger}
@@ -280,7 +319,10 @@ test('Commits with an associated default release type have higher priority than 
 });
 
 test('Use default "releaseRules" if none of provided match', async t => {
-  const commits = [{hash: '123', message: 'Chore: First chore'}, {hash: '456', message: 'Update: new feature'}];
+  const commits = [
+    {hash: '123', message: 'Chore: First chore'},
+    {hash: '456', message: 'Update: new feature'},
+  ];
   const releaseType = await analyzeCommits(
     {preset: 'eslint', releaseRules: [{tag: 'Chore', release: 'patch'}]},
     {cwd, commits, logger: t.context.logger}
@@ -295,7 +337,10 @@ test('Use default "releaseRules" if none of provided match', async t => {
 });
 
 test('Filter out empty commits', async t => {
-  const commits = [{hash: '123', message: ''}, {hash: '456', message: 'fix(scope1): First fix'}];
+  const commits = [
+    {hash: '123', message: ''},
+    {hash: '456', message: 'fix(scope1): First fix'},
+  ];
   const releaseType = await analyzeCommits({}, {cwd, commits, logger: t.context.logger});
 
   t.is(releaseType, 'patch');
