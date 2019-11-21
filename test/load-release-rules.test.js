@@ -24,11 +24,19 @@ test('Return undefined if "releaseRules" not set', t => {
 
 test('Preserve release rules set to "false" or "null"', t => {
   const releaseRules = loadReleaseRules(
-    {releaseRules: [{type: 'feat', release: false}, {type: 'fix', release: null}]},
+    {
+      releaseRules: [
+        {type: 'feat', release: false},
+        {type: 'fix', release: null},
+      ],
+    },
     {cwd}
   );
 
-  t.deepEqual(releaseRules, [{type: 'feat', release: false}, {type: 'fix', release: null}]);
+  t.deepEqual(releaseRules, [
+    {type: 'feat', release: false},
+    {type: 'fix', release: null},
+  ]);
 });
 
 test('Throw error if "releaseRules" reference invalid commit type', t => {
