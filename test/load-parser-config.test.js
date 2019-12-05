@@ -38,7 +38,10 @@ test('Load "conventional-changelog-angular" by default', async t => {
 });
 
 test('Accept a "parserOpts" object as option', async t => {
-  const customParserOpts = {headerPattern: /^##(.*?)## (.*)$/, headerCorrespondence: ['tag', 'shortDesc']};
+  const customParserOpts = {
+    headerPattern: /^##(?<type>.*?)## (?<subject>.*)$/,
+    headerCorrespondence: ['tag', 'shortDesc'],
+  };
   const parserOpts = await loadParserConfig({parserOpts: customParserOpts}, {cwd});
 
   t.is(customParserOpts.headerPattern, parserOpts.headerPattern);
@@ -46,7 +49,10 @@ test('Accept a "parserOpts" object as option', async t => {
 });
 
 test('Accept a partial "parserOpts" object as option that overlaod a preset', async t => {
-  const customParserOpts = {headerPattern: /^##(.*?)## (.*)$/, headerCorrespondence: ['tag', 'shortDesc']};
+  const customParserOpts = {
+    headerPattern: /^##(?<type>.*?)## (?<subject>.*)$/,
+    headerCorrespondence: ['tag', 'shortDesc'],
+  };
   const parserOpts = await loadParserConfig({parserOpts: customParserOpts, preset: 'angular'}, {cwd});
 
   t.is(customParserOpts.headerPattern, parserOpts.headerPattern);
@@ -55,7 +61,10 @@ test('Accept a partial "parserOpts" object as option that overlaod a preset', as
 });
 
 test('Accept a partial "parserOpts" object as option that overlaod a config', async t => {
-  const customParserOpts = {headerPattern: /^##(.*?)## (.*)$/, headerCorrespondence: ['tag', 'shortDesc']};
+  const customParserOpts = {
+    headerPattern: /^##(?<type>.*?)## (?<subject>.*)$/,
+    headerCorrespondence: ['tag', 'shortDesc'],
+  };
   const parserOpts = await loadParserConfig(
     {parserOpts: customParserOpts, config: 'conventional-changelog-angular'},
     {cwd}

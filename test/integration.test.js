@@ -64,7 +64,7 @@ test('Accept a "parseOpts" object as option', async t => {
     {hash: '456', message: '%%FEATURE%% Second feature (fixes #456)'},
   ];
   const releaseType = await analyzeCommits(
-    {parserOpts: {headerPattern: /^%%(.*?)%% (.*)$/, headerCorrespondence: ['tag', 'shortDesc']}},
+    {parserOpts: {headerPattern: /^%%(?<type>.*?)%% (?<subject>.*)$/, headerCorrespondence: ['tag', 'shortDesc']}},
     {cwd, commits, logger: t.context.logger}
   );
 
@@ -84,7 +84,7 @@ test('Accept a partial "parseOpts" object as option', async t => {
   const releaseType = await analyzeCommits(
     {
       config: 'conventional-changelog-eslint',
-      parserOpts: {headerPattern: /^%%(.*?)%% (.*)$/, headerCorrespondence: ['type', 'shortDesc']},
+      parserOpts: {headerPattern: /^%%(?<type>.*?)%% (?<subject>.*)$/, headerCorrespondence: ['type', 'shortDesc']},
     },
     {cwd, commits, logger: t.context.logger}
   );
