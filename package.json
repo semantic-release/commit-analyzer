@@ -37,7 +37,7 @@
     "conventional-changelog-jshint": "^2.0.0",
     "nyc": "^14.0.0",
     "semantic-release": "^15.0.0",
-    "sinon": "^7.1.1",
+    "sinon": "^8.0.0",
     "xo": "^0.25.0"
   },
   "engines": {
