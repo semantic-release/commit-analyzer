@@ -35,7 +35,7 @@
     "conventional-changelog-eslint": "^3.0.0",
     "conventional-changelog-express": "^2.0.0",
     "conventional-changelog-jshint": "^2.0.0",
-    "nyc": "^14.0.0",
+    "nyc": "^15.0.0",
     "semantic-release": "^15.0.0",
     "sinon": "^8.0.0",
     "xo": "^0.25.0"
