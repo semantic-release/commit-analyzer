@@ -36,9 +36,9 @@ test('Match multiple criteria with revert', t => {
 });
 
 test('Match multiple criteria', t => {
-  const commit = {type: 'feat', scope: 'test'};
+  const commit = {type: 'feat', scope: 1};
 
-  t.is(analyzeCommit([{type: 'feat', scope: 'test', release: 'major'}], commit), 'major');
+  t.is(analyzeCommit([{type: 'feat', scope: 1, release: 'major'}], commit), 'major');
 });
 
 test('Match only if all criteria are verified', t => {
@@ -68,21 +68,20 @@ test('Return undefined if there is no match', t => {
   t.is(analyzeCommit([{type: 'feat', breaking: true, release: 'major'}], commit), undefined);
 });
 
-test('Match with regex', t => {
-  const rules = [{type: 'docs', scope: /test\(.*\)/, release: 'minor'}];
-  const match = {type: 'docs', scope: 'test(readme): message'};
-  const notMatch = {type: 'docs', scope: 'test2(readme): message'};
+test('Return undefined for commit with falsy properties', t => {
+  const commit = {type: null};
 
-  t.is(analyzeCommit(rules, match), 'minor');
-  t.is(analyzeCommit(rules, notMatch), undefined);
+  t.is(analyzeCommit([{type: 'feat'}], commit), undefined);
 });
 
-test('Match with regex as string', t => {
-  const rules = [{type: 'docs', scope: '/test\\(.*\\)/', release: 'minor'}];
-  const match = {type: 'docs', scope: 'test(readme): message'};
-  const notMatch = {type: 'docs', scope: 'test2(readme): message'};
+test('Match with glob', t => {
+  const rules = [{type: 'docs', scope: 'b*', release: 'minor'}];
+  const match = {type: 'docs', scope: 'bar'};
+  const match2 = {type: 'docs', scope: 'baz'};
+  const notMatch = {type: 'docs', scope: 'foo'};
 
   t.is(analyzeCommit(rules, match), 'minor');
+  t.is(analyzeCommit(rules, match2), 'minor');
   t.is(analyzeCommit(rules, notMatch), undefined);
 });
 

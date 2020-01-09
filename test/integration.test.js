@@ -64,7 +64,7 @@ test('Accept a "parseOpts" object as option', async t => {
     {hash: '456', message: '%%FEATURE%% Second feature (fixes #456)'},
   ];
   const releaseType = await analyzeCommits(
-    {parserOpts: {headerPattern: /^%%(.*?)%% (.*)$/, headerCorrespondence: ['tag', 'shortDesc']}},
+    {parserOpts: {headerPattern: /^%%(?<type>.*?)%% (?<subject>.*)$/, headerCorrespondence: ['tag', 'shortDesc']}},
     {cwd, commits, logger: t.context.logger}
   );
 
@@ -84,7 +84,7 @@ test('Accept a partial "parseOpts" object as option', async t => {
   const releaseType = await analyzeCommits(
     {
       config: 'conventional-changelog-eslint',
-      parserOpts: {headerPattern: /^%%(.*?)%% (.*)$/, headerCorrespondence: ['type', 'shortDesc']},
+      parserOpts: {headerPattern: /^%%(?<type>.*?)%% (?<subject>.*)$/, headerCorrespondence: ['type', 'shortDesc']},
     },
     {cwd, commits, logger: t.context.logger}
   );
@@ -174,17 +174,14 @@ test('Return "patch" if there is only types set to "patch", using default releas
   t.true(t.context.log.calledWith('Analysis of %s commits complete: %s release', 2, 'patch'));
 });
 
-test('Allow to use regex in "releaseRules" configuration', async t => {
-  const commits = [
-    {hash: '123', message: 'Chore: First chore (fixes #123)'},
-    {hash: '456', message: 'Docs: update README (fixes #456)'},
-  ];
+test('Allow to use glob in "releaseRules" configuration', async t => {
+  const commits = [{message: 'Chore: First chore (fixes #123)'}, {message: 'Docs: update README (fixes #456)'}];
   const releaseType = await analyzeCommits(
     {
       preset: 'eslint',
       releaseRules: [
         {tag: 'Chore', release: 'patch'},
-        {message: '/README/', release: 'minor'},
+        {message: '*README*', release: 'minor'},
       ],
     },
     {cwd, commits, logger: t.context.logger}
