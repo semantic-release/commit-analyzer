@@ -6,9 +6,6 @@
   "ava": {
     "files": [
       "test/**/*.test.js"
-    ],
-    "helpers": [
-      "test/helpers/**/*"
     ]
   },
   "bugs": {
@@ -28,7 +25,7 @@
     "micromatch": "^3.1.10"
   },
   "devDependencies": {
-    "ava": "^2.0.0",
+    "ava": "^3.1.0",
     "codecov": "^3.0.0",
     "conventional-changelog-atom": "^2.0.0",
     "conventional-changelog-conventionalcommits": "^4.1.0",
