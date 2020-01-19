@@ -1,5 +1,5 @@
-import test from 'ava';
-import loadParserConfig from '../lib/load-parser-config';
+const test = require('ava');
+const loadParserConfig = require('../lib/load-parser-config');
 
 const cwd = process.cwd();
 

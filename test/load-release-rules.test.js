@@ -1,6 +1,6 @@
-import test from 'ava';
-import loadReleaseRules from '../lib/load-release-rules';
-import testReleaseRules from './fixtures/release-rules';
+const test = require('ava');
+const loadReleaseRules = require('../lib/load-release-rules');
+const testReleaseRules = require('./fixtures/release-rules');
 
 const cwd = process.cwd();
 
@@ -40,36 +40,31 @@ test('Preserve release rules set to "false" or "null"', t => {
 });
 
 test('Throw error if "releaseRules" reference invalid commit type', t => {
-  t.throws(
-    () => loadReleaseRules({releaseRules: [{tag: 'Update', release: 'invalid'}]}, {cwd}),
-    /Error in commit-analyzer configuration: "invalid" is not a valid release type\. Valid values are:\[?.*\]/
-  );
+  t.throws(() => loadReleaseRules({releaseRules: [{tag: 'Update', release: 'invalid'}]}, {cwd}), {
+    message: /Error in commit-analyzer configuration: "invalid" is not a valid release type\. Valid values are:\[?.*\]/,
+  });
 });
 
 test('Throw error if a rule in "releaseRules" does not have a release type', t => {
-  t.throws(
-    () => loadReleaseRules({releaseRules: [{tag: 'Update'}]}, {cwd}),
-    /Error in commit-analyzer configuration: rules must be an object with a "release" property/
-  );
+  t.throws(() => loadReleaseRules({releaseRules: [{tag: 'Update'}]}, {cwd}), {
+    message: /Error in commit-analyzer configuration: rules must be an object with a "release" property/,
+  });
 });
 
 test('Throw error if "releaseRules" is not an Array or a String', t => {
-  t.throws(
-    () => loadReleaseRules({releaseRules: {}}, {cwd}),
-    /Error in commit-analyzer configuration: "releaseRules" must be an array of rules/
-  );
+  t.throws(() => loadReleaseRules({releaseRules: {}}, {cwd}), {
+    message: /Error in commit-analyzer configuration: "releaseRules" must be an array of rules/,
+  });
 });
 
 test('Throw error if "releaseRules" option reference a requierable module that is not an Array or a String', t => {
-  t.throws(
-    () => loadReleaseRules({releaseRules: './test/fixtures/release-rules-invalid'}, {cwd}),
-    /Error in commit-analyzer configuration: "releaseRules" must be an array of rules/
-  );
+  t.throws(() => loadReleaseRules({releaseRules: './test/fixtures/release-rules-invalid'}, {cwd}), {
+    message: /Error in commit-analyzer configuration: "releaseRules" must be an array of rules/,
+  });
 });
 
 test('Throw error if "releaseRules" contains an undefined rule', t => {
-  t.throws(
-    () => loadReleaseRules({releaseRules: [{type: 'feat', release: 'minor'}, undefined]}, {cwd}),
-    /Error in commit-analyzer configuration: rules must be an object with a "release" property/
-  );
+  t.throws(() => loadReleaseRules({releaseRules: [{type: 'feat', release: 'minor'}, undefined]}, {cwd}), {
+    message: /Error in commit-analyzer configuration: rules must be an object with a "release" property/,
+  });
 });

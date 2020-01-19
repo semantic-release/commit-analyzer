@@ -1,6 +1,6 @@
-import test from 'ava';
-import {stub} from 'sinon';
-import {analyzeCommits} from '..';
+const test = require('ava');
+const {stub} = require('sinon');
+const {analyzeCommits} = require('..');
 
 const cwd = process.cwd();
 
@@ -234,7 +234,7 @@ test('Process rules in order and apply highest match', async t => {
   t.true(t.context.log.calledWith('Analysis of %s commits complete: %s release', 2, 'minor'));
 });
 
-test('Process rules in order and apply highest match from config even if default has an higher match', async t => {
+test('Process rules in order and apply highest match = require(config even if default has an higher match', async t => {
   const commits = [
     {hash: '123', message: 'Chore: First chore (fixes #123)'},
     {hash: '456', message: 'Docs: update README (fixes #456) \n\n BREAKING CHANGE: break something'},
@@ -351,17 +351,15 @@ test('Throw error if "preset" doesn`t exist', async t => {
 });
 
 test('Throw error if "releaseRules" is not an Array or a String', async t => {
-  await t.throwsAsync(
-    analyzeCommits({releaseRules: {}}, {cwd}),
-    /Error in commit-analyzer configuration: "releaseRules" must be an array of rules/
-  );
+  await t.throwsAsync(analyzeCommits({releaseRules: {}}, {cwd}), {
+    message: /Error in commit-analyzer configuration: "releaseRules" must be an array of rules/,
+  });
 });
 
 test('Throw error if "releaseRules" option reference a requierable module that is not an Array or a String', async t => {
-  await t.throwsAsync(
-    analyzeCommits({releaseRules: './test/fixtures/release-rules-invalid'}, {cwd}),
-    /Error in commit-analyzer configuration: "releaseRules" must be an array of rules/
-  );
+  await t.throwsAsync(analyzeCommits({releaseRules: './test/fixtures/release-rules-invalid'}, {cwd}), {
+    message: /Error in commit-analyzer configuration: "releaseRules" must be an array of rules/,
+  });
 });
 
 test('Throw error if "config" doesn`t exist', async t => {
@@ -372,13 +370,12 @@ test('Throw error if "config" doesn`t exist', async t => {
 });
 
 test('Throw error if "releaseRules" reference invalid commit type', async t => {
-  await t.throwsAsync(
-    analyzeCommits({preset: 'eslint', releaseRules: [{tag: 'Update', release: 'invalid'}]}, {cwd}),
-    /Error in commit-analyzer configuration: "invalid" is not a valid release type\. Valid values are:\[?.*\]/
-  );
+  await t.throwsAsync(analyzeCommits({preset: 'eslint', releaseRules: [{tag: 'Update', release: 'invalid'}]}, {cwd}), {
+    message: /Error in commit-analyzer configuration: "invalid" is not a valid release type\. Valid values are:\[?.*\]/,
+  });
 });
 
-test('Re-Throw error from "conventional-changelog-parser"', async t => {
+test('Re-Throw error = require("conventional-changelog-parser"', async t => {
   const commits = [{message: 'Fix: First fix (fixes #123)'}, {message: 'Update: Second feature (fixes #456)'}];
   await t.throwsAsync(analyzeCommits({parserOpts: {headerPattern: '\\'}}, {cwd, commits, logger: t.context.logger}));
 });
