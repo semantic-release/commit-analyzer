@@ -234,7 +234,7 @@ test('Process rules in order and apply highest match', async t => {
   t.true(t.context.log.calledWith('Analysis of %s commits complete: %s release', 2, 'minor'));
 });
 
-test('Process rules in order and apply highest match = require(config even if default has an higher match', async t => {
+test('Process rules in order and apply highest match from config even if default has an higher match', async t => {
   const commits = [
     {hash: '123', message: 'Chore: First chore (fixes #123)'},
     {hash: '456', message: 'Docs: update README (fixes #456) \n\n BREAKING CHANGE: break something'},
@@ -375,7 +375,7 @@ test('Throw error if "releaseRules" reference invalid commit type', async t => {
   });
 });
 
-test('Re-Throw error = require("conventional-changelog-parser"', async t => {
+test('Re-Throw error from "conventional-changelog-parser"', async t => {
   const commits = [{message: 'Fix: First fix (fixes #123)'}, {message: 'Update: Second feature (fixes #456)'}];
   await t.throwsAsync(analyzeCommits({parserOpts: {headerPattern: '\\'}}, {cwd, commits, logger: t.context.logger}));
 });
