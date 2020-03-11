@@ -38,41 +38,41 @@ test('Load "conventional-changelog-angular" by default', async t => {
 });
 
 test('Accept a "parserOpts" object as option', async t => {
-  const customParserOpts = {
+  const customParserOptions = {
     headerPattern: /^##(?<type>.*?)## (?<subject>.*)$/,
     headerCorrespondence: ['tag', 'shortDesc'],
   };
-  const parserOpts = await loadParserConfig({parserOpts: customParserOpts}, {cwd});
+  const parserOptions = await loadParserConfig({parserOpts: customParserOptions}, {cwd});
 
-  t.is(customParserOpts.headerPattern, parserOpts.headerPattern);
-  t.deepEqual(customParserOpts.headerCorrespondence, parserOpts.headerCorrespondence);
+  t.is(customParserOptions.headerPattern, parserOptions.headerPattern);
+  t.deepEqual(customParserOptions.headerCorrespondence, parserOptions.headerCorrespondence);
 });
 
 test('Accept a partial "parserOpts" object as option that overlaod a preset', async t => {
-  const customParserOpts = {
+  const customParserOptions = {
     headerPattern: /^##(?<type>.*?)## (?<subject>.*)$/,
     headerCorrespondence: ['tag', 'shortDesc'],
   };
-  const parserOpts = await loadParserConfig({parserOpts: customParserOpts, preset: 'angular'}, {cwd});
+  const parserOptions = await loadParserConfig({parserOpts: customParserOptions, preset: 'angular'}, {cwd});
 
-  t.is(customParserOpts.headerPattern, parserOpts.headerPattern);
-  t.deepEqual(customParserOpts.headerCorrespondence, parserOpts.headerCorrespondence);
-  t.truthy(parserOpts.noteKeywords);
+  t.is(customParserOptions.headerPattern, parserOptions.headerPattern);
+  t.deepEqual(customParserOptions.headerCorrespondence, parserOptions.headerCorrespondence);
+  t.truthy(parserOptions.noteKeywords);
 });
 
 test('Accept a partial "parserOpts" object as option that overlaod a config', async t => {
-  const customParserOpts = {
+  const customParserOptions = {
     headerPattern: /^##(?<type>.*?)## (?<subject>.*)$/,
     headerCorrespondence: ['tag', 'shortDesc'],
   };
-  const parserOpts = await loadParserConfig(
-    {parserOpts: customParserOpts, config: 'conventional-changelog-angular'},
+  const parserOptions = await loadParserConfig(
+    {parserOpts: customParserOptions, config: 'conventional-changelog-angular'},
     {cwd}
   );
 
-  t.is(customParserOpts.headerPattern, parserOpts.headerPattern);
-  t.deepEqual(customParserOpts.headerCorrespondence, parserOpts.headerCorrespondence);
-  t.truthy(parserOpts.noteKeywords);
+  t.is(customParserOptions.headerPattern, parserOptions.headerPattern);
+  t.deepEqual(customParserOptions.headerCorrespondence, parserOptions.headerCorrespondence);
+  t.truthy(parserOptions.noteKeywords);
 });
 
 test(loadPreset, 'angular');
