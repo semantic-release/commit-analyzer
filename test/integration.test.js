@@ -371,7 +371,7 @@ test('Throw error if "config" doesn`t exist', async t => {
 
 test('Throw error if "releaseRules" reference invalid commit type', async t => {
   await t.throwsAsync(analyzeCommits({preset: 'eslint', releaseRules: [{tag: 'Update', release: 'invalid'}]}, {cwd}), {
-    message: /Error in commit-analyzer configuration: "invalid" is not a valid release type\. Valid values are:\[?.*\]/,
+    message: /Error in commit-analyzer configuration: "invalid" is not a valid release type\. Valid values are:\[?.*]/,
   });
 });
 

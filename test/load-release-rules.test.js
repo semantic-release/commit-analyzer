@@ -41,7 +41,7 @@ test('Preserve release rules set to "false" or "null"', t => {
 
 test('Throw error if "releaseRules" reference invalid commit type', t => {
   t.throws(() => loadReleaseRules({releaseRules: [{tag: 'Update', release: 'invalid'}]}, {cwd}), {
-    message: /Error in commit-analyzer configuration: "invalid" is not a valid release type\. Valid values are:\[?.*\]/,
+    message: /Error in commit-analyzer configuration: "invalid" is not a valid release type\. Valid values are:\[?.*]/,
   });
 });
 
