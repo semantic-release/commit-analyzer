@@ -16,6 +16,7 @@ const DEFAULT_RELEASE_RULES = require('./lib/default-release-rules');
  * @param {String} pluginConfig.preset conventional-changelog preset ('angular', 'atom', 'codemirror', 'ember', 'eslint', 'express', 'jquery', 'jscs', 'jshint')
  * @param {String} pluginConfig.config Requierable npm package with a custom conventional-changelog preset
  * @param {String|Array} pluginConfig.releaseRules A `String` to load an external module or an `Array` of rules.
+ * @param {Boolean} pluginConfig.useDefaultReleaseRules A `Boolean` to control whether to use the default rules or not.
  * @param {Object} pluginConfig.parserOpts Additional `conventional-changelog-parser` options that will overwrite ones loaded by `preset` or `config`.
  * @param {Object} context The semantic-release context.
  * @param {Array<Object>} context.commits The commits to analyze.
@@ -26,6 +27,7 @@ const DEFAULT_RELEASE_RULES = require('./lib/default-release-rules');
 async function analyzeCommits(pluginConfig, context) {
   const {commits, logger} = context;
   const releaseRules = loadReleaseRules(pluginConfig, context);
+  const {useDefaultReleaseRules = true} = pluginConfig;
   const config = await loadParserConfig(pluginConfig, context);
   let releaseType = null;
 
@@ -50,8 +52,8 @@ async function analyzeCommits(pluginConfig, context) {
       commitReleaseType = analyzeCommit(releaseRules, commit);
     }
 
-    // If no custom releaseRules or none matched the commit, try with default releaseRules
-    if (isUndefined(commitReleaseType)) {
+    // If default releaseRules should be used, and no custom releaseRules, or none matched the commit: try with default releaseRules
+    if (useDefaultReleaseRules && isUndefined(commitReleaseType)) {
       debug('Analyzing with default rules');
       commitReleaseType = analyzeCommit(DEFAULT_RELEASE_RULES, commit);
     }
