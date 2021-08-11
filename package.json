@@ -98,7 +98,8 @@
       "unicorn/string-content": "off",
       "unicorn/import-index": "off",
       "import/extensions": "off",
-      "import/no-useless-path-segments": "off"
+      "import/no-useless-path-segments": "off",
+      "node/no-unsupported-features/es-syntax": "off"
     }
   },
   "renovate": {

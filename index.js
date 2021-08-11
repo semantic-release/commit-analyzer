@@ -28,7 +28,7 @@ debug('semantic-release:commit-analyzer');
  */
 async function analyzeCommits(pluginConfig, context) {
   const {commits, logger} = context;
-  const releaseRules = loadReleaseRules(pluginConfig, context);
+  const releaseRules = await loadReleaseRules(pluginConfig, context);
   const config = await loadParserConfig(pluginConfig, context);
   let releaseType = null;
 

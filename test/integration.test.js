@@ -117,7 +117,7 @@ test('Accept a "releaseRules" option that reference a requierable module', async
     {hash: '456', message: 'feat(scope2): Second feature'},
   ];
   const releaseType = await analyzeCommits(
-    {releaseRules: './test/fixtures/release-rules'},
+    {releaseRules: './test/fixtures/release-rules.js'},
     {cwd, commits, logger: t.context.logger}
   );
 
@@ -357,7 +357,7 @@ test('Throw error if "releaseRules" is not an Array or a String', async t => {
 });
 
 test('Throw error if "releaseRules" option reference a requierable module that is not an Array or a String', async t => {
-  await t.throwsAsync(analyzeCommits({releaseRules: './test/fixtures/release-rules-invalid'}, {cwd}), {
+  await t.throwsAsync(analyzeCommits({releaseRules: './test/fixtures/release-rules-invalid.js'}, {cwd}), {
     message: /Error in commit-analyzer configuration: "releaseRules" must be an array of rules/,
   });
 });
