@@ -1,11 +1,11 @@
-const test = require('ava');
-const {stub} = require('sinon');
-const {analyzeCommits} = require('..');
+import test from 'ava';
+import sinon from 'sinon';
+import {analyzeCommits} from '../index.js';
 
 const cwd = process.cwd();
 
 test.beforeEach(t => {
-  const log = stub();
+  const log = sinon.stub();
   t.context.log = log;
   t.context.logger = {log};
 });

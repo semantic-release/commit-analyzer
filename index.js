@@ -1,13 +1,16 @@
-const {isUndefined} = require('lodash');
-const parser = require('conventional-commits-parser').sync;
-const filter = require('conventional-commits-filter');
-const debug = require('debug')('semantic-release:commit-analyzer');
-const loadParserConfig = require('./lib/load-parser-config');
-const loadReleaseRules = require('./lib/load-release-rules');
-const analyzeCommit = require('./lib/analyze-commit');
-const compareReleaseTypes = require('./lib/compare-release-types');
-const RELEASE_TYPES = require('./lib/default-release-types');
-const DEFAULT_RELEASE_RULES = require('./lib/default-release-rules');
+import lodash from 'lodash';
+const {isUndefined} = lodash;
+import {sync as parser} from 'conventional-commits-parser';
+import filter from 'conventional-commits-filter';
+import debug from 'debug';
+import loadParserConfig from './lib/load-parser-config.js';
+import loadReleaseRules from './lib/load-release-rules.js';
+import analyzeCommit from './lib/analyze-commit.js';
+import compareReleaseTypes from './lib/compare-release-types.js';
+import RELEASE_TYPES from './lib/default-release-types.js';
+import DEFAULT_RELEASE_RULES from './lib/default-release-rules.js';
+
+debug('semantic-release:commit-analyzer');
 
 /**
  * Determine the type of release to create based on a list of commits.
@@ -79,4 +82,4 @@ async function analyzeCommits(pluginConfig, context) {
   return releaseType;
 }
 
-module.exports = {analyzeCommits};
+export {analyzeCommits};

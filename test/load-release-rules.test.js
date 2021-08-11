@@ -1,6 +1,6 @@
-const test = require('ava');
-const loadReleaseRules = require('../lib/load-release-rules');
-const testReleaseRules = require('./fixtures/release-rules');
+import test from 'ava';
+import loadReleaseRules from '../lib/load-release-rules.js';
+import testReleaseRules from './fixtures/release-rules.js';
 
 const cwd = process.cwd();
 
