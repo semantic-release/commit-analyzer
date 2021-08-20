@@ -13,9 +13,8 @@ jobs:
     strategy:
       matrix:
         node-version:
-          - 10
-          - 12
-          - 14
+          - 14.17
+          - 16
         os:
           - ubuntu-latest
           - macos-latest
@@ -28,6 +27,8 @@ jobs:
         with:
           node-version: "${{ matrix.node-version }}"
           cache: npm
+      - name: Ensure dependencies are compatible with the version of node
+        run: echo 'engine-strict=true' >> .npmrc
       - run: npm ci
       - run: "npm run test:ci"
   test:
