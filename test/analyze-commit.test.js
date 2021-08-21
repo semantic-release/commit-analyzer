@@ -1,5 +1,5 @@
-const test = require('ava');
-const analyzeCommit = require('../lib/analyze-commit');
+import test from 'ava';
+import analyzeCommit from '../lib/analyze-commit.js';
 
 test('Match breaking change', t => {
   const commit = {
