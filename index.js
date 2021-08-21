@@ -14,7 +14,7 @@ const DEFAULT_RELEASE_RULES = require('./lib/default-release-rules');
  *
  * @param {Object} pluginConfig The plugin configuration.
  * @param {String} pluginConfig.preset conventional-changelog preset ('angular', 'atom', 'codemirror', 'ember', 'eslint', 'express', 'jquery', 'jscs', 'jshint')
- * @param {String} pluginConfig.config Requierable npm package with a custom conventional-changelog preset
+ * @param {String} pluginConfig.config Requirable npm package with a custom conventional-changelog preset
  * @param {String|Array} pluginConfig.releaseRules A `String` to load an external module or an `Array` of rules.
  * @param {Object} pluginConfig.parserOpts Additional `conventional-changelog-parser` options that will overwrite ones loaded by `preset` or `config`.
  * @param {Object} context The semantic-release context.
