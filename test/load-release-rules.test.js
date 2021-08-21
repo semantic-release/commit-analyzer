@@ -10,7 +10,7 @@ test('Accept a "releaseRules" option', t => {
   t.deepEqual(releaseRules, testReleaseRules);
 });
 
-test('Accept a "releaseRules" option that reference a requierable module', t => {
+test('Accept a "releaseRules" option that reference a requirable module', t => {
   const releaseRules = loadReleaseRules({releaseRules: './test/fixtures/release-rules'}, {cwd});
 
   t.deepEqual(releaseRules, testReleaseRules);
@@ -57,7 +57,7 @@ test('Throw error if "releaseRules" is not an Array or a String', t => {
   });
 });
 
-test('Throw error if "releaseRules" option reference a requierable module that is not an Array or a String', t => {
+test('Throw error if "releaseRules" option reference a requirable module that is not an Array or a String', t => {
   t.throws(() => loadReleaseRules({releaseRules: './test/fixtures/release-rules-invalid'}, {cwd}), {
     message: /Error in commit-analyzer configuration: "releaseRules" must be an array of rules/,
   });
