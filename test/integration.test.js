@@ -111,7 +111,7 @@ test('Exclude commits if they have a matching revert commits', async t => {
   t.true(t.context.log.calledWith('Analysis of %s commits complete: %s release', 3, 'patch'));
 });
 
-test('Accept a "releaseRules" option that reference a requierable module', async t => {
+test('Accept a "releaseRules" option that reference a requirable module', async t => {
   const commits = [
     {hash: '123', message: 'fix(scope1): First fix'},
     {hash: '456', message: 'feat(scope2): Second feature'},
@@ -356,7 +356,7 @@ test('Throw error if "releaseRules" is not an Array or a String', async t => {
   });
 });
 
-test('Throw error if "releaseRules" option reference a requierable module that is not an Array or a String', async t => {
+test('Throw error if "releaseRules" option reference a requirable module that is not an Array or a String', async t => {
   await t.throwsAsync(analyzeCommits({releaseRules: './test/fixtures/release-rules-invalid'}, {cwd}), {
     message: /Error in commit-analyzer configuration: "releaseRules" must be an array of rules/,
   });
