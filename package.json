@@ -1,6 +1,5 @@
 {
   "name": "@semantic-release/commit-analyzer",
-  "type": "module",
   "description": "semantic-release plugin to analyze commits with conventional-changelog",
   "version": "0.0.0-development",
   "author": "Pierre Vanduynslager (https://twitter.com/@pvdlg_)",
@@ -57,7 +56,7 @@
     "semantic-release"
   ],
   "license": "MIT",
-  "exports": "./index.js",
+  "main": "index.js",
   "nyc": {
     "include": [
       "lib/**/*.js",
@@ -95,11 +94,7 @@
     "prettier": true,
     "space": true,
     "rules": {
-      "unicorn/string-content": "off",
-      "unicorn/import-index": "off",
-      "import/extensions": "off",
-      "import/no-useless-path-segments": "off",
-      "node/no-unsupported-features/es-syntax": "off"
+      "unicorn/string-content": "off"
     }
   },
   "renovate": {
