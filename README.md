@@ -162,8 +162,7 @@ With this configuration:
 
 ##### External package / file
 
-`releaseRules` can also reference a module, either by it's `npm` name or path. Note that the path must include the `.js` extension.
-
+`releaseRules` can also reference a module, either by it's `npm` name or path:
 ```json
 {
   "plugins": [
@@ -175,12 +174,9 @@ With this configuration:
   ]
 }
 ```
-
-The file must be an ES Module exporting an array as default
-
 ```js
 // File: config/release-rules.js
-export default [
+module.exports = [
   {type: 'docs', scope: 'README', release: 'patch'},
   {type: 'refactor', scope: 'core-*', release: 'minor'},
   {type: 'refactor', release: 'patch'},

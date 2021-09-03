@@ -1,4 +1,4 @@
-export default [
+module.exports = [
   {breaking: true, release: 'major'},
   {type: 'feat', release: 'minor'},
   {type: 'fix', release: 'patch'},

@@ -1,11 +1,11 @@
-import test from 'ava';
-import sinon from 'sinon';
-import {analyzeCommits} from '../index.js';
+const test = require('ava');
+const {stub} = require('sinon');
+const {analyzeCommits} = require('..');
 
 const cwd = process.cwd();
 
 test.beforeEach(t => {
-  const log = sinon.stub();
+  const log = stub();
   t.context.log = log;
   t.context.logger = {log};
 });
@@ -117,7 +117,7 @@ test('Accept a "releaseRules" option that reference a requierable module', async
     {hash: '456', message: 'feat(scope2): Second feature'},
   ];
   const releaseType = await analyzeCommits(
-    {releaseRules: './test/fixtures/release-rules.js'},
+    {releaseRules: './test/fixtures/release-rules'},
     {cwd, commits, logger: t.context.logger}
   );
 
@@ -357,7 +357,7 @@ test('Throw error if "releaseRules" is not an Array or a String', async t => {
 });
 
 test('Throw error if "releaseRules" option reference a requierable module that is not an Array or a String', async t => {
-  await t.throwsAsync(analyzeCommits({releaseRules: './test/fixtures/release-rules-invalid.js'}, {cwd}), {
+  await t.throwsAsync(analyzeCommits({releaseRules: './test/fixtures/release-rules-invalid'}, {cwd}), {
     message: /Error in commit-analyzer configuration: "releaseRules" must be an array of rules/,
   });
 });
