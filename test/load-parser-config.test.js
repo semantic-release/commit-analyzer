@@ -1,5 +1,5 @@
-const test = require('ava');
-const loadParserConfig = require('../lib/load-parser-config');
+import test from 'ava';
+import loadParserConfig from '../lib/load-parser-config.js';
 
 const cwd = process.cwd();
 
@@ -34,7 +34,7 @@ async function loadConfig(t, config, pluginOptions) {
 loadConfig.title = (providedTitle, config) => `${providedTitle} Load "${config}" config`.trim();
 
 test('Load "conventional-changelog-angular" by default', async t => {
-  t.deepEqual(await loadParserConfig({}, {cwd}), (await require('conventional-changelog-angular')).parserOpts);
+  t.deepEqual(await loadParserConfig({}, {cwd}), (await (await import('conventional-changelog-angular'))).parserOpts);
 });
 
 test('Accept a "parserOpts" object as option', async t => {

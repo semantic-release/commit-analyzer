@@ -1,20 +1,22 @@
-const {isUndefined} = require('lodash');
-const parser = require('conventional-commits-parser').sync;
-const filter = require('conventional-commits-filter');
-const debug = require('debug')('semantic-release:commit-analyzer');
-const loadParserConfig = require('./lib/load-parser-config');
-const loadReleaseRules = require('./lib/load-release-rules');
-const analyzeCommit = require('./lib/analyze-commit');
-const compareReleaseTypes = require('./lib/compare-release-types');
-const RELEASE_TYPES = require('./lib/default-release-types');
-const DEFAULT_RELEASE_RULES = require('./lib/default-release-rules');
+import { isUndefined } from 'lodash-es';
+import { sync as parser } from 'conventional-commits-parser';
+import filter from 'conventional-commits-filter';
+import debugFactory from 'debug';
+import loadParserConfig from './lib/load-parser-config.js';
+import loadReleaseRules from './lib/load-release-rules.js';
+import analyzeCommit from './lib/analyze-commit.js';
+import compareReleaseTypes from './lib/compare-release-types.js';
+import RELEASE_TYPES from './lib/default-release-types.js';
+import DEFAULT_RELEASE_RULES from './lib/default-release-rules.js';
+
+const debug = debugFactory('semantic-release:commit-analyzer');
 
 /**
  * Determine the type of release to create based on a list of commits.
  *
  * @param {Object} pluginConfig The plugin configuration.
  * @param {String} pluginConfig.preset conventional-changelog preset ('angular', 'atom', 'codemirror', 'ember', 'eslint', 'express', 'jquery', 'jscs', 'jshint')
- * @param {String} pluginConfig.config Requirable npm package with a custom conventional-changelog preset
+ * @param {String} pluginConfig.config Requireable npm package with a custom conventional-changelog preset
  * @param {String|Array} pluginConfig.releaseRules A `String` to load an external module or an `Array` of rules.
  * @param {Object} pluginConfig.parserOpts Additional `conventional-changelog-parser` options that will overwrite ones loaded by `preset` or `config`.
  * @param {Object} context The semantic-release context.
@@ -23,7 +25,7 @@ const DEFAULT_RELEASE_RULES = require('./lib/default-release-rules');
  *
  * @returns {String|null} the type of release to create based on the list of commits or `null` if no release has to be done.
  */
-async function analyzeCommits(pluginConfig, context) {
+export async function analyzeCommits(pluginConfig, context) {
   const {commits, logger} = context;
   const releaseRules = loadReleaseRules(pluginConfig, context);
   const config = await loadParserConfig(pluginConfig, context);
@@ -78,5 +80,3 @@ async function analyzeCommits(pluginConfig, context) {
 
   return releaseType;
 }
-
-module.exports = {analyzeCommits};

@@ -1,6 +1,6 @@
-const test = require('ava');
-const loadReleaseRules = require('../lib/load-release-rules');
-const testReleaseRules = require('./fixtures/release-rules');
+import test from 'ava';
+import loadReleaseRules from '../lib/load-release-rules.js';
+import testReleaseRules from './fixtures/release-rules.js';
 
 const cwd = process.cwd();
 
@@ -10,7 +10,7 @@ test('Accept a "releaseRules" option', t => {
   t.deepEqual(releaseRules, testReleaseRules);
 });
 
-test('Accept a "releaseRules" option that reference a requirable module', t => {
+test('Accept a "releaseRules" option that reference a requireable module', t => {
   const releaseRules = loadReleaseRules({releaseRules: './test/fixtures/release-rules'}, {cwd});
 
   t.deepEqual(releaseRules, testReleaseRules);
