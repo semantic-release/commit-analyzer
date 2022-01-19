@@ -10,6 +10,16 @@ test.beforeEach(t => {
   t.context.logger = {log};
 });
 
+test('Return "patch" if the branch option contains "release/monthly"', async t => {
+  const commits = [
+    {hash: '123', message: 'fix(scope1): First fix'},
+    {hash: '456', message: 'feat(scope2): Second feature'},
+  ];
+  const releaseType = await analyzeCommits({branch: 'release/monthly-v2'}, {cwd, commits, logger: t.context.logger});
+
+  t.is(releaseType, 'patch');
+});
+
 test('Parse with "conventional-changelog-angular" by default', async t => {
   const commits = [
     {hash: '123', message: 'fix(scope1): First fix'},
