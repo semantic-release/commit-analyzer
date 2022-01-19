@@ -24,6 +24,10 @@ const DEFAULT_RELEASE_RULES = require('./lib/default-release-rules');
  * @returns {String|null} the type of release to create based on the list of commits or `null` if no release has to be done.
  */
 async function analyzeCommits(pluginConfig, context) {
+  if (pluginConfig.branch && pluginConfig.branch.includes('release/monthly')) {
+    return 'patch';
+  }
+
   const {commits, logger} = context;
   const releaseRules = loadReleaseRules(pluginConfig, context);
   const config = await loadParserConfig(pluginConfig, context);
