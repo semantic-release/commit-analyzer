@@ -33,11 +33,11 @@ async function loadConfig(t, config, pluginOptions) {
 
 loadConfig.title = (providedTitle, config) => `${providedTitle} Load "${config}" config`.trim();
 
-test('Load "conventional-changelog-angular" by default', async t => {
+test('Load "conventional-changelog-angular" by default', async (t) => {
   t.deepEqual(await loadParserConfig({}, {cwd}), (await require('conventional-changelog-angular')).parserOpts);
 });
 
-test('Accept a "parserOpts" object as option', async t => {
+test('Accept a "parserOpts" object as option', async (t) => {
   const customParserOptions = {
     headerPattern: /^##(?<type>.*?)## (?<subject>.*)$/,
     headerCorrespondence: ['tag', 'shortDesc'],
@@ -48,7 +48,7 @@ test('Accept a "parserOpts" object as option', async t => {
   t.deepEqual(customParserOptions.headerCorrespondence, parserOptions.headerCorrespondence);
 });
 
-test('Accept a partial "parserOpts" object as option that overlaod a preset', async t => {
+test('Accept a partial "parserOpts" object as option that overlaod a preset', async (t) => {
   const customParserOptions = {
     headerPattern: /^##(?<type>.*?)## (?<subject>.*)$/,
     headerCorrespondence: ['tag', 'shortDesc'],
@@ -60,7 +60,7 @@ test('Accept a partial "parserOpts" object as option that overlaod a preset', as
   t.truthy(parserOptions.noteKeywords);
 });
 
-test('Accept a partial "parserOpts" object as option that overlaod a config', async t => {
+test('Accept a partial "parserOpts" object as option that overlaod a config', async (t) => {
   const customParserOptions = {
     headerPattern: /^##(?<type>.*?)## (?<subject>.*)$/,
     headerCorrespondence: ['tag', 'shortDesc'],
@@ -90,10 +90,10 @@ test(loadConfig, 'jshint');
 test(loadPreset, 'conventionalcommits', {presetConfig: {}});
 test(loadConfig, 'conventionalcommits', {presetConfig: {}});
 
-test('Throw error if "config" doesn`t exist', async t => {
+test('Throw error if "config" doesn`t exist', async (t) => {
   await t.throwsAsync(loadParserConfig({config: 'unknown-config'}, {cwd}), {code: 'MODULE_NOT_FOUND'});
 });
 
-test('Throw error if "preset" doesn`t exist', async t => {
+test('Throw error if "preset" doesn`t exist', async (t) => {
   await t.throwsAsync(loadParserConfig({preset: 'unknown-preset'}, {cwd}), {code: 'MODULE_NOT_FOUND'});
 });

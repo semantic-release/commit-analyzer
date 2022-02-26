@@ -1,7 +1,7 @@
 const test = require('ava');
 const compareReleaseTypes = require('../lib/compare-release-types');
 
-test('Compares release types', t => {
+test('Compares release types', (t) => {
   t.true(compareReleaseTypes('patch', 'minor'));
   t.true(compareReleaseTypes('patch', 'major'));
   t.true(compareReleaseTypes('minor', 'major'));
