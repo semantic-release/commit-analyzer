@@ -1,7 +1,7 @@
 const test = require('ava');
 const analyzeCommit = require('../lib/analyze-commit');
 
-test('Match breaking change', t => {
+test('Match breaking change', (t) => {
   const commit = {
     notes: [{title: 'BREAKING CHANGE', text: 'some breaking change'}],
   };
@@ -9,7 +9,7 @@ test('Match breaking change', t => {
   t.is(analyzeCommit([{breaking: true, release: 'major'}], commit), 'major');
 });
 
-test('Match revert commit', t => {
+test('Match revert commit', (t) => {
   const commit = {
     revert: {header: 'Update: First feature', hash: '123'},
   };
@@ -17,7 +17,7 @@ test('Match revert commit', t => {
   t.is(analyzeCommit([{revert: true, release: 'patch'}], commit), 'patch');
 });
 
-test('Match multiple criteria with breaking change', t => {
+test('Match multiple criteria with breaking change', (t) => {
   const commit = {
     type: 'feat',
     notes: [{title: 'BREAKING CHANGE', text: 'some breaking change'}],
@@ -26,7 +26,7 @@ test('Match multiple criteria with breaking change', t => {
   t.is(analyzeCommit([{type: 'feat', breaking: true, release: 'major'}], commit), 'major');
 });
 
-test('Match multiple criteria with revert', t => {
+test('Match multiple criteria with revert', (t) => {
   const commit = {
     type: 'feat',
     revert: {header: 'Update: First feature', hash: '123'},
@@ -35,13 +35,13 @@ test('Match multiple criteria with revert', t => {
   t.is(analyzeCommit([{type: 'feat', revert: true, release: 'major'}], commit), 'major');
 });
 
-test('Match multiple criteria', t => {
+test('Match multiple criteria', (t) => {
   const commit = {type: 'feat', scope: 1};
 
   t.is(analyzeCommit([{type: 'feat', scope: 1, release: 'major'}], commit), 'major');
 });
 
-test('Match only if all criteria are verified', t => {
+test('Match only if all criteria are verified', (t) => {
   const commit = {
     type: 'fix',
     notes: [{title: 'BREAKING CHANGE', text: 'some breaking change'}],
@@ -59,7 +59,7 @@ test('Match only if all criteria are verified', t => {
   );
 });
 
-test('Return undefined if there is no match', t => {
+test('Return undefined if there is no match', (t) => {
   const commit = {
     type: 'fix',
     notes: [{title: 'BREAKING CHANGE', text: 'some breaking change'}],
@@ -68,13 +68,13 @@ test('Return undefined if there is no match', t => {
   t.is(analyzeCommit([{type: 'feat', breaking: true, release: 'major'}], commit), undefined);
 });
 
-test('Return undefined for commit with falsy properties', t => {
+test('Return undefined for commit with falsy properties', (t) => {
   const commit = {type: null};
 
   t.is(analyzeCommit([{type: 'feat'}], commit), undefined);
 });
 
-test('Match with glob', t => {
+test('Match with glob', (t) => {
   const rules = [{type: 'docs', scope: 'b*', release: 'minor'}];
   const match = {type: 'docs', scope: 'bar'};
   const match2 = {type: 'docs', scope: 'baz'};
@@ -85,7 +85,7 @@ test('Match with glob', t => {
   t.is(analyzeCommit(rules, notMatch), undefined);
 });
 
-test('Return highest release type if multiple rules match', t => {
+test('Return highest release type if multiple rules match', (t) => {
   const commit = {
     type: 'feat',
     notes: [{title: 'BREAKING CHANGE', text: 'some breaking change'}],
@@ -104,13 +104,13 @@ test('Return highest release type if multiple rules match', t => {
   );
 });
 
-test('Return "false" for release type if the matching rule has "release" set to "false"', t => {
+test('Return "false" for release type if the matching rule has "release" set to "false"', (t) => {
   const commit = {type: 'fix'};
 
   t.is(analyzeCommit([{type: 'fix', release: false}], commit), false);
 });
 
-test('Return "null" for release type if the matching rule has "release" set to "null"', t => {
+test('Return "null" for release type if the matching rule has "release" set to "null"', (t) => {
   const commit = {type: 'fix'};
 
   t.is(analyzeCommit([{type: 'fix', release: null}], commit), null);
