@@ -1,0 +1,44 @@
+name: Test
+on:
+  push:
+    branches:
+      - main
+      - renovate/**
+  pull_request:
+    types:
+      - opened
+      - synchronize
+jobs:
+  test_matrix:
+    strategy:
+      matrix:
+        node-version:
+          - 14.17
+          - 16
+        os:
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
+    runs-on: "${{ matrix.os }}"
+    steps:
+      - uses: actions/checkout@v3
+      - name: "Use Node.js ${{ matrix.node-version }}"
+        uses: actions/setup-node@v3
+        with:
+          node-version: "${{ matrix.node-version }}"
+          cache: npm
+      - run: npm ci
+      - run: "npm run test:ci"
+  test:
+    runs-on: ubuntu-latest
+    needs: test_matrix
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: npm
+      - run: npm ci
+      - name: Ensure dependencies are compatible with the engines range
+        run: npx ls-engines
+      - run: npm run lint
