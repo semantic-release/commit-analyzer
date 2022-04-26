@@ -4,6 +4,7 @@ const filter = require('conventional-commits-filter');
 const debug = require('debug')('semantic-release:commit-analyzer');
 const loadParserConfig = require('./lib/load-parser-config');
 const loadReleaseRules = require('./lib/load-release-rules');
+const loadReleaseScopes = require('./lib/load-release-scopes');
 const analyzeCommit = require('./lib/analyze-commit');
 const compareReleaseTypes = require('./lib/compare-release-types');
 const RELEASE_TYPES = require('./lib/default-release-types');
@@ -16,6 +17,7 @@ const DEFAULT_RELEASE_RULES = require('./lib/default-release-rules');
  * @param {String} pluginConfig.preset conventional-changelog preset ('angular', 'atom', 'codemirror', 'ember', 'eslint', 'express', 'jquery', 'jscs', 'jshint')
  * @param {String} pluginConfig.config Requirable npm package with a custom conventional-changelog preset
  * @param {String|Array} pluginConfig.releaseRules A `String` to load an external module or an `Array` of rules.
+ * @param {String|Array} pluginConfig.releaseScopes A `String` to load an external module or an `Array` of scopes.
  * @param {Object} pluginConfig.parserOpts Additional `conventional-changelog-parser` options that will overwrite ones loaded by `preset` or `config`.
  * @param {Object} context The semantic-release context.
  * @param {Array<Object>} context.commits The commits to analyze.
@@ -26,6 +28,7 @@ const DEFAULT_RELEASE_RULES = require('./lib/default-release-rules');
 async function analyzeCommits(pluginConfig, context) {
   const {commits, logger} = context;
   const releaseRules = loadReleaseRules(pluginConfig, context);
+  const releaseScopes = loadReleaseScopes(pluginConfig, context);
   const config = await loadParserConfig(pluginConfig, context);
   let releaseType = null;
 
@@ -40,6 +43,8 @@ async function analyzeCommits(pluginConfig, context) {
         return true;
       })
       .map(({message, ...commitProps}) => ({rawMsg: message, message, ...commitProps, ...parser(message, config)}))
+      // Filter commits based on releaseScopes
+      .filter(({scope}) => !releaseScopes.length || releaseScopes.includes(scope))
   ).every(({rawMsg, ...commit}) => {
     logger.log(`Analyzing commit: %s`, rawMsg);
     let commitReleaseType;
