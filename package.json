@@ -1,7 +1,7 @@
 {
   "name": "commit-analyzer-scoped",
   "description": "semantic-release plugin to analyze commits with conventional-changelog",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "author": "La Javaness <dev@lajavaness.com>",
   "ava": {
     "files": [
@@ -122,7 +122,11 @@
             }
           ]
         }
-      ]
+      ],
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/changelog",
+      "@semantic-release/npm",
+      "@semantic-release/git"
     ]
   }
 }
