@@ -104,5 +104,25 @@
     "extends": [
       "github>semantic-release/.github"
     ]
+  },
+  "release": {
+    "branches": [
+      "main"
+    ],
+    "tagFormat": "v${version}-scoped",
+    "plugins": [
+      [
+        "@semantic-release/commit-analyzer",
+        {
+          "preset": "angular",
+          "releaseRules": [
+            {
+              "type": "chore",
+              "release": "patch"
+            }
+          ]
+        }
+      ]
+    ]
   }
 }
