@@ -27,7 +27,7 @@
   "devDependencies": {
     "ava": "4.2.0",
     "conventional-changelog-atom": "2.0.8",
-    "conventional-changelog-conventionalcommits": "4.6.3",
+    "conventional-changelog-conventionalcommits": "5.0.0",
     "conventional-changelog-ember": "2.0.9",
     "conventional-changelog-eslint": "3.0.9",
     "conventional-changelog-express": "2.0.6",
