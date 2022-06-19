@@ -8,6 +8,7 @@ const analyzeCommit = require('./lib/analyze-commit');
 const compareReleaseTypes = require('./lib/compare-release-types');
 const RELEASE_TYPES = require('./lib/default-release-types');
 const DEFAULT_RELEASE_RULES = require('./lib/default-release-rules');
+const setInitialPhaseRelease = require('./lib/set-initial-phase-release');
 
 /**
  * Determine the type of release to create based on a list of commits.
@@ -58,6 +59,7 @@ async function analyzeCommits(pluginConfig, context) {
     }
 
     if (commitReleaseType) {
+      commitReleaseType = setInitialPhaseRelease(commitReleaseType, pluginConfig.isInitialPhase);
       logger.log('The release type for the commit is %s', commitReleaseType);
     } else {
       logger.log('The commit should not trigger a release');

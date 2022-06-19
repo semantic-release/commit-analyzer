@@ -346,6 +346,28 @@ test('Filter out empty commits', async (t) => {
   t.is(releaseType, 'patch');
 });
 
+test('Return release type for initial development phase', async (t) => {
+  const commits = [
+    {hash: '123', message: 'chore: first chore'},
+    {hash: '456', message: 'feat: some feature'},
+    {hash: '789', message: 'feat!: Breaking change feature'},
+  ];
+  const releaseType = await analyzeCommits(
+    {
+      preset: 'conventionalcommits',
+      isInitialPhase: true,
+    },
+    {cwd, commits, logger: t.context.logger}
+  );
+
+  t.is(releaseType, 'minor');
+  t.true(t.context.log.calledWith('Analyzing commit: %s', commits[0].message));
+  t.true(t.context.log.calledWith('The release type for the commit is %s', 'patch'));
+  t.true(t.context.log.calledWith('Analyzing commit: %s', commits[1].message));
+  t.true(t.context.log.calledWith('The release type for the commit is %s', 'minor'));
+  t.true(t.context.log.calledWith('Analysis of %s commits complete: %s release', 3, 'minor'));
+});
+
 test('Throw error if "preset" doesn`t exist', async (t) => {
   await t.throwsAsync(analyzeCommits({preset: 'unknown-preset'}, {cwd}), {code: 'MODULE_NOT_FOUND'});
 });

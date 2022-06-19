@@ -115,15 +115,3 @@ test('Return "null" for release type if the matching rule has "release" set to "
 
   t.is(analyzeCommit([{type: 'fix', release: null}], commit), null);
 });
-
-test('Return release type for initial development phase', (t) => {
-  const rules = [
-    {type: 'feat', release: 'minor'},
-    {breaking: true, release: 'major'},
-  ];
-  const match = {type: 'feat', notes: [{title: 'BREAKING CHANGE', text: 'some breaking change'}]};
-  const match2 = {type: 'feat'};
-
-  t.is(analyzeCommit(rules, match, true), 'minor');
-  t.is(analyzeCommit(rules, match2, true), 'patch');
-});
