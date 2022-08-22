@@ -33,7 +33,7 @@
     "conventional-changelog-express": "2.0.6",
     "conventional-changelog-jshint": "2.0.9",
     "nyc": "15.1.0",
-    "semantic-release": "19.0.3",
+    "semantic-release": "19.0.4",
     "sinon": "14.0.0",
     "xo": "0.32.1"
   },
