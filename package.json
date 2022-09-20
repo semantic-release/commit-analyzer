@@ -94,7 +94,8 @@
     "prettier": true,
     "space": true,
     "rules": {
-      "unicorn/string-content": "off"
+      "unicorn/string-content": "off",
+      "unicorn/no-array-for-each": "off"
     }
   },
   "renovate": {
