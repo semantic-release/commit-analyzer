@@ -25,7 +25,7 @@
     "micromatch": "^4.0.2"
   },
   "devDependencies": {
-    "ava": "4.3.3",
+    "ava": "5.0.1",
     "conventional-changelog-atom": "2.0.8",
     "conventional-changelog-conventionalcommits": "5.0.0",
     "conventional-changelog-ember": "2.0.9",
