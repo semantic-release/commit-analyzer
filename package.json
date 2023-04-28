@@ -1,7 +1,7 @@
 {
   "name": "@clearcover/commit-analyzer",
   "description": "semantic-release plugin to analyze commits with conventional-changelog",
-  "version": "1.0.0",
+  "version": "6.4.1",
   "author": "Pierre Vanduynslager (https://twitter.com/@pvdlg_)",
   "ava": {
     "files": [
