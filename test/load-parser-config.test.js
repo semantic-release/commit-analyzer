@@ -34,7 +34,10 @@ async function loadConfig(t, config, pluginOptions) {
 loadConfig.title = (providedTitle, config) => `${providedTitle} Load "${config}" config`.trim();
 
 test('Load "conventional-changelog-angular" by default', async (t) => {
-  t.deepEqual(await loadParserConfig({}, {cwd}), (await (await import('conventional-changelog-angular'))).parserOpts);
+  t.deepEqual(
+    await loadParserConfig({}, {cwd}),
+    (await (await import('conventional-changelog-angular')).default).parserOpts
+  );
 });
 
 test('Accept a "parserOpts" object as option', async (t) => {
