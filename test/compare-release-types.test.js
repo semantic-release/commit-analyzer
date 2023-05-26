@@ -1,7 +1,7 @@
 import test from 'ava';
 import compareReleaseTypes from '../lib/compare-release-types.js';
 
-test('Compares release types', t => {
+test('Compares release types', (t) => {
   t.true(compareReleaseTypes('patch', 'minor'));
   t.true(compareReleaseTypes('patch', 'major'));
   t.true(compareReleaseTypes('minor', 'major'));
