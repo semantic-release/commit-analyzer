@@ -34,9 +34,9 @@
     "conventional-changelog-eslint": "3.0.9",
     "conventional-changelog-express": "2.0.6",
     "conventional-changelog-jshint": "2.0.9",
+    "prettier": "2.8.8",
     "semantic-release": "21.0.2",
-    "sinon": "15.1.0",
-    "xo": "0.39.1"
+    "sinon": "15.1.0"
   },
   "engines": {
     "node": ">=14.17"
@@ -86,19 +86,12 @@
     "url": "https://github.com/semantic-release/commit-analyzer.git"
   },
   "scripts": {
-    "lint": "xo",
+    "lint": "prettier --check \"*.{js,json,md}\" \".github/**/*.{md,yml}\" \"{bin,lib,test}/*.js\"",
+    "lint:fix": "prettier --write \"*.{js,json,md}\" \".github/**/*.{md,yml}\" \"{bin,lib,test}/*.js\"",
     "pretest": "npm run lint",
     "semantic-release": "semantic-release",
     "test": "c8 ava -v",
     "test:ci": "c8 ava -v"
-  },
-  "xo": {
-    "prettier": true,
-    "space": true,
-    "rules": {
-      "unicorn/string-content": "off",
-      "unicorn/no-array-for-each": "off"
-    }
   },
   "renovate": {
     "extends": [
