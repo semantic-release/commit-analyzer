@@ -168,14 +168,14 @@ With this configuration:
   "plugins": [
     ["@semantic-release/commit-analyzer", {
       "preset": "angular",
-      "releaseRules": "./config/release-rules.js"
+      "releaseRules": "./config/release-rules.cjs"
     }],
     "@semantic-release/release-notes-generator"
   ]
 }
 ```
 ```js
-// File: config/release-rules.js
+// File: config/release-rules.cjs
 module.exports = [
   {type: 'docs', scope: 'README', release: 'patch'},
   {type: 'refactor', scope: 'core-*', release: 'minor'},

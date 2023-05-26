@@ -1,6 +1,6 @@
 import test from 'ava';
 import loadReleaseRules from '../lib/load-release-rules.js';
-import testReleaseRules from './fixtures/release-rules.js';
+import testReleaseRules from './fixtures/release-rules.cjs';
 
 const cwd = process.cwd();
 
@@ -11,7 +11,7 @@ test('Accept a "releaseRules" option', (t) => {
 });
 
 test('Accept a "releaseRules" option that reference a requireable module', t => {
-  const releaseRules = loadReleaseRules({releaseRules: './test/fixtures/release-rules'}, {cwd});
+  const releaseRules = loadReleaseRules({releaseRules: './test/fixtures/release-rules.cjs'}, {cwd});
 
   t.deepEqual(releaseRules, testReleaseRules);
 });
@@ -58,7 +58,7 @@ test('Throw error if "releaseRules" is not an Array or a String', (t) => {
 });
 
 test('Throw error if "releaseRules" option reference a requirable module that is not an Array or a String', (t) => {
-  t.throws(() => loadReleaseRules({releaseRules: './test/fixtures/release-rules-invalid'}, {cwd}), {
+  t.throws(() => loadReleaseRules({releaseRules: './test/fixtures/release-rules-invalid.cjs'}, {cwd}), {
     message: /Error in commit-analyzer configuration: "releaseRules" must be an array of rules/,
   });
 });
