@@ -1,23 +1,23 @@
-const test = require('ava');
-const loadReleaseRules = require('../lib/load-release-rules.js');
-const testReleaseRules = require('./fixtures/release-rules.js');
+import test from "ava";
+import loadReleaseRules from "../lib/load-release-rules.js";
+import testReleaseRules from "./fixtures/release-rules.cjs";
 
 const cwd = process.cwd();
 
 test('Accept a "releaseRules" option', (t) => {
-  const releaseRules = loadReleaseRules({releaseRules: testReleaseRules}, {cwd});
+  const releaseRules = loadReleaseRules({ releaseRules: testReleaseRules }, { cwd });
 
   t.deepEqual(releaseRules, testReleaseRules);
 });
 
-test('Accept a "releaseRules" option that reference a requirable module', (t) => {
-  const releaseRules = loadReleaseRules({releaseRules: './test/fixtures/release-rules'}, {cwd});
+test('Accept a "releaseRules" option that reference a requireable module', (t) => {
+  const releaseRules = loadReleaseRules({ releaseRules: "./test/fixtures/release-rules.cjs" }, { cwd });
 
   t.deepEqual(releaseRules, testReleaseRules);
 });
 
 test('Return undefined if "releaseRules" not set', (t) => {
-  const releaseRules = loadReleaseRules({}, {cwd});
+  const releaseRules = loadReleaseRules({}, { cwd });
 
   t.is(releaseRules, undefined);
 });
@@ -26,45 +26,45 @@ test('Preserve release rules set to "false" or "null"', (t) => {
   const releaseRules = loadReleaseRules(
     {
       releaseRules: [
-        {type: 'feat', release: false},
-        {type: 'fix', release: null},
+        { type: "feat", release: false },
+        { type: "fix", release: null },
       ],
     },
-    {cwd}
+    { cwd }
   );
 
   t.deepEqual(releaseRules, [
-    {type: 'feat', release: false},
-    {type: 'fix', release: null},
+    { type: "feat", release: false },
+    { type: "fix", release: null },
   ]);
 });
 
 test('Throw error if "releaseRules" reference invalid commit type', (t) => {
-  t.throws(() => loadReleaseRules({releaseRules: [{tag: 'Update', release: 'invalid'}]}, {cwd}), {
+  t.throws(() => loadReleaseRules({ releaseRules: [{ tag: "Update", release: "invalid" }] }, { cwd }), {
     message: /Error in commit-analyzer configuration: "invalid" is not a valid release type\. Valid values are:\[?.*]/,
   });
 });
 
 test('Throw error if a rule in "releaseRules" does not have a release type', (t) => {
-  t.throws(() => loadReleaseRules({releaseRules: [{tag: 'Update'}]}, {cwd}), {
+  t.throws(() => loadReleaseRules({ releaseRules: [{ tag: "Update" }] }, { cwd }), {
     message: /Error in commit-analyzer configuration: rules must be an object with a "release" property/,
   });
 });
 
 test('Throw error if "releaseRules" is not an Array or a String', (t) => {
-  t.throws(() => loadReleaseRules({releaseRules: {}}, {cwd}), {
+  t.throws(() => loadReleaseRules({ releaseRules: {} }, { cwd }), {
     message: /Error in commit-analyzer configuration: "releaseRules" must be an array of rules/,
   });
 });
 
 test('Throw error if "releaseRules" option reference a requirable module that is not an Array or a String', (t) => {
-  t.throws(() => loadReleaseRules({releaseRules: './test/fixtures/release-rules-invalid'}, {cwd}), {
+  t.throws(() => loadReleaseRules({ releaseRules: "./test/fixtures/release-rules-invalid.cjs" }, { cwd }), {
     message: /Error in commit-analyzer configuration: "releaseRules" must be an array of rules/,
   });
 });
 
 test('Throw error if "releaseRules" contains an undefined rule', (t) => {
-  t.throws(() => loadReleaseRules({releaseRules: [{type: 'feat', release: 'minor'}, undefined]}, {cwd}), {
+  t.throws(() => loadReleaseRules({ releaseRules: [{ type: "feat", release: "minor" }, undefined] }, { cwd }), {
     message: /Error in commit-analyzer configuration: rules must be an object with a "release" property/,
   });
 });
