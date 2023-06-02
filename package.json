@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "ava": "5.3.0",
-    "c8": "7.10.0",
+    "c8": "7.14.0",
     "conventional-changelog-atom": "2.0.8",
     "conventional-changelog-conventionalcommits": "5.0.0",
     "conventional-changelog-ember": "2.0.9",
