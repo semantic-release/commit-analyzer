@@ -2,6 +2,7 @@
   "name": "@semantic-release/commit-analyzer",
   "description": "semantic-release plugin to analyze commits with conventional-changelog",
   "version": "0.0.0-development",
+  "type": "module",
   "author": "Pierre Vanduynslager (https://twitter.com/@pvdlg_)",
   "ava": {
     "files": [
@@ -21,24 +22,24 @@
     "conventional-commits-parser": "^3.2.3",
     "debug": "^4.0.0",
     "import-from": "^4.0.0",
-    "lodash": "^4.17.4",
+    "lodash-es": "^4.17.21",
     "micromatch": "^4.0.2"
   },
   "devDependencies": {
     "ava": "5.1.0",
+    "c8": "7.10.0",
     "conventional-changelog-atom": "2.0.8",
     "conventional-changelog-conventionalcommits": "5.0.0",
     "conventional-changelog-ember": "2.0.9",
     "conventional-changelog-eslint": "3.0.9",
     "conventional-changelog-express": "2.0.6",
     "conventional-changelog-jshint": "2.0.9",
-    "nyc": "15.1.0",
+    "prettier": "2.8.8",
     "semantic-release": "21.0.2",
-    "sinon": "15.1.0",
-    "xo": "0.39.1"
+    "sinon": "15.1.0"
   },
   "engines": {
-    "node": ">=14.17"
+    "node": ">=18"
   },
   "files": [
     "lib",
@@ -57,7 +58,7 @@
   ],
   "license": "MIT",
   "main": "index.js",
-  "nyc": {
+  "c8": {
     "include": [
       "lib/**/*.js",
       "index.js"
@@ -70,7 +71,7 @@
     "all": true
   },
   "peerDependencies": {
-    "semantic-release": ">=18.0.0-beta.1"
+    "semantic-release": ">=20.1.0"
   },
   "prettier": {
     "printWidth": 120,
@@ -85,19 +86,12 @@
     "url": "https://github.com/semantic-release/commit-analyzer.git"
   },
   "scripts": {
-    "lint": "xo",
+    "lint": "prettier --check \"*.{js,json,md}\" \".github/**/*.{md,yml}\" \"{bin,lib,test}/*.js\"",
+    "lint:fix": "prettier --write \"*.{js,json,md}\" \".github/**/*.{md,yml}\" \"{bin,lib,test}/*.js\"",
     "pretest": "npm run lint",
     "semantic-release": "semantic-release",
-    "test": "nyc ava -v",
-    "test:ci": "nyc ava -v"
-  },
-  "xo": {
-    "prettier": true,
-    "space": true,
-    "rules": {
-      "unicorn/string-content": "off",
-      "unicorn/no-array-for-each": "off"
-    }
+    "test": "c8 ava -v",
+    "test:ci": "c8 ava -v"
   },
   "renovate": {
     "extends": [
