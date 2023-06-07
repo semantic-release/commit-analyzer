@@ -33,7 +33,7 @@
     "conventional-changelog-ember": "3.0.0",
     "conventional-changelog-eslint": "4.0.0",
     "conventional-changelog-express": "3.0.0",
-    "conventional-changelog-jshint": "2.0.9",
+    "conventional-changelog-jshint": "3.0.0",
     "prettier": "2.8.8",
     "semantic-release": "21.0.3",
     "sinon": "15.1.0"
