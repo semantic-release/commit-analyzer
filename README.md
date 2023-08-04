@@ -7,7 +7,7 @@
 [![npm beta version](https://img.shields.io/npm/v/@semantic-release/commit-analyzer/beta.svg)](https://www.npmjs.com/package/@semantic-release/commit-analyzer)
 
 | Step             | Description                                                                                                                                         |
-|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
+| ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `analyzeCommits` | Determine the type of release by analyzing commits with [conventional-changelog](https://github.com/conventional-changelog/conventional-changelog). |
 
 ## Install
@@ -23,23 +23,27 @@ The plugin can be configured in the [**semantic-release** configuration file](ht
 ```json
 {
   "plugins": [
-    ["@semantic-release/commit-analyzer", {
-      "preset": "angular",
-      "releaseRules": [
-        {"type": "docs", "scope":"README", "release": "patch"},
-        {"type": "refactor", "release": "patch"},
-        {"type": "style", "release": "patch"}
-      ],
-      "parserOpts": {
-        "noteKeywords": ["BREAKING CHANGE", "BREAKING CHANGES"]
+    [
+      "@semantic-release/commit-analyzer",
+      {
+        "preset": "angular",
+        "releaseRules": [
+          { "type": "docs", "scope": "README", "release": "patch" },
+          { "type": "refactor", "release": "patch" },
+          { "type": "style", "release": "patch" }
+        ],
+        "parserOpts": {
+          "noteKeywords": ["BREAKING CHANGE", "BREAKING CHANGES"]
+        }
       }
-    }],
+    ],
     "@semantic-release/release-notes-generator"
   ]
 }
 ```
 
 With this example:
+
 - the commits that contains `BREAKING CHANGE` or `BREAKING CHANGES` in their body will be considered breaking changes.
 - the commits with a 'docs' `type`, a 'README' `scope` will be associated with a `patch` release
 - the commits with a 'refactor' `type` will be associated with a `patch` release
@@ -52,7 +56,7 @@ With this example:
 ### Options
 
 | Option         | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Default                                                                                                                           |
-|----------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
 | `preset`       | [conventional-changelog](https://github.com/conventional-changelog/conventional-changelog) preset (possible values: [`angular`](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-angular), [`atom`](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-atom), [`codemirror`](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-codemirror), [`ember`](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-ember), [`eslint`](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-eslint), [`express`](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-express), [`jquery`](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-jquery), [`jshint`](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-jshint), [`conventionalcommits`](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-conventionalcommits)). | [`angular`](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-angular) |
 | `config`       | npm package name of a custom [conventional-changelog](https://github.com/conventional-changelog/conventional-changelog) preset.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | -                                                                                                                                 |
 | `parserOpts`   | Additional [conventional-commits-parser](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-commits-parser#conventionalcommitsparseroptions) options that will extends the ones loaded by `preset` or `config`. This is convenient to use a [conventional-changelog](https://github.com/conventional-changelog/conventional-changelog) preset with some customizations without having to create a new module.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | -                                                                                                                                 |
@@ -74,18 +78,22 @@ Release rules are used when deciding if the commits since the last release warra
 ##### Rules definition
 
 This is an `Array` of rule objects. A rule object has a `release` property and 1 or more criteria.
+
 ```json
 {
   "plugins": [
-    ["@semantic-release/commit-analyzer", {
-      "preset": "angular",
-      "releaseRules": [
-        {"type": "docs", "scope": "README", "release": "patch"},
-        {"type": "refactor", "scope": "core-*", "release": "minor"},
-        {"type": "refactor", "release": "patch"},
-        {"scope": "no-release", "release": false}
-      ]
-    }],
+    [
+      "@semantic-release/commit-analyzer",
+      {
+        "preset": "angular",
+        "releaseRules": [
+          { "type": "docs", "scope": "README", "release": "patch" },
+          { "type": "refactor", "scope": "core-*", "release": "minor" },
+          { "type": "refactor", "release": "patch" },
+          { "scope": "no-release", "release": false }
+        ]
+      }
+    ],
     "@semantic-release/release-notes-generator"
   ]
 }
@@ -98,6 +106,7 @@ Each commit will be compared with each rule and when it matches, the commit will
 See [release types](lib/default-release-types.js) for the release types hierarchy.
 
 With the previous example:
+
 - Commits with `type` 'docs' and `scope` 'README' will be associated with a `patch` release.
 - Commits with `type` 'refactor' and `scope` starting with 'core-' (i.e. 'core-ui', 'core-rules', ...) will be associated with a `minor` release.
 - Other commits with `type` 'refactor' (without `scope` or with a `scope` not matching the glob `core-*`) will be associated with a `patch` release.
@@ -108,6 +117,7 @@ With the previous example:
 If a commit doesn't match any rule in `releaseRules` it will be evaluated against the [default release rules](lib/default-release-rules.js).
 
 With the previous example:
+
 - Commits with a breaking change will be associated with a `major` release.
 - Commits with `type` 'feat' will be associated with a `minor` release.
 - Commits with `type` 'fix' will be associated with a `patch` release.
@@ -119,6 +129,7 @@ With the previous example:
 If a commit doesn't match any rules in `releaseRules` or in [default release rules](lib/default-release-rules.js) then no release type will be associated with the commit.
 
 With the previous example:
+
 - Commits with `type` 'style' will not be associated with a release type.
 - Commits with `type` 'test' will not be associated with a release type.
 - Commits with `type` 'chore' will not be associated with a release type.
@@ -128,6 +139,7 @@ With the previous example:
 If there is multiple commits that match one or more rules, the one with the highest release type will determine the global release type.
 
 Considering the following commits:
+
 - `docs(README): Add more details to the API docs`
 - `feat(API): Add a new method to the public API`
 
@@ -138,21 +150,27 @@ With the previous example the release type determined by the plugin will be `min
 The properties to set in the rules will depends on the commit style chosen. For example [conventional-changelog-angular](https://github.com/conventional-changelog/conventional-changelog/blob/master/packages/conventional-changelog-angular) use the commit properties `type`, `scope` and `subject` but [conventional-changelog-eslint](https://github.com/conventional-changelog/conventional-changelog/blob/master/packages/conventional-changelog-eslint) uses `tag` and `message`.
 
 For example with `eslint` preset:
+
 ```json
 {
   "plugins": [
-    ["@semantic-release/commit-analyzer", {
-      "preset": "eslint",
-      "releaseRules": [
-        {"tag": "Docs", "message":"*README*", "release": "patch"},
-        {"tag": "New", "release": "patch"}
-      ]
-    }],
+    [
+      "@semantic-release/commit-analyzer",
+      {
+        "preset": "eslint",
+        "releaseRules": [
+          { "tag": "Docs", "message": "*README*", "release": "patch" },
+          { "tag": "New", "release": "patch" }
+        ]
+      }
+    ],
     "@semantic-release/release-notes-generator"
   ]
 }
 ```
+
 With this configuration:
+
 - Commits with `tag` 'Docs', that contains 'README' in their header message will be associated with a `patch` release.
 - Commits with `tag` 'New' will be associated with a `patch` release.
 - Commits with `tag` 'Breaking' will be associated with a `major` release (per [default release rules](lib/default-release-rules.js)).
@@ -163,22 +181,27 @@ With this configuration:
 ##### External package / file
 
 `releaseRules` can also reference a module, either by it's `npm` name or path:
+
 ```json
 {
   "plugins": [
-    ["@semantic-release/commit-analyzer", {
-      "preset": "angular",
-      "releaseRules": "./config/release-rules.js"
-    }],
+    [
+      "@semantic-release/commit-analyzer",
+      {
+        "preset": "angular",
+        "releaseRules": "./config/release-rules.cjs"
+      }
+    ],
     "@semantic-release/release-notes-generator"
   ]
 }
 ```
+
 ```js
-// File: config/release-rules.js
+// File: config/release-rules.cjs
 module.exports = [
-  {type: 'docs', scope: 'README', release: 'patch'},
-  {type: 'refactor', scope: 'core-*', release: 'minor'},
-  {type: 'refactor', release: 'patch'},
+  { type: "docs", scope: "README", release: "patch" },
+  { type: "refactor", scope: "core-*", release: "minor" },
+  { type: "refactor", release: "patch" },
 ];
 ```
