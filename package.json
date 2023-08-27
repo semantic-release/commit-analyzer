@@ -30,7 +30,7 @@
     "c8": "8.0.1",
     "conventional-changelog-atom": "4.0.0",
     "conventional-changelog-conventionalcommits": "6.1.0",
-    "conventional-changelog-ember": "3.0.0",
+    "conventional-changelog-ember": "4.0.0",
     "conventional-changelog-eslint": "4.0.0",
     "conventional-changelog-express": "3.0.0",
     "conventional-changelog-jshint": "3.0.0",
