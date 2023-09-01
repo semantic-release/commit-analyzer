@@ -36,7 +36,7 @@ loadConfig.title = (providedTitle, config) => `${providedTitle} Load "${config}"
 test('Load "conventional-changelog-angular" by default', async (t) => {
   t.deepEqual(
     await loadParserConfig({}, { cwd }),
-    (await (await import("conventional-changelog-angular")).default).parserOpts
+    (await (await import("conventional-changelog-angular")).default()).parserOpts
   );
 });
 
