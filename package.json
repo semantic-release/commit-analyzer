@@ -18,7 +18,7 @@
   ],
   "dependencies": {
     "conventional-changelog-angular": "^7.0.0",
-    "conventional-commits-filter": "^3.0.0",
+    "conventional-commits-filter": "^4.0.0",
     "conventional-commits-parser": "^5.0.0",
     "debug": "^4.0.0",
     "import-from": "^4.0.0",
