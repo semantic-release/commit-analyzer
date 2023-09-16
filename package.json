@@ -35,7 +35,7 @@
     "conventional-changelog-express": "3.0.0",
     "conventional-changelog-jshint": "3.0.0",
     "prettier": "3.0.3",
-    "semantic-release": "21.1.1",
+    "semantic-release": "21.1.2",
     "sinon": "16.0.0"
   },
   "engines": {
