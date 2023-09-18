@@ -31,7 +31,7 @@
     "conventional-changelog-atom": "3.0.0",
     "conventional-changelog-conventionalcommits": "6.1.0",
     "conventional-changelog-ember": "3.0.0",
-    "conventional-changelog-eslint": "4.0.0",
+    "conventional-changelog-eslint": "5.0.0",
     "conventional-changelog-express": "3.0.0",
     "conventional-changelog-jshint": "3.0.0",
     "prettier": "3.0.3",
