@@ -1,4 +1,6 @@
 import test from "ava";
+import importFrom from "import-from-esm";
+import sinon from "sinon";
 import loadParserConfig from "../lib/load-parser-config.js";
 
 const cwd = process.cwd();
@@ -99,4 +101,13 @@ test('Throw error if "config" doesn`t exist', async (t) => {
 
 test('Throw error if "preset" doesn`t exist', async (t) => {
   await t.throwsAsync(loadParserConfig({ preset: "unknown-preset" }, { cwd }), { code: "MODULE_NOT_FOUND" });
+});
+
+test.serial("Load preset and config correctly when importFrom.silent fails", async (t) => {
+  sinon.stub(importFrom, "silent").returns(undefined);
+
+  await loadPreset(t, "angular");
+  await loadConfig(t, "angular");
+
+  sinon.restore();
 });
