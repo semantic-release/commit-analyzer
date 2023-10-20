@@ -36,7 +36,7 @@
     "conventional-changelog-jshint": "4.0.0",
     "prettier": "3.0.3",
     "semantic-release": "22.0.5",
-    "sinon": "16.1.3"
+    "sinon": "17.0.0"
   },
   "engines": {
     "node": "^18.17 || >=20.6.1"
