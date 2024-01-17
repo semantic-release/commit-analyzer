@@ -34,7 +34,7 @@
     "conventional-changelog-eslint": "5.0.0",
     "conventional-changelog-express": "4.0.0",
     "conventional-changelog-jshint": "4.0.0",
-    "prettier": "3.2.2",
+    "prettier": "3.2.3",
     "semantic-release": "23.0.0",
     "sinon": "17.0.1"
   },
