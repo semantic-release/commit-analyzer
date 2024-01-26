@@ -1,5 +1,5 @@
 import test from "ava";
-import importFrom from "import-from-esm";
+import importFrom from "import-from";
 import sinon from "sinon";
 import loadParserConfig from "../lib/load-parser-config.js";
 
@@ -92,12 +92,13 @@ test(loadPreset, "express");
 test(loadConfig, "express");
 test(loadPreset, "jshint");
 test(loadConfig, "jshint");
-test(loadConfig, "techor");
 test(loadPreset, "conventionalcommits", { presetConfig: {} });
 test(loadConfig, "conventionalcommits", { presetConfig: {} });
 
-test('Throw error if "config" doesn`t exist', async (t) => {
-  await t.throwsAsync(loadParserConfig({ config: "unknown-config" }, { cwd }), { code: "MODULE_NOT_FOUND" });
+test('Throw error if "config" is not a function', async (t) => {
+  await t.throwsAsync(loadPreset(t, "techor"), {
+    message: "((intermediate value) || (intermediate value)) is not a function",
+  });
 });
 
 test('Throw error if "preset" doesn`t exist', async (t) => {
