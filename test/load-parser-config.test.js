@@ -92,6 +92,7 @@ test(loadPreset, "express");
 test(loadConfig, "express");
 test(loadPreset, "jshint");
 test(loadConfig, "jshint");
+test(loadConfig, "techor");
 test(loadPreset, "conventionalcommits", { presetConfig: {} });
 test(loadConfig, "conventionalcommits", { presetConfig: {} });
 
