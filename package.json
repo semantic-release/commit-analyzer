@@ -1,7 +1,7 @@
 {
   "name": "@tweeat/commit-analyzer",
   "description": "semantic-release plugin to analyze commits with conventional-changelog",
-  "version": "0.0.0-development",
+  "version": "1.0.0",
   "type": "module",
   "author": "Gert-Jan Naaktgeboren",
   "ava": {
@@ -88,10 +88,5 @@
     "semantic-release": "semantic-release",
     "test": "c8 ava -v",
     "test:ci": "c8 ava -v"
-  },
-  "renovate": {
-    "extends": [
-      "github>@tweeat/.github:renovate-config"
-    ]
   }
 }
