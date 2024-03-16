@@ -41,7 +41,7 @@ jobs:
           node-version: "lts/*"
           cache: npm
       - run: npm clean-install
-      - run: npm audit signatures
+      - run: corepack npm audit signatures
       - name: Ensure dependencies are compatible with the engines range
         run: npx ls-engines
       - run: npm run lint
