@@ -2,6 +2,7 @@
   "name": "@tweeat/commit-analyzer",
   "description": "tweeat plugin to generate changelog content with conventional-changelog",
   "version": "1.0.0",
+  "type": "module",
   "author": "Gert-Jan Naaktgeboren",
   "ava": {
     "files": [
