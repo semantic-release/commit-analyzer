@@ -1,21 +1,16 @@
 {
-  "name": "@semantic-release/commit-analyzer",
-  "description": "semantic-release plugin to analyze commits with conventional-changelog",
-  "version": "0.0.0-development",
-  "type": "module",
-  "author": "Pierre Vanduynslager (https://twitter.com/@pvdlg_)",
+  "name": "@tweeat/release-notes-generator",
+  "description": "tweeat plugin to generate changelog content with conventional-changelog",
+  "version": "1.0.0",
+  "author": "Gert-Jan Naaktgeboren",
   "ava": {
     "files": [
       "test/**/*.test.js"
     ]
   },
   "bugs": {
-    "url": "https://github.com/semantic-release/commit-analyzer/issues"
+    "url": "https://github.com/Gert-Jan2AT/commit-analyzer/issues"
   },
-  "contributors": [
-    "Stephan Bönnemann <stephan@boennemann.me> (http://boennemann.me)",
-    "Gregor Martynus (https://twitter.com/gr2m)"
-  ],
   "dependencies": {
     "conventional-changelog-angular": "^7.0.0",
     "conventional-commits-filter": "^4.0.0",
@@ -83,7 +78,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/semantic-release/commit-analyzer.git"
+    "url": "https://github.com/Gert-Jan2AT/commit-analyzer.git"
   },
   "scripts": {
     "lint": "prettier --check \"*.{js,json,md}\" \".github/**/*.{md,yml}\" \"{bin,lib,test}/*.js\"",
