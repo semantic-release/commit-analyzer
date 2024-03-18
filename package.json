@@ -6,7 +6,8 @@
   "author": "Pierre Vanduynslager (https://twitter.com/@pvdlg_)",
   "ava": {
     "files": [
-      "test/**/*.test.js"
+      "test/**/*.test.js",
+      "!test/integration.test.js"
     ]
   },
   "bugs": {
@@ -34,12 +35,16 @@
     "conventional-changelog-eslint": "5.0.0",
     "conventional-changelog-express": "4.0.0",
     "conventional-changelog-jshint": "4.0.0",
+    "lockfile-lint": "4.13.2",
+    "ls-engines": "0.9.1",
+    "npm-run-all2": "6.1.2",
     "prettier": "3.2.5",
+    "publint": "0.2.7",
     "semantic-release": "23.0.2",
     "sinon": "17.0.1"
   },
   "engines": {
-    "node": "^18.17 || >=20.6.1"
+    "node": ">=20.8.1"
   },
   "files": [
     "lib",
@@ -57,7 +62,8 @@
     "semantic-release"
   ],
   "license": "MIT",
-  "main": "index.js",
+  "exports": "./index.js",
+  "main": "./index.js",
   "c8": {
     "include": [
       "lib/**/*.js",
@@ -69,6 +75,14 @@
       "html"
     ],
     "all": true
+  },
+  "lockfile-lint": {
+    "path": "package-lock.json",
+    "type": "npm",
+    "validate-https": true,
+    "allowed-hosts": [
+      "npm"
+    ]
   },
   "peerDependencies": {
     "semantic-release": ">=20.1.0"
@@ -86,16 +100,19 @@
     "url": "https://github.com/semantic-release/commit-analyzer.git"
   },
   "scripts": {
-    "lint": "prettier --check \"*.{js,json,md}\" \".github/**/*.{md,yml}\" \"{bin,lib,test}/*.js\"",
-    "lint:fix": "prettier --write \"*.{js,json,md}\" \".github/**/*.{md,yml}\" \"{bin,lib,test}/*.js\"",
-    "pretest": "npm run lint",
-    "semantic-release": "semantic-release",
-    "test": "c8 ava -v",
-    "test:ci": "c8 ava -v"
+    "lint:prettier": "prettier --check \"*.{js,json,md}\" \".github/**/*.{md,yml}\" \"{bin,lib,test}/*.js\"",
+    "lint:prettier:fix": "prettier --write \"*.{js,json,md}\" \".github/**/*.{md,yml}\" \"{bin,lib,test}/*.js\"",
+    "lint:lockfile": "lockfile-lint",
+    "lint:engines": "ls-engines",
+    "lint:publish": "publint --strict",
+    "test": "npm-run-all --print-label --parallel lint:* --parallel test:*",
+    "test:unit": "c8 ava --verbose",
+    "test:integration": "ava --verbose test/integration.test.js"
   },
   "renovate": {
     "extends": [
       "github>semantic-release/.github:renovate-config"
     ]
-  }
+  },
+  "packageManager": "npm@10.5.0+sha256.17ca6e08e7633b624e8f870db81a78f46afe119de62bcaf0a7407574139198fc"
 }
