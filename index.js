@@ -19,6 +19,7 @@ const debug = debugFactory("semantic-release:commit-analyzer");
  * @param {String} pluginConfig.config Requireable npm package with a custom conventional-changelog preset
  * @param {String|Array} pluginConfig.releaseRules A `String` to load an external module or an `Array` of rules.
  * @param {Object} pluginConfig.parserOpts Additional `conventional-changelog-parser` options that will overwrite ones loaded by `preset` or `config`.
+ * @param {Object} pluginConfig.regexRemove Optional regular that will be used to clean up de message in the commit. For example to remove the Merged PR xxxx: part from a devops commit
  * @param {Object} context The semantic-release context.
  * @param {Array<Object>} context.commits The commits to analyze.
  * @param {String} context.cwd The current working directory.
@@ -41,7 +42,7 @@ export async function analyzeCommits(pluginConfig, context) {
 
         return true;
       })
-      .map(({ message, ...commitProps }) => ({ rawMsg: message, message, ...commitProps, ...parser(message, config) }))
+      .map(({ message, ...commitProps }) => ({ rawMsg: message, message, ...commitProps, ...parser(pluginConfig.regexRemove ? message.replace(new RegExp(pluginConfig.regexRemove), "") : message, config) }))
   ).every(({ rawMsg, ...commit }) => {
     logger.log(`Analyzing commit: %s`, rawMsg);
     let commitReleaseType;
