@@ -32,7 +32,7 @@
     "conventional-changelog-atom": "^5.0.0",
     "conventional-changelog-conventionalcommits": "^8.0.0",
     "conventional-changelog-ember": "^5.0.0",
-    "conventional-changelog-eslint": "^5.0.0",
+    "conventional-changelog-eslint": "^6.0.0",
     "conventional-changelog-express": "^5.0.0",
     "conventional-changelog-jshint": "^5.0.0",
     "lockfile-lint": "4.13.2",
