@@ -34,7 +34,7 @@
     "conventional-changelog-ember": "4.0.0",
     "conventional-changelog-eslint": "5.0.0",
     "conventional-changelog-express": "4.0.0",
-    "conventional-changelog-jshint": "4.0.0",
+    "conventional-changelog-jshint": "5.0.0",
     "lockfile-lint": "4.13.2",
     "ls-engines": "0.9.1",
     "npm-run-all2": "6.2.0",
