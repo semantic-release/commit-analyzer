@@ -18,7 +18,7 @@
     "Gregor Martynus (https://twitter.com/gr2m)"
   ],
   "dependencies": {
-    "conventional-changelog-angular": "^7.0.0",
+    "conventional-changelog-angular": "^8.0.0",
     "conventional-commits-filter": "^4.0.0",
     "conventional-commits-parser": "^5.0.0",
     "debug": "^4.0.0",
