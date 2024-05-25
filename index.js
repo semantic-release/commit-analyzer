@@ -42,15 +42,16 @@ export async function analyzeCommits(pluginConfig, context) {
 
         return true;
       })
-      .map((rawCommit) => ({
-        ...rawCommit,
-        ...parser.parse(rawCommit.message),
+      .map(({ message, ...commitProps }) => ({
+        rawMsg: message,
+        message,
+        ...commitProps,
+        ...parser.parse(message),
       }))
   );
 
-  for (const { message, ...commit } of filteredCommits) {
-    console.log(`Analyzing commit: %s`, message);
-    logger.log(`Analyzing commit: %s`, message);
+  for (const { rawMsg, ...commit } of filteredCommits) {
+    logger.log(`Analyzing commit: %s`, rawMsg);
     let commitReleaseType;
 
     // Determine release type based on custom releaseRules
