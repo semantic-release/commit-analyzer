@@ -31,7 +31,7 @@ export async function analyzeCommits(pluginConfig, context) {
   const config = await loadParserConfig(pluginConfig, context);
   let releaseType = null;
 
-  const parser = new CommitParser(config)
+  const parser = new CommitParser(config);
   const filteredCommits = filterRevertedCommitsSync(
     commits
       .filter(({ message, hash }) => {
@@ -44,12 +44,12 @@ export async function analyzeCommits(pluginConfig, context) {
       })
       .map((rawCommit) => ({
         ...rawCommit,
-        ...parser.parse(rawCommit.message)
+        ...parser.parse(rawCommit.message),
       }))
   );
 
   for (const { message, ...commit } of filteredCommits) {
-    console.log(`Analyzing commit: %s`, message)
+    console.log(`Analyzing commit: %s`, message);
     logger.log(`Analyzing commit: %s`, message);
     let commitReleaseType;
 
