@@ -15,7 +15,8 @@
   },
   "contributors": [
     "Stephan Bönnemann <stephan@boennemann.me> (http://boennemann.me)",
-    "Gregor Martynus (https://twitter.com/gr2m)"
+    "Gregor Martynus (https://twitter.com/gr2m)",
+    "Matt Travi <npm@travi.org> (https://matt.travi.org/)"
   ],
   "dependencies": {
     "conventional-changelog-angular": "^8.0.0",
