@@ -1,6 +1,6 @@
 import { isUndefined } from "lodash-es";
-import { sync as parser } from "conventional-commits-parser";
-import filter from "conventional-commits-filter";
+import { CommitParser } from "conventional-commits-parser";
+import { filterRevertedCommitsSync } from "conventional-commits-filter";
 import debugFactory from "debug";
 import loadParserConfig from "./lib/load-parser-config.js";
 import loadReleaseRules from "./lib/load-release-rules.js";
@@ -31,7 +31,8 @@ export async function analyzeCommits(pluginConfig, context) {
   const config = await loadParserConfig(pluginConfig, context);
   let releaseType = null;
 
-  filter(
+  const parser = new CommitParser(config);
+  const filteredCommits = filterRevertedCommitsSync(
     commits
       .filter(({ message, hash }) => {
         if (!message.trim()) {
@@ -41,8 +42,15 @@ export async function analyzeCommits(pluginConfig, context) {
 
         return true;
       })
-      .map(({ message, ...commitProps }) => ({ rawMsg: message, message, ...commitProps, ...parser(message, config) }))
-  ).every(({ rawMsg, ...commit }) => {
+      .map(({ message, ...commitProps }) => ({
+        rawMsg: message,
+        message,
+        ...commitProps,
+        ...parser.parse(message),
+      }))
+  );
+
+  for (const { rawMsg, ...commit } of filteredCommits) {
     logger.log(`Analyzing commit: %s`, rawMsg);
     let commitReleaseType;
 
@@ -71,11 +79,10 @@ export async function analyzeCommits(pluginConfig, context) {
 
     // Break loop if releaseType is the highest
     if (releaseType === RELEASE_TYPES[0]) {
-      return false;
+      break;
     }
+  }
 
-    return true;
-  });
   logger.log("Analysis of %s commits complete: %s release", commits.length, releaseType || "no");
 
   return releaseType;

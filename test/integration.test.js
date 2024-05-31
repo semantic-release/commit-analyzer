@@ -99,9 +99,9 @@ test('Accept a partial "parseOpts" object as option', async (t) => {
 
 test("Exclude commits if they have a matching revert commits", async (t) => {
   const commits = [
-    { message: "fix(scope): First fix" },
-    { hash: "456", message: "revert: feat(scope): First feature\n\nThis reverts commit 123.\n" },
-    { hash: "123", message: "feat(scope): First feature" },
+    { hash: "df012f1", message: "fix(scope): First fix" },
+    { hash: "df012f2", message: "revert: feat(scope): First feature\n\nThis reverts commit df012f3.\n" },
+    { hash: "df012f3", message: "feat(scope): First feature" },
   ];
   const releaseType = await analyzeCommits({}, { cwd, commits, logger: t.context.logger });
 
