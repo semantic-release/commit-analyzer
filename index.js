@@ -8,6 +8,7 @@ import analyzeCommit from "./lib/analyze-commit.js";
 import compareReleaseTypes from "./lib/compare-release-types.js";
 import RELEASE_TYPES from "./lib/default-release-types.js";
 import DEFAULT_RELEASE_RULES from "./lib/default-release-rules.js";
+import { checkCommitPath } from "./lib/check-commit-path.js";
 
 const debug = debugFactory("semantic-release:commit-analyzer");
 
@@ -41,6 +42,8 @@ export async function analyzeCommits(pluginConfig, context) {
         }
 
         return true;
+      }).filter(({hash}) => {
+        !pluginConfig.path || checkCommitPath(hash, pluginConfig.path)
       })
       .map(({ message, ...commitProps }) => ({
         rawMsg: message,

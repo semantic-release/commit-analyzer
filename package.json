@@ -19,6 +19,7 @@
     "conventional-commits-filter": "^5.0.0",
     "conventional-commits-parser": "^6.0.0",
     "debug": "^4.0.0",
+    "execa": "^9.3.0",
     "import-from-esm": "^1.0.3",
     "lodash-es": "^4.17.21",
     "micromatch": "^4.0.2"
