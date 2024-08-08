@@ -1,9 +1,9 @@
 {
-  "name": "@semantic-release/commit-analyzer",
-  "description": "semantic-release plugin to analyze commits with conventional-changelog",
-  "version": "0.0.0-development",
+  "name": "@josefhoell/semantic-release-path-filtered-commit-analyzer",
+  "description": "fork of semantic-release's commit-analyzer plugin to enable filtering commits for touched files",
+  "version": "0.1.0",
   "type": "module",
-  "author": "Pierre Vanduynslager (https://twitter.com/@pvdlg_)",
+  "author": "Josef Hoell",
   "ava": {
     "files": [
       "test/**/*.test.js",
@@ -11,13 +11,8 @@
     ]
   },
   "bugs": {
-    "url": "https://github.com/semantic-release/commit-analyzer/issues"
+    "url": "https://github.com/e-JosefHoell/path-filtered-commit-analyzer/issues"
   },
-  "contributors": [
-    "Stephan Bönnemann <stephan@boennemann.me> (http://boennemann.me)",
-    "Gregor Martynus (https://twitter.com/gr2m)",
-    "Matt Travi <npm@travi.org> (https://matt.travi.org/)"
-  ],
   "dependencies": {
     "conventional-changelog-angular": "^8.0.0",
     "conventional-changelog-writer": "^8.0.0",
@@ -52,7 +47,7 @@
     "lib",
     "index.js"
   ],
-  "homepage": "https://github.com/semantic-release/commit-analyzer#readme",
+  "homepage": "https://github.com/e-JosefHoell/path-filtered-commit-analyzer#readme",
   "keywords": [
     "changelog",
     "commit-analyzer",
@@ -99,7 +94,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/semantic-release/commit-analyzer.git"
+    "url": "https://github.com/e-JosefHoell/path-filtered-commit-analyzer.git"
   },
   "scripts": {
     "lint:prettier": "prettier --check \"*.{js,json,md}\" \".github/**/*.{md,yml}\" \"{bin,lib,test}/*.js\"",
