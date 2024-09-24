@@ -85,6 +85,10 @@ test("Match with glob", (t) => {
   t.is(analyzeCommit(rules, notMatch), undefined);
 });
 
+test("Match with catchall and undefined commit", (t) => {
+  t.is(analyzeCommit([{type: '*', release: 'patch'}], {type: null}), 'patch');
+});
+
 test("Return highest release type if multiple rules match", (t) => {
   const commit = {
     type: "feat",
