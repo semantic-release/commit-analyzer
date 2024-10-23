@@ -39,7 +39,7 @@
     "conventional-changelog-jshint": "5.0.0",
     "lockfile-lint": "4.14.0",
     "ls-engines": "0.9.3",
-    "npm-run-all2": "7.0.0",
+    "npm-run-all2": "7.0.1",
     "prettier": "3.3.3",
     "publint": "0.2.11",
     "semantic-release": "24.1.3",
