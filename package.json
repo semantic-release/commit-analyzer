@@ -29,7 +29,7 @@
     "micromatch": "^4.0.2"
   },
   "devDependencies": {
-    "ava": "6.4.1",
+    "ava": "7.0.0",
     "c8": "11.0.0",
     "conventional-changelog-atom": "5.1.0",
     "conventional-changelog-conventionalcommits": "9.3.0",
