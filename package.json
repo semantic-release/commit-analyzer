@@ -19,7 +19,7 @@
     "Matt Travi <npm@travi.org> (https://matt.travi.org/)"
   ],
   "dependencies": {
-    "conventional-changelog-angular": "^8.0.0",
+    "conventional-changelog-conventionalcommits": "^9.0.0",
     "conventional-changelog-writer": "^8.0.0",
     "conventional-commits-filter": "^5.0.0",
     "conventional-commits-parser": "^6.0.0",
@@ -31,8 +31,8 @@
   "devDependencies": {
     "ava": "6.4.1",
     "c8": "11.0.0",
+    "conventional-changelog-angular": "8.0.0",
     "conventional-changelog-atom": "5.1.0",
-    "conventional-changelog-conventionalcommits": "9.3.0",
     "conventional-changelog-ember": "5.1.0",
     "conventional-changelog-eslint": "6.1.0",
     "conventional-changelog-express": "5.1.0",
@@ -46,7 +46,7 @@
     "sinon": "21.0.3"
   },
   "engines": {
-    "node": ">=20.8.1"
+    "node": "^22.14.0 || >= 24.10.0"
   },
   "files": [
     "lib",
