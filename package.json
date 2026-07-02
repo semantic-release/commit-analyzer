@@ -22,7 +22,7 @@
     "conventional-changelog-angular": "^8.0.0",
     "conventional-changelog-writer": "^8.0.0",
     "conventional-commits-filter": "^5.0.0",
-    "conventional-commits-parser": "^6.0.0",
+    "conventional-commits-parser": "^7.0.0",
     "debug": "^4.0.0",
     "import-from-esm": "^2.0.0",
     "lodash-es": "^4.17.21",
