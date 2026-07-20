@@ -29,7 +29,7 @@
     "micromatch": "^4.0.2"
   },
   "devDependencies": {
-    "ava": "6.4.1",
+    "ava": "8.0.1",
     "c8": "11.0.0",
     "conventional-changelog-atom": "5.1.0",
     "conventional-changelog-conventionalcommits": "10.2.1",
@@ -38,7 +38,7 @@
     "conventional-changelog-express": "5.1.0",
     "conventional-changelog-jshint": "5.2.0",
     "lockfile-lint": "5.0.0",
-    "ls-engines": "0.9.4",
+    "ls-engines": "0.10.1",
     "npm-run-all2": "9.0.2",
     "prettier": "3.9.5",
     "publint": "0.3.21",
