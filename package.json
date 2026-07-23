@@ -43,7 +43,7 @@
     "prettier": "3.9.5",
     "publint": "0.3.21",
     "semantic-release": "25.0.7",
-    "sinon": "22.0.0"
+    "sinon": "22.1.0"
   },
   "engines": {
     "node": ">=20.8.1"
