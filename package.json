@@ -38,7 +38,7 @@
     "conventional-changelog-eslint": "6.1.0",
     "conventional-changelog-express": "5.1.0",
     "conventional-changelog-jshint": "5.2.0",
-    "lockfile-lint": "5.0.0",
+    "lockfile-lint": "5.0.1",
     "ls-engines": "0.9.4",
     "npm-run-all2": "9.0.3",
     "prettier": "3.9.6",
