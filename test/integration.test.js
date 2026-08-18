@@ -10,7 +10,7 @@ test.beforeEach((t) => {
   t.context.logger = { log };
 });
 
-test('Parse with "conventional-changelog-angular" by default', async (t) => {
+test('Parse with "conventional-changelog-conventionalcommits" by default', async (t) => {
   const commits = [
     { hash: "123", message: "fix(scope1): First fix" },
     { hash: "456", message: "feat(scope2): Second feature" },
