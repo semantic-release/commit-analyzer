@@ -64,7 +64,7 @@ test('Accept a "parseOpts" object as option', async (t) => {
     { hash: "456", message: "%%FEATURE%% Second feature (fixes #456)" },
   ];
   const releaseType = await analyzeCommits(
-    { parserOpts: { headerPattern: /^%%(?<type>.*?)%% (?<subject>.*)$/, headerCorrespondence: ["tag", "shortDesc"] } },
+    { parserOpts: { headerPattern: /^%%(.*?)%% (.*)$/, headerCorrespondence: ["tag", "shortDesc"] } },
     { cwd, commits, logger: t.context.logger }
   );
 
@@ -132,7 +132,7 @@ test('Accept a "releaseRules" option that reference a requirable module', async 
 test('Return "major" if there is a breaking change, using default releaseRules', async (t) => {
   const commits = [
     { hash: "123", message: "Fix: First fix (fixes #123)" },
-    { hash: "456", message: "Update: Second feature (fixes #456) \n\n BREAKING CHANGE: break something" },
+    { hash: "456", message: "Update: Second feature (fixes #456) \n\nBREAKING CHANGE: break something" },
   ];
   const releaseType = await analyzeCommits({ preset: "eslint" }, { cwd, commits, logger: t.context.logger });
 
@@ -240,7 +240,7 @@ test("Process rules in order and apply highest match", async (t) => {
 test("Process rules in order and apply highest match from config even if default has an higher match", async (t) => {
   const commits = [
     { hash: "123", message: "Chore: First chore (fixes #123)" },
-    { hash: "456", message: "Docs: update README (fixes #456) \n\n BREAKING CHANGE: break something" },
+    { hash: "456", message: "Docs: update README (fixes #456) \n\nBREAKING CHANGE: break something" },
   ];
   const releaseType = await analyzeCommits(
     {
