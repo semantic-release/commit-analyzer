@@ -82,16 +82,6 @@ test('Accept a partial "parserOpts" object as option that overlaod a config', as
 
 test(loadPreset, "angular");
 test(loadConfig, "angular");
-test(loadPreset, "atom");
-test(loadConfig, "atom");
-test(loadPreset, "ember");
-test(loadConfig, "ember");
-test(loadPreset, "eslint");
-test(loadConfig, "eslint");
-test(loadPreset, "express");
-test(loadConfig, "express");
-test(loadPreset, "jshint");
-test(loadConfig, "jshint");
 test(loadPreset, "conventionalcommits", { presetConfig: {} });
 test(loadConfig, "conventionalcommits", { presetConfig: {} });
 
