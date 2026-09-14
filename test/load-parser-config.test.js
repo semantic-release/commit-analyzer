@@ -35,10 +35,10 @@ async function loadConfig(t, config, pluginOptions) {
 
 loadConfig.title = (providedTitle, config) => `${providedTitle} Load "${config}" config`.trim();
 
-test('Load "conventional-changelog-conventionalcommits" by default', async (t) => {
+test('Load "conventional-changelog-angular" by default', async (t) => {
   t.deepEqual(
     await loadParserConfig({}, { cwd }),
-    (await (await import("conventional-changelog-conventionalcommits")).default()).parser
+    (await (await import("conventional-changelog-angular")).default()).parser
   );
 });
 
@@ -82,16 +82,6 @@ test('Accept a partial "parserOpts" object as option that overlaod a config', as
 
 test(loadPreset, "angular");
 test(loadConfig, "angular");
-test(loadPreset, "atom");
-test(loadConfig, "atom");
-test(loadPreset, "ember");
-test(loadConfig, "ember");
-test(loadPreset, "eslint");
-test(loadConfig, "eslint");
-test(loadPreset, "express");
-test(loadConfig, "express");
-test(loadPreset, "jshint");
-test(loadConfig, "jshint");
 test(loadPreset, "conventionalcommits", { presetConfig: {} });
 test(loadConfig, "conventionalcommits", { presetConfig: {} });
 
