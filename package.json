@@ -50,6 +50,7 @@
   },
   "files": [
     "lib",
+    "index.d.ts",
     "index.js"
   ],
   "homepage": "https://github.com/semantic-release/commit-analyzer#readme",
@@ -64,8 +65,14 @@
     "semantic-release"
   ],
   "license": "MIT",
-  "exports": "./index.js",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./index.js"
+    }
+  },
   "main": "./index.js",
+  "types": "./index.d.ts",
   "c8": {
     "include": [
       "lib/**/*.js",
